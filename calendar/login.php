@@ -97,6 +97,11 @@
                     displayEventEnd:true,
                     navLinks:true,
                     selectable: true,
+                    selectHelper:true,
+                    selectOverlap:false,
+                    select: function(start, end){
+                        alert('Comienza: '+start.format()+'\nTermina: '+end.format());                     
+                    },
                     businessHours:[ 
                        {
                             dow: [ 1, 2, 3, 4, 5], 
