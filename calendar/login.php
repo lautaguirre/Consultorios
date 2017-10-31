@@ -87,7 +87,9 @@
         <script src='locale/es.js'></script>
         <script>
             $(document).ready(function() {
-
+                var events=[{title  : 'GoToGoogle',start  : '2018-01-01',url: 'http://google.com/'},{title  : 'event2',start  : '2018-01-05',end    : '2018-01-07'}];
+                var event3={title  : 'event3',start  : '2018-01-09T12:30:00',end  : '2018-01-09T17:30:00',allDay : false};
+                events.push(event3);
                 $('#calendar').fullCalendar({
                     minTime:"09:00:00",
                     maxTime:"20:00:00",
@@ -100,7 +102,7 @@
                     selectHelper:true,
                     selectOverlap:false,
                     select: function(start, end){
-                        alert('Comienza: '+start.format()+'\nTermina: '+end.format());                     
+                        alert('Comienza: '+start.format()+'\nTermina: '+end.format());
                     },
                     businessHours:[ 
                        {
@@ -130,7 +132,8 @@
                             return false;
                         }
                     },
-                    events: [
+                    events: events
+                    /*[
                         {
                             title  : 'GoToGoogle',
                             start  : '2018-01-01',
@@ -147,7 +150,7 @@
                             end  : '2018-01-09T17:30:00',
                             allDay : false // will make the time show
                         }
-                    ]
+                    ]*/
                 });
 
             });
