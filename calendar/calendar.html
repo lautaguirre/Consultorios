@@ -7,9 +7,24 @@
         <script src='lib/moment.min.js'></script>
         <script src='fullcalendar.js'></script>
         <script src='locale/es.js'></script>
+        <meta charset="UTF-8">
+		<link rel="shortcut icon" href="../images/favicon.png" type="image/png">
+        <link rel="stylesheet" href="../css/index.css">
         <script>
             $(document).ready(function() {
+                $.post(
+                    'loadevents.php',
+                    {moment:'onload'},
+                    
+                );
+
+                //Calendar config
                 $('#calendar').fullCalendar({
+                    header: {
+				        left: 'prevYear,nextYear today',
+				        center: 'prev title next',
+				        right: 'month,agendaWeek,agendaDay listMonth'
+			        },
                     minTime:"09:00:00",
                     maxTime:"20:00:00",
                     slotEventOverlap:false,
@@ -20,9 +35,7 @@
                     selectable: true,
                     selectHelper:true,
                     selectOverlap:false,
-                    select: function(start, end){
-                        alert('Comienza: '+start.format()+'\nTermina: '+end.format());
-                    },
+                    selectMinDistance:50,
                     businessHours:[ 
                        {
                             dow: [ 1, 2, 3, 4, 5], 
@@ -35,28 +48,20 @@
                             end: '20:00' 
                         }
                     ],  
-                    header: {
-				        left: 'prevYear,nextYear today',
-				        center: 'prev title next',
-				        right: 'month,agendaWeek,agendaDay listMonth'
-			        },
                     dayClick: function(date) {
                         alert('Clicked on: ' + date.format());
                     },
                     eventClick:function(event){
                         alert('Titulo de evento: '+event.title);
-                        $(this).css('border-color', 'red');
-                        if(event.url){
-                            window.open(event.url);
-                            return false;
-                        }
+                    },
+                    select: function(start, end){
+                        alert('Comienza: '+start.format()+'\nTermina: '+end.format());
                     },
                     events:
                     [
                         {
                             title  : 'GoToGoogle',
                             start  : '2018-01-01',
-                            url: 'http://google.com/'
                         },
                         {
                             title  : 'event2',
@@ -74,9 +79,6 @@
 
             });
         </script>
-        <meta charset="UTF-8">
-		<link rel="shortcut icon" href="../images/favicon.png" type="image/png">
-		<link rel="stylesheet" href="../css/index.css">
     </head>
 
     <body>
@@ -87,7 +89,7 @@
                     <div id='calendar'></div>
                 </div>
                 <div class='aside'>
-                
+                    <h1 id="response"></h1>
                 </div>
 			</div>
 		</div>
