@@ -15,7 +15,10 @@
                 $.post(
                     'loadevents.php',
                     {moment:'onload'},
-                    
+                    function(data){
+                        data=JSON.parse(data);
+                        events=data;
+                    }
                 );
 
                 //Calendar config
@@ -57,7 +60,7 @@
                     select: function(start, end){
                         alert('Comienza: '+start.format()+'\nTermina: '+end.format());
                     },
-                    events:
+                    events: 
                     [
                         {
                             title  : 'GoToGoogle',
