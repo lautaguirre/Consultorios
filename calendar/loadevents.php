@@ -1,7 +1,15 @@
 <?php
     if($_POST['moment']=='onload'){
-        $arr=[];
-        $Object = new stdClass();
+
+        $obj=new stdClass;
+        $obj->title='event1';
+        $obj->start='2018-01-09T12:30:00';
+        $obj->end='2018-01-09T17:30:00';
+
+        $arr=array(
+            [1]=>$obj
+        );
+
         /*$events=[
             {
                 title  : 'GoToGoogle',
