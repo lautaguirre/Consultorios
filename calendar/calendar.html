@@ -12,15 +12,14 @@
         <link rel="stylesheet" href="../css/index.css">
         <script>
             $(document).ready(function() {
-                $.post(
+                /*$.post(
                     'loadevents.php',
                     {moment:'onload'},
                     function(data){
+                        eventos=JSON.parse(data);
                         $('#response').html(data);
-                        /*data=JSON.parse(data);
-                        events=data;*/
                     }
-                );
+                );*/
 
                 //Calendar config
                 $('#calendar').fullCalendar({
@@ -61,8 +60,18 @@
                     select: function(start, end){
                         alert('Comienza: '+start.format()+'\nTermina: '+end.format());
                     },
-                    events: 
-                    [
+                    events: function(start,end,timezone,callback){
+                        $.post(
+                            'loadevents.php',
+                            {moment:'onload'},
+                            function(data){
+                                eventos=JSON.parse(data);
+                                $('#response').html(data);
+                                callback(eventos);
+                            }
+                        );
+                    }
+                    /*[
                         {
                             title  : 'GoToGoogle',
                             start  : '2018-01-01',
@@ -78,7 +87,7 @@
                             end  : '2018-01-09T17:30:00',
                             allDay : false // will make the time show
                         }
-                    ]
+                    ]*/
                 });
 
             });

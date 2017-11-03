@@ -1,14 +1,25 @@
 <?php
     if($_POST['moment']=='onload'){
 
-        $obj=new stdClass;
-        $obj->title='event1';
-        $obj->start='2018-01-09T12:30:00';
-        $obj->end='2018-01-09T17:30:00';
+        $obj=(object)[
+            'title'=>'event3',
+            'start'=>'2018-01-09T12:30:00',
+            'end'=>'2018-01-09T17:30:00',
+        ];
 
-        $arr=array(
-            [1]=>$obj
-        );
+        $obj2=(object)[
+            'title'=>'event2',
+            'start'=>'2018-01-05',
+            'end'=>'2018-01-07',
+        ];
+
+        $arr=array();
+
+        array_push($arr,$obj,$obj2);
+
+        $json=json_encode($arr);
+
+        echo $json;
 
         /*$events=[
             {
