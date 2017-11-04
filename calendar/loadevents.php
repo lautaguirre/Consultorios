@@ -1,12 +1,12 @@
 <?php
-    if($_POST['moment']=='onload'){
+    $servername='localhost';
+    $username='lauta';
+    $password='password';
+    $db='testdb';
+    
+    $conn= mysqli_connect($servername,$username,$password,$db);
 
-        $servername='localhost';
-        $username='lauta';
-        $password='password';
-        $db='testdb';
-        
-        $conn= mysqli_connect($servername,$username,$password,$db);
+    if($_POST['moment']=='onload'){
 
         $arr=array();
 
@@ -25,35 +25,12 @@
             
             echo $json;
         }
-
-        /*$obj=(object)[
-            'title'=>'event3',
-            'start'=>'2018-01-09T12:30:00',
-            'end'=>'2018-01-09T17:30:00',
-        ];
-
-        $obj2=(object)[
-            'title'=>'event2',
-            'start'=>'2018-01-05',
-            'end'=>'2018-01-07',
-        ];*/
-
-        /*$events=[
-            {
-                title  : 'GoToGoogle',
-                start  : '2018-01-01',
-            },
-            {
-                title  : 'event2',
-                start  : '2018-01-05',
-                end    : '2018-01-07'
-            },
-            {
-                title  : 'event3',
-                start  : '2018-01-09T12:30:00',
-                end  : '2018-01-09T17:30:00',
-                allDay : false // will make the time show
-            }
-        ]*/
+    }else if($_POST['moment']=='reserve'){
+        $sql='INSERT INTO reservas (title,start,end) VALUES ("'.$_POST['titleev'].'","'.$_POST['startev'].'","'.$_POST['endev'].'")';
+        if(mysqli_query($conn,$sql)){        
+            echo 'Nueva reserva creada<BR>';
+        }else{
+            echo 'Error creando reserva<BR>';
+        }
     }
 ?>

@@ -12,15 +12,7 @@
         <link rel="stylesheet" href="../css/index.css">
         <script>
             $(document).ready(function() {
-                /*$.post(
-                    'loadevents.php',
-                    {moment:'onload'},
-                    function(data){
-                        eventos=JSON.parse(data);
-                        $('#response').html(data);
-                    }
-                );*/
-
+                $('#reservetext').hide();
                 //Calendar config
                 $('#calendar').fullCalendar({
                     header: {
@@ -40,7 +32,7 @@
                     selectOverlap:false,
                     selectMinDistance:50,
                     businessHours:[ 
-                       {
+                        {
                             dow: [ 1, 2, 3, 4, 5, 6], 
                             start: '09:00', 
                             end: '13:00' 
@@ -58,9 +50,21 @@
                         alert('Titulo de evento: '+event.title);
                     },
                     select: function(start, end){
-                        alert('Comienza: '+start.format()+'\nTermina: '+end.format());
+                        $('#selection').html('Comienzo de reserva: '+start.format()+'<BR>Final de reserva: '+end.format());
+                        $('#reservetext').show();
+                        $('#reserve').click(function(){
+                            var title=$('#titletext').val();
+                            $.post(
+                                'loadevents.php',
+                                {moment:'reserve',startev:start.format(),endev:end.format(),titleev:title},
+                                function(data){
+                                    $('#response').html(data);
+                                }
+                            );
+                        });
                     },
                     events: function(start,end,timezone,callback){
+                        //Request events
                         $.post(
                             'loadevents.php',
                             {moment:'onload'},
@@ -71,25 +75,7 @@
                             }
                         );
                     }
-                    /*[
-                        {
-                            title  : 'GoToGoogle',
-                            start  : '2018-01-01',
-                        },
-                        {
-                            title  : 'event2',
-                            start  : '2018-01-05',
-                            end    : '2018-01-07'
-                        },
-                        {
-                            title  : 'event3',
-                            start  : '2018-01-09T12:30:00',
-                            end  : '2018-01-09T17:30:00',
-                            allDay : false // will make the time show
-                        }
-                    ]*/
                 });
-
             });
         </script>
     </head>
@@ -102,7 +88,13 @@
                     <div id='calendar'></div>
                 </div>
                 <div class='aside'>
-                    <h1 id="response"></h1>
+                    <h3 id="response"></h3>
+                    <h3 id="selection"></h3>
+                    <div id="reservetext">
+                        <h3>Ingrese titulo de reserva</h3>
+                        <input type="text" id="titletext">
+                        <input type="button" value="Reserve" id="reserve">
+                    </div>
                 </div>
 			</div>
 		</div>
