@@ -56,15 +56,16 @@ setInterval(scrollquotes,10000);
 var contquotes=0;
 
 function scrollquotes(){
-    var q= document.getElementById('quote');
-    var qf=document.getElementById('qfooter');
+
     $('#qfooter').fadeOut(750);
     $('#quote').fadeOut(750,function(){
-        q.innerHTML=quotes[contquotes];
-        qf.innerHTML=quotefooter[contquotes];
+        $('#quote').html(quotes[contquotes]);
+        $('#qfooter').html(quotefooter[contquotes]);
     });
+
     $('#quote').fadeIn(750);
     $('#qfooter').fadeIn(750);
+
     contquotes++;
     if(contquotes==quotes.length){
         contquotes=0;

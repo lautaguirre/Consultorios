@@ -13,13 +13,18 @@
         <script>
             $(document).ready(function() {
                 $('#reservetext').hide();
+                var selectfirst=true;
+                var selection='';
+
                 //Calendar config
                 $('#calendar').fullCalendar({
+                    //Header buttons
                     header: {
 				        left: 'prevYear,nextYear today',
 				        center: 'prev title next',
 				        right: 'month,agendaWeek,agendaDay listMonth'
-			        },
+                    },
+                    
                     minTime:"09:00:00",
                     maxTime:"20:00:00",
                     slotEventOverlap:false,
@@ -42,27 +47,57 @@
                             start: '16:00', 
                             end: '20:00' 
                         }
-                    ],  
-                    dayClick: function(date) {
+                    ], 
+
+                    /* Click callback
+                        dayClick: function(date) {
                         alert('Clicked on: ' + date.format());
-                    },
+                    },*/
+
+                    //Event click callback
                     eventClick:function(event){
                         alert('Titulo de evento: '+event.title);
                     },
+
+                    //Select callback
                     select: function(start, end){
-                        $('#selection').html('Comienzo de reserva: '+start.format()+'<BR>Final de reserva: '+end.format());
-                        $('#reservetext').show();
-                        $('#reserve').click(function(){
+                        if(selectfirst==true){
+                            selection='Comienzo de reserva: '+start.format()+'<BR>Final de reserva: '+end.format()+'<BR>';
+                            selectfirst=false;
+                        }else{
+                            selection=selection.concat('Comienzo de reserva: '+start.format()+'<BR>Final de reserva: '+end.format()+'<BR>');
+                        }
+
+                        //Show selected events
+                        $('#selection').html(selection);
+                        console.log(selection);
+
+                        $('#reservetext').show(); //show title input and reserve submit button
+
+                        //Unselect method
+                        $('#calendar').fullCalendar( 'unselect' );
+                        var backevent=
+                            {
+                                'start':start.format(),
+                                'end':end.format(),
+                                'rendering': 'background'
+                            }
+                        $('#calendar').fullCalendar( 'renderEvent',backevent,true) //Render selected event as background event
+
+                        //Send selected dates to db
+                        $('#reserve').one('click',function(){
                             var title=$('#titletext').val();
                             $.post(
                                 'loadevents.php',
                                 {moment:'reserve',startev:start.format(),endev:end.format(),titleev:title},
                                 function(data){
-                                    $('#response').html(data);
+                                    console.log(data);
                                 }
                             );
                         });
                     },
+
+                    //Events load function
                     events: function(start,end,timezone,callback){
                         //Request events
                         $.post(
@@ -70,7 +105,7 @@
                             {moment:'onload'},
                             function(data){
                                 eventos=JSON.parse(data);
-                                $('#response').html(data);
+                                console.log(data);
                                 callback(eventos);
                             }
                         );
@@ -93,7 +128,7 @@
                     <div id="reservetext">
                         <h3>Ingrese titulo de reserva</h3>
                         <input type="text" id="titletext">
-                        <input type="button" value="Reserve" id="reserve">
+                        <input class="btn" type="button" value="Reservar" id="reserve">
                     </div>
                 </div>
 			</div>
