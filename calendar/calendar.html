@@ -14,6 +14,7 @@
             $(document).ready(function() {
                 $('#reservetext').hide();
                 var selection='';
+                var selected=false;
 
                 //Calendar config
                 $('#calendar').fullCalendar({
@@ -78,23 +79,26 @@
                                 'rendering': 'background'
                             }
                         $('#calendar').fullCalendar( 'renderEvent',backevent,true) //Render selected event as background event
+                        selected=true;
 
                         //Send selected dates to db
-                        $('#reserve').one('click',function(){
-                            var title=$('#titletext').val();
-                            $('#selection').html('');
-                            $('#reservetext').hide();
-                            selection='';
-                            $.post(
-                                'loadevents.php',
-                                {moment:'reserve',startev:start.format(),endev:end.format(),titleev:title},
-                                function(data){
-                                    console.log(data);
-                                    $('#calendar').fullCalendar( 'refetchEvents' );
-                                    $('#calendar').fullCalendar( 'removeEvents',1 );
-                                    $('#titletext').val('');
-                                }
-                            );
+                        $('#reserve').one('click',function(){ 
+                            if(selected){ //If there is no selection avoid post
+                                var title=$('#titletext').val();
+                                $('#selection').html('');
+                                $('#reservetext').hide();
+                                selection='';
+                                $.post(
+                                    'loadevents.php',
+                                    {moment:'reserve',startev:start.format(),endev:end.format(),titleev:title},
+                                    function(data){
+                                        console.log(data);
+                                        $('#calendar').fullCalendar( 'refetchEvents' );
+                                        $('#calendar').fullCalendar( 'removeEvents',1 ); //Remove green highlight
+                                        $('#titletext').val('');
+                                    }
+                                );
+                            }
                         });
                     },
 
@@ -107,11 +111,23 @@
                             function(data){
                                 eventos=JSON.parse(data);
                                 console.log(data);
-                                callback(eventos);
+                                callback(eventos); 
                             }
                         );
                     }
                 });
+
+                //Remove selected events button
+                $('#removeevents').click(function(){
+                    $('#calendar').fullCalendar( 'removeEvents',1 );
+                    $('#selection').html('');
+                    $('#titletext').val('');
+                    $('#reservetext').hide();
+                    selected=false;
+                    selection='';
+                    $('#reserve').click(); //dump click handlers
+                });
+
             });
         </script>
     </head>
@@ -130,6 +146,7 @@
                         <h3>Ingrese titulo de reserva</h3>
                         <input type="text" id="titletext">
                         <input class="btn" type="button" value="Reservar" id="reserve">
+                        <input class="btn" type="button" value="Borrar selecion" id="removeevents">
                     </div>
                 </div>
 			</div>
