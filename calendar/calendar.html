@@ -13,7 +13,6 @@
         <script>
             $(document).ready(function() {
                 $('#reservetext').hide();
-                var selectfirst=true;
                 var selection='';
 
                 //Calendar config
@@ -60,15 +59,10 @@
                     },
 
                     //Select callback
-                    select: function(start, end){
-                        if(selectfirst==true){
-                            selection='Comienzo de reserva: '+start.format()+'<BR>Final de reserva: '+end.format()+'<BR>';
-                            selectfirst=false;
-                        }else{
-                            selection=selection.concat('Comienzo de reserva: '+start.format()+'<BR>Final de reserva: '+end.format()+'<BR>');
-                        }
+                    select: function(start, end){          
 
                         //Show selected events
+                        selection=selection.concat('Comienzo de reserva: '+start.format()+'<BR>Final de reserva: '+end.format()+'<BR>'); 
                         $('#selection').html(selection);
                         console.log(selection);
 
@@ -78,6 +72,7 @@
                         $('#calendar').fullCalendar( 'unselect' );
                         var backevent=
                             {
+                                'id':1,
                                 'start':start.format(),
                                 'end':end.format(),
                                 'rendering': 'background'
@@ -87,11 +82,17 @@
                         //Send selected dates to db
                         $('#reserve').one('click',function(){
                             var title=$('#titletext').val();
+                            $('#selection').html('');
+                            $('#reservetext').hide();
+                            selection='';
                             $.post(
                                 'loadevents.php',
                                 {moment:'reserve',startev:start.format(),endev:end.format(),titleev:title},
                                 function(data){
                                     console.log(data);
+                                    $('#calendar').fullCalendar( 'refetchEvents' );
+                                    $('#calendar').fullCalendar( 'removeEvents',1 );
+                                    $('#titletext').val('');
                                 }
                             );
                         });
