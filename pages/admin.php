@@ -97,6 +97,7 @@
                     $createname=$createlastname=$createemail=$createphone=$createdni='';
                     $actdni=$actphone=$actemail='';
                     $consultname=$consultlastname=$consultdni='';
+                    $tabletext='';
                     $validation=true;
 
                     if ($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -197,14 +198,18 @@
                                 $consultdni=sanitizeint('consultdni');
                                 validateint($consultdni);
                                 if($validation){
-                                    $sql='SELECT name,lastname,dni,email,phone,authorization FROM clientes WHERE dni='.$consultdni;
+                                    $sql='SELECT name,lastname,dni,email,phone,authorization,address FROM clientes WHERE dni='.$consultdni;
                                     $result=mysqli_query($conn,$sql);
                                     if(mysqli_num_rows($result)>0){
                                         $totalresults=0;
                                         while($row=mysqli_fetch_assoc($result)){
-                                            echo 'DNI '.$row['dni'].' - '.$row['name'].' - '.$row['lastname'].' - '.$row['email'].' - '.$row['phone'].' - Habilitado: '.$row['authorization'].'<BR>';
+                                            //echo echo 'DNI '.$row['dni'].' - '.$row['name'].' - '.$row['lastname'].' - '.$row['email'].' - '.$row['address'].' - '.$row['phone'].' - Habilitado: '.$row['authorization'].'<BR>';
                                             $totalresults++;
+                                            $tabletext=$tabletext."<table border='1'>";
+                                            $tabletext=$tabletext."<tr><td>DNI: ".$row['dni']."</td></tr><tr><td>Nombre: ".$row['name']."</td></tr><tr><td>Apellido: ".$row['lastname']."</td></tr><tr><td>E-mail: ".$row['email']."</td></tr><tr><td>Domicilio: ".$row['address']."</td></tr><tr><td>Telefono: ".$row['phone']."</td></tr><tr><td>Habilitado: ".$row['authorization']."</td></tr>";
+                                            $tabletext=$tabletext."</table><P></P>";
                                         }
+                                        echo $tabletext;
                                         echo 'Cantidad de resultados'.$totalresults;
                                     }else{
                                         echo 'Error consultando dni<br>';
@@ -225,9 +230,13 @@
                                     if(mysqli_num_rows($result)>0){
                                         $totalresults=0;
                                         while($row=mysqli_fetch_assoc($result)){
-                                            echo 'DNI '.$row['dni'].' - '.$row['name'].' - '.$row['lastname'].' - '.$row['email'].' - '.$row['address'].' - '.$row['phone'].' - Habilitado: '.$row['authorization'].'<BR>';
+                                            //echo 'DNI '.$row['dni'].' - '.$row['name'].' - '.$row['lastname'].' - '.$row['email'].' - '.$row['address'].' - '.$row['phone'].' - Habilitado: '.$row['authorization'].'<BR>';
                                             $totalresults++;
+                                            $tabletext=$tabletext."<table border='1'>";
+                                            $tabletext=$tabletext."<tr><td>DNI: ".$row['dni']."</td></tr><tr><td>Nombre: ".$row['name']."</td></tr><tr><td>Apellido: ".$row['lastname']."</td></tr><tr><td>E-mail: ".$row['email']."</td></tr><tr><td>Domicilio: ".$row['address']."</td></tr><tr><td>Telefono: ".$row['phone']."</td></tr><tr><td>Habilitado: ".$row['authorization']."</td></tr>";
+                                            $tabletext=$tabletext."</table><P></P>";
                                         }
+                                        echo $tabletext;
                                         echo 'Cantidad de resultados'.$totalresults;
                                     }else{
                                         echo 'Error consultando nombre o apellido<br>';
@@ -285,10 +294,15 @@
                                 $result=mysqli_query($conn,$sql);
                                 if(mysqli_num_rows($result)>0){
                                     $totalresults=0;
+                                    global $tabletext;
                                     while($row=mysqli_fetch_assoc($result)){
-                                        echo 'DNI '.$row['dni'].' - '.$row['name'].' - '.$row['lastname'].' - '.$row['email'].' - '.$row['address'].' - '.$row['phone'].' - Habilitado: '.$row['authorization'].'<BR>';
+                                        //echo 'DNI '.$row['dni'].' - '.$row['name'].' - '.$row['lastname'].' - '.$row['email'].' - '.$row['address'].' - '.$row['phone'].' - Habilitado: '.$row['authorization'].'<BR>';
                                         $totalresults++;
+                                        $tabletext=$tabletext."<table border='1'>";
+                                        $tabletext=$tabletext."<tr><td>DNI: ".$row['dni']."</td></tr><tr><td>Nombre: ".$row['name']."</td></tr><tr><td>Apellido: ".$row['lastname']."</td></tr><tr><td>E-mail: ".$row['email']."</td></tr><tr><td>Domicilio: ".$row['address']."</td></tr><tr><td>Telefono: ".$row['phone']."</td></tr><tr><td>Habilitado: ".$row['authorization']."</td></tr>";
+                                        $tabletext=$tabletext."</table><P></P>";
                                     }
+                                    echo $tabletext;
                                     echo 'Cantidad de resultados: '.$totalresults;
                                 }else{
                                     echo 'Error consultando nombre o apellido<BR>';

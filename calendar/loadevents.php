@@ -1,10 +1,5 @@
 <?php
-    $servername='localhost';
-    $username='lauta';
-    $password='password';
-    $db='testdb';
-    
-    $conn= mysqli_connect($servername,$username,$password,$db);
+    require '../pages/connection.php';
 
     if($_POST['moment']=='onload'){
 
