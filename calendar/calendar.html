@@ -12,7 +12,6 @@
         <link rel="stylesheet" href="../css/index.css">
         <script>
             $(document).ready(function() {
-                $('#reservetext').hide();
                 var selection='';
                 var selected=false;
 
@@ -67,7 +66,7 @@
                         $('#selection').html(selection);
                         console.log(selection);
 
-                        $('#reservetext').show(); //Show title input and reserve submit button
+                        $('#reservetext').removeClass('hidden'); //Show title input and reserve submit button
 
                         //Unselect method
                         $('#calendar').fullCalendar( 'unselect' );
@@ -86,7 +85,7 @@
                             if(selected){ //If there is no selection avoid post
                                 var title=$('#titletext').val();
                                 $('#selection').html('');
-                                $('#reservetext').hide();
+                                $('#reservetext').addClass('hidden');
                                 selection='';
                                 $.post(
                                     'loadevents.php',
@@ -122,7 +121,7 @@
                     $('#calendar').fullCalendar( 'removeEvents',1 );
                     $('#selection').html('');
                     $('#titletext').val('');
-                    $('#reservetext').hide();
+                    $('#reservetext').addClass('hidden');
                     selected=false;
                     selection='';
                     $('#reserve').click(); //dump click handlers
@@ -142,7 +141,7 @@
                 <div class='aside'>
                     <h3 id="response"></h3>
                     <h3 id="selection"></h3>
-                    <div id="reservetext">
+                    <div id="reservetext" class="hidden">
                         <h3>Ingrese titulo de reserva</h3>
                         <input type="text" id="titletext">
                         <input class="btn" type="button" value="Reservar" id="reserve">
