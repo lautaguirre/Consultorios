@@ -109,13 +109,9 @@
                             function(data){
                                 eventos=JSON.parse(data);
                                 console.log(data);
-                                callback(eventos); 
+                                callback(eventos);
                             }
                         );
-                        $('#calendar').on('mousedown', function(event) { 
-                            console.log(event);
-                            $('#calendar').fullCalendar( 'refetchEvents' );
-                        });
                     }
                 });
 
@@ -129,8 +125,6 @@
                     selection='';
                     $('#reserve').click(); //dump click handlers
                 });
-
-
             });
         </script>
     </head>

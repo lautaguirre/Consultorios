@@ -5,7 +5,7 @@
 
         $arr=array();
 
-        $sql='SELECT title,start,end FROM reservas';
+        $sql='SELECT title,start,end FROM reservas'; //seleccionar turnos de hoy en adelante
         $result=mysqli_query($conn,$sql);
         if(mysqli_num_rows($result)>0){
             while($row=mysqli_fetch_assoc($result)){
