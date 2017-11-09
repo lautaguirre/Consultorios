@@ -21,11 +21,22 @@
             echo $json;
         }
     }else if($_POST['moment']=='reserve'){
-        
-        
-        $sql='INSERT INTO reservas (title,start,end) VALUES ("'.$_POST['titleev'].'","'.$_POST['startev'].'","'.$_POST['endev'].'")';
-        if(mysqli_query($conn,$sql)){        
-            echo 'Nueva reserva creada<BR>';
+        $var=false;
+        $sql='SELECT start,end FROM reservas';
+        $result=mysqli_query($conn,$sql);
+        if(mysqli_num_rows($result)>0){
+            while($row=mysqli_fetch_assoc($result)){
+                $validation=checkoverlap($row['start'],$row['end'],$_POST['startev'],$_POST['endev']);
+                if($validation==false){
+                    break;
+                }
+            }
+        }
+        if($validation==true){
+            $sql='INSERT INTO reservas (title,start,end) VALUES ("'.$_POST['titleev'].'","'.$_POST['startev'].'","'.$_POST['endev'].'")';
+            if(mysqli_query($conn,$sql)){        
+                echo 'Nueva reserva creada<BR>';
+            }
         }else{
             echo 'Error creando reserva<BR>';
         }
