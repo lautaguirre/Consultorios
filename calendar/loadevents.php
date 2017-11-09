@@ -21,11 +21,38 @@
             echo $json;
         }
     }else if($_POST['moment']=='reserve'){
+        
+        
         $sql='INSERT INTO reservas (title,start,end) VALUES ("'.$_POST['titleev'].'","'.$_POST['startev'].'","'.$_POST['endev'].'")';
         if(mysqli_query($conn,$sql)){        
             echo 'Nueva reserva creada<BR>';
         }else{
             echo 'Error creando reserva<BR>';
+        }
+    }
+
+    //Avoid overlaping function
+    function checkoverlap($sttime,$enTime,$checkstarttime,$checkendtime){
+        $startTime = strtotime($sttime);
+        $endTime   = strtotime($enTime);
+        
+        $chkStartTime = strtotime($checkstarttime);
+        $chkEndTime   = strtotime($checkendtime);
+        
+        if($chkStartTime > $startTime && $chkEndTime < $endTime)
+        {	
+            return false;
+        }elseif(($chkStartTime > $startTime && $chkStartTime < $endTime) || ($chkEndTime > $startTime && $chkEndTime < $endTime))
+        {	
+            return false;
+        }elseif($chkStartTime==$startTime || $chkEndTime==$endTime)
+        {	
+            return false;
+        }elseif($startTime > $chkStartTime && $endTime < $chkEndTime)
+        {	
+            return false;
+        }else{
+            return true;
         }
     }
 ?>

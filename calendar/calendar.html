@@ -80,8 +80,8 @@
                         selected=true;
 
                         //Send selected dates to db
-                        $('#reserve').one('click',function(){  //arreglar oneclick
-                            if(selected){ //If there is no selection avoid post
+                        $('#reserve').click(function(){ 
+                            if(selected){ //If there is no selection avoid post handlers acumulated
                                 var title=$('#titletext').val();
                                 $('#selection').html('');
                                 $('#reservetext').addClass('hidden');
