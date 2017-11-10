@@ -89,7 +89,7 @@
                 </div>
                 <div class='aside'>
                     <form action="login.php" method="post">
-                        <button type="submit" class="btn" name="gotologin">Go to login</button>
+                        <button type="submit" class="btn" name="gotologin">Panel de usuario</button>
                     </form>
                     <hr>
                 <?php 
@@ -98,6 +98,7 @@
                     $actdni=$actphone=$actemail='';
                     $consultname=$consultlastname=$consultdni='';
                     $tabletext='';
+                    $allinfoneeded=false;
                     $validation=true;
 
                     if ($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -195,6 +196,7 @@
                         //Consult dni
                         if(isset($_POST['consultsubmit'])){
                             if(!empty($_POST['consultdni'])){
+                                $allinfoneeded=true;
                                 $consultdni=sanitizeint('consultdni');
                                 validateint($consultdni);
                                 if($validation){
@@ -203,14 +205,13 @@
                                     if(mysqli_num_rows($result)>0){
                                         $totalresults=0;
                                         while($row=mysqli_fetch_assoc($result)){
-                                            //echo echo 'DNI '.$row['dni'].' - '.$row['name'].' - '.$row['lastname'].' - '.$row['email'].' - '.$row['address'].' - '.$row['phone'].' - Habilitado: '.$row['authorization'].'<BR>';
                                             $totalresults++;
                                             $tabletext=$tabletext."<table border='1'>";
                                             $tabletext=$tabletext."<tr><td>DNI: ".$row['dni']."</td></tr><tr><td>Nombre: ".$row['name']."</td></tr><tr><td>Apellido: ".$row['lastname']."</td></tr><tr><td>E-mail: ".$row['email']."</td></tr><tr><td>Domicilio: ".$row['address']."</td></tr><tr><td>Telefono: ".$row['phone']."</td></tr><tr><td>Habilitado: ".$row['authorization']."</td></tr>";
                                             $tabletext=$tabletext."</table><P></P>";
                                         }
+                                        echo 'Cantidad de resultados: '.$totalresults.'<P>';
                                         echo $tabletext;
-                                        echo 'Cantidad de resultados'.$totalresults;
                                     }else{
                                         echo 'Error consultando dni<br>';
                                     }
@@ -219,7 +220,7 @@
                                 }
                             }
                             //Consult name and lastname
-                            if(!empty($_POST['consultname']) and !empty($_POST['consultlastname'])){
+                            if(!empty($_POST['consultname']) and !empty($_POST['consultlastname'] and $allinfoneeded==false)){
                                 $consultname=sanitizestring('consultname');
                                 $consultlastname=sanitizestring('consultlastname');
                                 validatestring($consultname);
@@ -230,21 +231,20 @@
                                     if(mysqli_num_rows($result)>0){
                                         $totalresults=0;
                                         while($row=mysqli_fetch_assoc($result)){
-                                            //echo 'DNI '.$row['dni'].' - '.$row['name'].' - '.$row['lastname'].' - '.$row['email'].' - '.$row['address'].' - '.$row['phone'].' - Habilitado: '.$row['authorization'].'<BR>';
                                             $totalresults++;
                                             $tabletext=$tabletext."<table border='1'>";
                                             $tabletext=$tabletext."<tr><td>DNI: ".$row['dni']."</td></tr><tr><td>Nombre: ".$row['name']."</td></tr><tr><td>Apellido: ".$row['lastname']."</td></tr><tr><td>E-mail: ".$row['email']."</td></tr><tr><td>Domicilio: ".$row['address']."</td></tr><tr><td>Telefono: ".$row['phone']."</td></tr><tr><td>Habilitado: ".$row['authorization']."</td></tr>";
                                             $tabletext=$tabletext."</table><P></P>";
                                         }
+                                        echo 'Cantidad de resultados: '.$totalresults.'<P>';
                                         echo $tabletext;
-                                        echo 'Cantidad de resultados'.$totalresults;
                                     }else{
                                         echo 'Error consultando nombre o apellido<br>';
                                     }
                                 }else{
                                     echo 'Nombre o apellido invalido.<br>';
                                 }
-                            }else{
+                            }else if($allinfoneeded==false){
                                 //Consult name or lastname
                                 consultnameorlastname($consultname,'consultname','name');
                                 consultnameorlastname($consultlastname,'consultlastname','lastname');
@@ -296,14 +296,13 @@
                                     $totalresults=0;
                                     global $tabletext;
                                     while($row=mysqli_fetch_assoc($result)){
-                                        //echo 'DNI '.$row['dni'].' - '.$row['name'].' - '.$row['lastname'].' - '.$row['email'].' - '.$row['address'].' - '.$row['phone'].' - Habilitado: '.$row['authorization'].'<BR>';
                                         $totalresults++;
                                         $tabletext=$tabletext."<table border='1'>";
                                         $tabletext=$tabletext."<tr><td>DNI: ".$row['dni']."</td></tr><tr><td>Nombre: ".$row['name']."</td></tr><tr><td>Apellido: ".$row['lastname']."</td></tr><tr><td>E-mail: ".$row['email']."</td></tr><tr><td>Domicilio: ".$row['address']."</td></tr><tr><td>Telefono: ".$row['phone']."</td></tr><tr><td>Habilitado: ".$row['authorization']."</td></tr>";
                                         $tabletext=$tabletext."</table><P></P>";
                                     }
+                                    echo 'Cantidad de resultados: '.$totalresults.'<P>';
                                     echo $tabletext;
-                                    echo 'Cantidad de resultados: '.$totalresults;
                                 }else{
                                     echo 'Error consultando nombre o apellido<BR>';
                                 }
