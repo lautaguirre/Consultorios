@@ -1,11 +1,18 @@
 <?php
     require '../pages/connection.php';
 
+    //Define timezone and today date
+    date_default_timezone_set('America/Argentina/Buenos_Aires');
+    $todaydate = date('Y-m-d H:i:s', time());
+    $todaydate=substr_replace($todaydate,'T',10,1);
+
+    //Load the events on calendar startup
     if($_POST['moment']=='onload'){
 
-        $arr=array();
+        $arr=array(); //Set up events array
 
-        $sql='SELECT title,start,end FROM reservas'; //seleccionar turnos de hoy en adelante
+        //Load only events that ends after today
+        $sql='SELECT title,start,end FROM reservas WHERE CAST(end AS DATETIME) >= CAST("'.$todaydate.'" AS DATETIME)'; 
         $result=mysqli_query($conn,$sql);
         if(mysqli_num_rows($result)>0){
             while($row=mysqli_fetch_assoc($result)){
@@ -20,9 +27,10 @@
             
             echo $json;
         }
+    //Insert reservation
     }else if($_POST['moment']=='reserve'){
-        $var=false;
-        $sql='SELECT start,end FROM reservas';
+        $validation=false; //Check overlap
+        $sql='SELECT start,end FROM reservas WHERE CAST(end AS DATETIME) >= CAST("'.$todaydate.'" AS DATETIME)';
         $result=mysqli_query($conn,$sql);
         if(mysqli_num_rows($result)>0){
             while($row=mysqli_fetch_assoc($result)){
