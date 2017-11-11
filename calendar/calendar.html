@@ -88,7 +88,12 @@
                                 selection='';
                                 $.post(
                                     'loadevents.php',
-                                    {moment:'reserve',startev:start.format(),endev:end.format(),titleev:title},
+                                    {
+                                        moment:'reserve',
+                                        startev:start.format(),
+                                        endev:end.format(),
+                                        titleev:title
+                                    },
                                     function(data){
                                         console.log(data);
                                         $('#calendar').fullCalendar( 'refetchEvents' );
@@ -105,7 +110,9 @@
                         //Request events
                         $.post(
                             'loadevents.php',
-                            {moment:'onload'},
+                            {
+                                moment:'onload'
+                            },
                             function(data){
                                 eventos=JSON.parse(data);
                                 console.log(data);

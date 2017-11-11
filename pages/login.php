@@ -5,25 +5,6 @@
 
     //DB connection
     require 'connection.php';
-
-    if(isset($_POST['changepasssubmit'])){
-        //Validation
-        $changepass=sanitizestring('changepass');
-        $changepassdni=sanitizeint('changepassdni');
-        $changepass2=sanitizestring('changepass2');
-
-        validateint($changepassdni);
-
-        if($validation){
-            if($changepass==$changepass2 and $changepassdni==$_SESSION['logged']){
-                $hashednewpass=password_hash($changepass, PASSWORD_DEFAULT);
-                $sql='UPDATE clientes SET password="'.$hashednewpass.'" WHERE dni='.$changepassdni;
-                if(mysqli_query($conn,$sql)){
-                    echo 'Contraseña actualizada<BR>';
-                }
-            }
-        }
-    }
     
     if(!isset($_SESSION['logged'])){
         if($_SERVER['REQUEST_METHOD']=='POST'){
@@ -52,6 +33,8 @@
             }
         }
     }
+
+    //Check if logged
     if(!isset($_SESSION['logged'])){
         header ("Location: ../index.php");
     }
@@ -104,21 +87,9 @@
                     <h1>Bienvenido usuario<?php echo ' '.$_SESSION['logged'].'<BR>';?></h1>
                 </div>
                 <div class='aside'>
-                    <form action="login.php" method="post">
-						<div class="logincontainer">
-                            <h3>Modificar contraseña</h3>
-							<label><b>DNI</b></label>
-							<input type="text" maxlength="9" placeholder="Ingresar su DNI" name="changepassdni" required>
-
-							<label><b>Ingresar nueva contraseña</b> (No mas de 16 caracteres)</label>
-                            <input type="password" maxlength="16" placeholder="Ingresar contraseña" name="changepass" required>
-                            
-                            <label><b>Repita la contraseña</b> (No mas de 16 caracteres)</label>
-							<input type="password" maxlength="16" placeholder="Repetir contraseña" name="changepass2" required>
-
-							<button class="btn" type="submit" name='changepasssubmit' >Modificar contraseña</button>
-						</div>
-					</form>
+                    <form action="changepass.php" method='post'>
+                        <button type="submit" class="btn" name="changepass">Cambiar contraseña</button>
+                    </form>
                 </div>
 			</div>
 		</div>

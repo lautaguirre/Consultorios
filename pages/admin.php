@@ -88,7 +88,7 @@
                     </ul>
                 </div>
                 <div class='aside'>
-                    <form action="login.php" method="post">
+                    <form action="login.php" method='post'>
                         <button type="submit" class="btn" name="gotologin">Panel de usuario</button>
                     </form>
                     <hr>
