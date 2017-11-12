@@ -46,6 +46,8 @@
 					</form>
                 </div>
                 <div class='aside'>
+                    <A class="btn" HREF = "login.php">Panel de usuario</A>
+                    <hr>
                     <?php
                         //Change password
                         if(isset($_POST['changepasssubmit'])){
@@ -87,9 +89,6 @@
                             }
                         }
                     ?>
-                    <form action="login.php" method='post'>
-                        <button type="submit" class="btn" name="gotologin">Panel de usuario</button>
-                    </form>
                 </div>
 			</div>
 		</div>

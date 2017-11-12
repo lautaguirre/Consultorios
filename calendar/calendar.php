@@ -148,6 +148,10 @@
     </head>
 
     <body>
+        <?php
+            //Check if logged for logout button
+            require '../pages/logoutbutton.php';
+        ?>
         <script src="../templates/calendarheader.js"></script>
         <div class="content">
 			<div class="container">  
@@ -155,9 +159,7 @@
                     <div id='calendar'></div>
                 </div>
                 <div class='aside'>
-                    <form action="../pages/login.php">
-                        <button type="submit" class="btn" name="gotologin">Panel de usuario</button>
-                    </form>
+                    <A class="btn" HREF = "../pages/login.php">Panel de usuario</A>
                     <hr>
                     <h3 id="response"></h3>
                     <h3 id="selection"></h3>

@@ -145,19 +145,13 @@
                     <div id='calendar'></div>
                 </div>
                 <div class='aside'>
-                    <form action="../calendar/calendar.php">
-                        <button type="submit" class="btn" name="gotocalendar">Ir a calendario</button>
-                    </form>
+                    <A class="btn" HREF = "../calendar/calendar.php">Ir a calendario</A>
                     <p></p>
-                    <form action="changepass.php">
-                        <button type="submit" class="btn" name="changepass">Cambiar contraseña</button>
-                    </form>
+                    <A class="btn" HREF = "changepass.php">Cambiar contraseña</A>
                     <p></p>
                     <?php
                         if(isset($_SESSION['admin'])){
-                            echo '<form action="admin.php">
-                                <button type="submit" class="btn" name="gotoadmin">Panel de administrador</button>
-                            </form>';
+                            echo '<A class="btn" HREF = "admin.php">Panel de administrador</A>';
                         }
                     ?>    
                     <hr>           

@@ -88,9 +88,7 @@
                     </ul>
                 </div>
                 <div class='aside'>
-                    <form action="login.php">
-                        <button type="submit" class="btn" name="gotologin">Panel de usuario</button>
-                    </form>
+                    <A class="btn" HREF = "login.php">Panel de usuario</A>
                     <hr>
                 <?php 
                     //Set variables
