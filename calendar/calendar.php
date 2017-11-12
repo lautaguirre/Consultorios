@@ -1,7 +1,14 @@
+<?php
+    session_start();
+
+    if(!isset($_SESSION['logged'])){
+        header ("Location: ../index.php");
+    }
+?>
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Login</title>
+        <title>Calendario</title>
         <link rel='stylesheet' href='fullcalendar.css' />
         <script src='lib/jquery.min.js'></script>
         <script src='lib/moment.min.js'></script>
@@ -93,7 +100,8 @@
                                         moment:'reserve',
                                         startev:start.format(),
                                         endev:end.format(),
-                                        titleev:title
+                                        titleev:title,
+                                        evdni:<?php echo $_SESSION['logged']; ?>
                                     },
                                     function(data){
                                         console.log(data);
@@ -113,7 +121,8 @@
                         $.post(
                             'loadevents.php',
                             {
-                                moment:'onload'
+                                moment:'onload',
+                                evdni:<?php echo $_SESSION['logged']; ?>
                             },
                             function(data){
                                 eventos=JSON.parse(data);
@@ -139,13 +148,17 @@
     </head>
 
     <body>
-        <script src="../templates/header.js"></script>
+        <script src="../templates/calendarheader.js"></script>
         <div class="content">
 			<div class="container">  
                 <div class='main'>
                     <div id='calendar'></div>
                 </div>
                 <div class='aside'>
+                    <form action="../pages/login.php">
+                        <button type="submit" class="btn" name="gotologin">Panel de usuario</button>
+                    </form>
+                    <hr>
                     <h3 id="response"></h3>
                     <h3 id="selection"></h3>
                     <div id="reservetext" class="hidden">
@@ -157,6 +170,6 @@
                 </div>
 			</div>
 		</div>
-        <script src="../templates/footer.js"></script>
+        <script src="../templates/calendarfooter.js"></script>
     </body>
 </html>

@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Admin Panel</title>
+        <title>Panel de administrador</title>
         <meta charset="UTF-8">
 		<link rel="shortcut icon" href="../images/favicon.png" type="image/png">
 		<link rel="stylesheet" href="../css/index.css">

@@ -14,7 +14,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Login</title>
+        <title>Cambiar contraseña</title>
         <meta charset="UTF-8">
 		<link rel="shortcut icon" href="../images/favicon.png" type="image/png">
 		<link rel="stylesheet" href="../css/index.css">

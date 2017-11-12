@@ -64,10 +64,72 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Login</title>
+        <title>Panel de usuario</title>
         <meta charset="UTF-8">
 		<link rel="shortcut icon" href="../images/favicon.png" type="image/png">
-		<link rel="stylesheet" href="../css/index.css">
+        <link rel="stylesheet" href="../css/index.css">
+        <link rel='stylesheet' href='../calendar/fullcalendar.css' />
+        <script src='../calendar/lib/jquery.min.js'></script>
+        <script src='../calendar/lib/moment.min.js'></script>
+        <script src='../calendar/fullcalendar.js'></script>
+        <script src='../calendar/locale/es.js'></script>
+        <script>
+             $(document).ready(function() {
+                //Calendar config
+                $('#calendar').fullCalendar({
+                    //Header buttons
+                    header: {
+				        left: 'today',
+				        center: 'prev title next',
+				        right: 'month,agendaWeek listMonth'
+                    },
+                    
+                    minTime:"09:00:00",
+                    maxTime:"20:00:00",
+                    slotEventOverlap:false,
+                    timeFormat:'HH(:mm)',
+                    slotLabelFormat:'HH(:mm)A',
+                    displayEventEnd:true,
+                    navLinks:true,
+                    defaultView:'listMonth',
+                    noEventsMessage: 'No hay eventos para mostrar',
+                    businessHours:[ 
+                        {
+                            dow: [ 1, 2, 3, 4, 5, 6], 
+                            start: '09:00', 
+                            end: '13:00' 
+                        },
+                        {
+                            dow: [ 1, 2, 3, 4, 5],
+                            start: '16:00', 
+                            end: '20:00' 
+                        }
+                    ], 
+
+                    //Event click callback
+                    eventClick:function(event){
+                        alert('Titulo de evento: '+event.title);
+                    },
+
+                    //Events load function
+                    events: function(start,end,timezone,callback){
+                        //Request events
+                        $.post(
+                            '../calendar/loadevents.php',
+                            {
+                                moment:'onlogin',
+                                evdni:<?php echo $_SESSION['logged']; ?>
+                            },
+                            function(data){
+                                eventos=JSON.parse(data);
+                                console.log(data);
+                                callback(eventos);
+                            }
+                        );
+                    }
+                });
+            });
+        </script>
     </head>
 
     <body>
@@ -79,9 +141,14 @@
         <div class="content">
 			<div class="container">  
                 <div class='main'>
-                    <h1>Bienvenido usuario<?php echo ' '.$_SESSION['logged'].'<BR>';?></h1>
+                    <h1>Bienvenido usuario<?php echo ' '.$_SESSION['logged'].'<p></p>';?></h1>
+                    <div id='calendar'></div>
                 </div>
                 <div class='aside'>
+                    <form action="../calendar/calendar.php">
+                        <button type="submit" class="btn" name="gotocalendar">Ir a calendario</button>
+                    </form>
+                    <p></p>
                     <form action="changepass.php">
                         <button type="submit" class="btn" name="changepass">Cambiar contraseña</button>
                     </form>
@@ -92,7 +159,8 @@
                                 <button type="submit" class="btn" name="gotoadmin">Panel de administrador</button>
                             </form>';
                         }
-                    ?>               
+                    ?>    
+                    <hr>           
                 </div>
 			</div>
 		</div>
