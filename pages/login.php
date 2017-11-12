@@ -75,6 +75,9 @@
         <script src='../calendar/locale/es.js'></script>
         <script>
              $(document).ready(function() {
+                var selection='';
+                var selected=false;
+
                 //Calendar config
                 $('#calendar').fullCalendar({
                     //Header buttons
@@ -91,7 +94,6 @@
                     slotLabelFormat:'HH(:mm)A',
                     displayEventEnd:true,
                     navLinks:true,
-                    defaultView:'listMonth',
                     noEventsMessage: 'No hay eventos para mostrar',
                     businessHours:[ 
                         {
@@ -108,7 +110,49 @@
 
                     //Event click callback
                     eventClick:function(event){
-                        alert('Titulo de evento: '+event.title);
+                        if(!(event.backgroundColor=='red')){
+                           //Show selected events
+                            selection=selection=selection.concat('Comienzo de reserva: '+event.start.format()+'<BR>Final de reserva: '+event.end.format()+'<BR>');
+                            $('#selection').html(selection);
+                            console.log(selection);
+
+                            $('#cancelevent').removeClass('hidden'); //Show cancel submit button
+
+                            //Set selected event color to red
+                            var backevent=
+                            {
+                                'id':1,
+                                'title':event.title,
+                                'start':event.start.format(),
+                                'end':event.end.format(),
+                                'backgroundColor':'red'
+                            }
+                            $('#calendar').fullCalendar( 'renderEvent',backevent,true)
+
+                            selected=true;
+
+                            //Delete selected events
+                            $('#deleteevent').one('click',function(){
+                                if(selected){
+                                    $('#selection').html('');
+                                    $('#cancelevent').addClass('hidden');
+                                    selection='';
+                                    $.post(
+                                        'deleteevents.php',
+                                        {
+                                            startev:event.start.format(),
+                                            endev:event.end.format()
+                                        },
+                                        function(data){
+                                            console.log(data);
+                                            $('#selection').html(data);
+                                            $('#calendar').fullCalendar( 'removeEvents',1 ); //Remove red events
+                                            $('#calendar').fullCalendar( 'refetchEvents' );
+                                        }
+                                    );
+                                }
+                            });
+                        }
                     },
 
                     //Events load function
@@ -129,6 +173,17 @@
                     }
                 });
 
+                //Cancel remove selected events button
+                $('#cancelselection').click(function(){
+                    $('#calendar').fullCalendar( 'removeEvents',1 );
+                    $('#selection').html('');
+                    $('#cancelevent').addClass('hidden');
+                    selected=false;
+                    selection='';
+                    $('#deleteevent').click(); //dump click handlers
+                });
+
+                //Get user name by id
                 $.post(
                     'getname.php',
                     {
@@ -157,7 +212,7 @@
                     <div id='calendar'></div>
                 </div>
                 <div class='aside'>
-                    <A class="btn" HREF = "../calendar/calendar.php">Ir a calendario</A>
+                    <A class="btn" HREF = "../calendar/calendar.php">Hacer una reserva</A>
                     <p></p>
                     <A class="btn" HREF = "changepass.php">Cambiar contraseña</A>
                     <p></p>
@@ -166,7 +221,13 @@
                             echo '<A class="btn" HREF = "admin.php">Panel de administrador</A>';
                         }
                     ?>    
-                    <hr>           
+                    <hr>
+                    <h3 id='response'></h3>
+                    <h3 id='selection'></h3>
+                    <div id="cancelevent" class="hidden">
+                        <input class="btn" type="button" value="Borrar eventos" id="deleteevent">
+                        <input class="btn" type="button" value="Cancelar" id="cancelselection">
+                    </div>           
                 </div>
 			</div>
 		</div>

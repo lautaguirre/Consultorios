@@ -26,9 +26,9 @@
                 $('#calendar').fullCalendar({
                     //Header buttons
                     header: {
-				        left: 'prevYear,nextYear today',
+				        left: 'today',
 				        center: 'prev title next',
-				        right: 'month,agendaWeek,agendaDay listMonth'
+				        right: 'month,agendaWeek listMonth'
                     },
                     
                     minTime:"09:00:00",
@@ -56,15 +56,6 @@
                         }
                     ], 
 
-                    /* Click callback
-                        dayClick: function(date) {
-                        alert('Clicked on: ' + date.format());
-                    },*/
-
-                    //Event click callback
-                    eventClick:function(event){
-                        alert('Titulo de evento: '+event.title);
-                    },
                     //Select callback
                     select: function(start, end){          
 
@@ -77,6 +68,8 @@
 
                         //Unselect method
                         $('#calendar').fullCalendar( 'unselect' );
+
+                        //Render selected event as background event
                         var backevent=
                             {
                                 'id':1,
@@ -84,7 +77,8 @@
                                 'end':end.format(),
                                 'backgroundColor':'green'
                             }
-                        $('#calendar').fullCalendar( 'renderEvent',backevent,true) //Render selected event as background event
+                        $('#calendar').fullCalendar( 'renderEvent',backevent,true)
+
                         selected=true;
 
                         //Send selected dates to db
@@ -106,8 +100,8 @@
                                     function(data){
                                         console.log(data);
                                         $('#selection').html(data);
-                                        $('#calendar').fullCalendar( 'refetchEvents' );
                                         $('#calendar').fullCalendar( 'removeEvents',1 ); //Remove green highlight
+                                        $('#calendar').fullCalendar( 'refetchEvents' );
                                         $('#titletext').val('');
                                     }
                                 );
@@ -167,7 +161,7 @@
                         <h3>Ingrese titulo de reserva</h3>
                         <input type="text" id="titletext">
                         <input class="btn" type="button" value="Reservar" id="reserve">
-                        <input class="btn" type="button" value="Borrar selecion" id="removeevents">
+                        <input class="btn" type="button" value="Cancelar" id="removeevents">
                     </div>
                 </div>
 			</div>
