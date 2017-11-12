@@ -38,11 +38,6 @@
     if(!isset($_SESSION['logged'])){
         header ("Location: ../index.php");
     }
-    if(isset($_SESSION['admin'])){
-        if(!isset($_POST['gotologin'])){
-            header('Location: admin.php');
-        }
-    }
 
     //Sanitize
     function sanitizeint($inttosanitize){
@@ -87,9 +82,17 @@
                     <h1>Bienvenido usuario<?php echo ' '.$_SESSION['logged'].'<BR>';?></h1>
                 </div>
                 <div class='aside'>
-                    <form action="changepass.php" method='post'>
+                    <form action="changepass.php">
                         <button type="submit" class="btn" name="changepass">Cambiar contraseña</button>
                     </form>
+                    <p></p>
+                    <?php
+                        if(isset($_SESSION['admin'])){
+                            echo '<form action="admin.php">
+                                <button type="submit" class="btn" name="gotoadmin">Panel de administrador</button>
+                            </form>';
+                        }
+                    ?>               
                 </div>
 			</div>
 		</div>

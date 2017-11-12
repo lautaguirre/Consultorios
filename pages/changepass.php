@@ -9,11 +9,6 @@
     if(!isset($_SESSION['logged'])){
         header ("Location: ../index.php");
     }
-    if(isset($_SESSION['admin'])){
-        if(!isset($_POST['changepass'])){
-            header('Location: admin.php');
-        }
-    }
 ?>
 
 <!DOCTYPE html>
