@@ -77,7 +77,7 @@
                                 'end':end.format(),
                                 'backgroundColor':'green'
                             }
-                        $('#calendar').fullCalendar( 'renderEvent',backevent,true)
+                        $('#calendar').fullCalendar( 'renderEvent',backevent,true);
 
                         selected=true;
 

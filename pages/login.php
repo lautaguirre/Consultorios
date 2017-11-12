@@ -77,6 +77,8 @@
              $(document).ready(function() {
                 var selection='';
                 var selected=false;
+                var alreadyselected=false;
+                var selectedevents=[];
 
                 //Calendar config
                 $('#calendar').fullCalendar({
@@ -110,8 +112,16 @@
 
                     //Event click callback
                     eventClick:function(event){
-                        if(!(event.backgroundColor=='red')){
-                           //Show selected events
+                        for(selectedevi=0;selectedevi<selectedevents.length;selectedevi++){
+                            if(selectedevents[selectedevi]==event.id){
+                                alreadyselected=true;
+                                break;
+                            }else{
+                                alreadyselected=false;
+                            }
+                        }
+                        if(event.id!=1 && alreadyselected==false){
+                            //Show selected events
                             selection=selection=selection.concat('Comienzo de reserva: '+event.start.format()+'<BR>Final de reserva: '+event.end.format()+'<BR>');
                             $('#selection').html(selection);
                             console.log(selection);
@@ -127,7 +137,8 @@
                                 'end':event.end.format(),
                                 'backgroundColor':'red'
                             }
-                            $('#calendar').fullCalendar( 'renderEvent',backevent,true)
+                            $('#calendar').fullCalendar( 'renderEvent',backevent,true);
+                            selectedevents.push(event.id);
 
                             selected=true;
 
@@ -137,6 +148,8 @@
                                     $('#selection').html('');
                                     $('#cancelevent').addClass('hidden');
                                     selection='';
+                                    alreadyselected=false;
+                                    selectedevents=[];
                                     $.post(
                                         'deleteevents.php',
                                         {
@@ -180,6 +193,8 @@
                     $('#cancelevent').addClass('hidden');
                     selected=false;
                     selection='';
+                    alreadyselected=false;
+                    selectedevents=[];
                     $('#deleteevent').click(); //dump click handlers
                 });
 
