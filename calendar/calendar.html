@@ -31,6 +31,7 @@
                     slotLabelFormat:'HH(:mm)A',
                     displayEventEnd:true,
                     navLinks:true,
+                    noEventsMessage: 'No hay eventos para mostrar',
                     selectable: true,
                     selectHelper:true,
                     selectOverlap:false,
@@ -74,13 +75,13 @@
                                 'id':1,
                                 'start':start.format(),
                                 'end':end.format(),
-                                'rendering': 'background'
+                                'backgroundColor':'green'
                             }
                         $('#calendar').fullCalendar( 'renderEvent',backevent,true) //Render selected event as background event
                         selected=true;
 
                         //Send selected dates to db
-                        $('#reserve').click(function(){ 
+                        $('#reserve').one('click',function(){ 
                             if(selected){ //If there is no selection avoid post handlers acumulated
                                 var title=$('#titletext').val();
                                 $('#selection').html('');

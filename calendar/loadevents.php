@@ -23,13 +23,13 @@
                 ];
                 array_push($arr,$obj);
             }
-            $json=json_encode($arr);
-            
-            echo $json;
         }
+        $json=json_encode($arr);
+        
+        echo $json;
     //Insert reservation
     }else if($_POST['moment']=='reserve'){
-        $validation=false; //Check overlap
+        $validation=true; //Check overlap
         $sql='SELECT start,end FROM reservas WHERE CAST(end AS DATETIME) >= CAST("'.$todaydate.'" AS DATETIME)';
         $result=mysqli_query($conn,$sql);
         if(mysqli_num_rows($result)>0){
