@@ -128,6 +128,17 @@
                         );
                     }
                 });
+
+                $.post(
+                    'getname.php',
+                    {
+                        userdni:<?php echo $_SESSION['logged']; ?>
+                    },
+                    function(data){
+                        $('#welcome').html(data);
+                    }
+                );
+
             });
         </script>
     </head>
@@ -141,7 +152,8 @@
         <div class="content">
 			<div class="container">  
                 <div class='main'>
-                    <h1>Bienvenido usuario<?php echo ' '.$_SESSION['logged'].'<p></p>';?></h1>
+                    <h1 id='welcome' style='text-transform:capitalize;'></h1>
+                    <p></p>
                     <div id='calendar'></div>
                 </div>
                 <div class='aside'>

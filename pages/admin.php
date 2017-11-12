@@ -204,15 +204,13 @@
                                 if($validation){
                                     $sql='SELECT name,lastname,dni,email,phone,authorization,address FROM clientes WHERE dni='.$consultdni;
                                     $result=mysqli_query($conn,$sql);
-                                    if(mysqli_num_rows($result)>0){
-                                        $totalresults=0;
-                                        while($row=mysqli_fetch_assoc($result)){
-                                            $totalresults++;
-                                            $tabletext=$tabletext."<table border='1'>";
-                                            $tabletext=$tabletext."<tr><td>DNI: ".$row['dni']."</td></tr><tr><td>Nombre: ".$row['name']."</td></tr><tr><td>Apellido: ".$row['lastname']."</td></tr><tr><td>E-mail: ".$row['email']."</td></tr><tr><td>Domicilio: ".$row['address']."</td></tr><tr><td>Telefono: ".$row['phone']."</td></tr><tr><td>Habilitado: ".$row['authorization']."</td></tr>";
-                                            $tabletext=$tabletext."</table><P></P>";
-                                        }
-                                        echo 'Cantidad de resultados: '.$totalresults.'<P>';
+                                    if(mysqli_num_rows($result)==1){
+                                        $row=mysqli_fetch_assoc($result);
+
+                                        $tabletext=$tabletext."<table border='1'>";
+                                        $tabletext=$tabletext."<tr><td>DNI: ".$row['dni']."</td></tr><tr><td>Nombre: ".$row['name']."</td></tr><tr><td>Apellido: ".$row['lastname']."</td></tr><tr><td>E-mail: ".$row['email']."</td></tr><tr><td>Domicilio: ".$row['address']."</td></tr><tr><td>Telefono: ".$row['phone']."</td></tr><tr><td>Habilitado: ".$row['authorization']."</td></tr>";
+                                        $tabletext=$tabletext."</table><P></P>";
+                                    
                                         echo $tabletext;
                                     }else{
                                         echo 'Error consultando dni<br>';
