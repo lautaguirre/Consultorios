@@ -46,7 +46,7 @@
                 echo 'Nueva reserva creada<BR>';
             }
         }else{
-            echo 'Error creando reserva<BR>';
+            echo 'Error creando reserva, parece que otro usuario ya ocupo las fechas solicitadas.<BR>';
         }
     }
 

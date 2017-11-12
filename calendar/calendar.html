@@ -97,6 +97,7 @@
                                     },
                                     function(data){
                                         console.log(data);
+                                        $('#selection').html(data);
                                         $('#calendar').fullCalendar( 'refetchEvents' );
                                         $('#calendar').fullCalendar( 'removeEvents',1 ); //Remove green highlight
                                         $('#titletext').val('');

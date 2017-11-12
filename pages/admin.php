@@ -129,14 +129,18 @@
 
                             //Generate password
                             $createpass=randompass();
-                            echo 'Pass: '.$createpass.'<BR>';
+                            echo 'Pass: '.$createpass.'<p></p>'; //Send email to client
                             $hashedpass=password_hash($createpass, PASSWORD_DEFAULT);
 
                             //Query
                             if($validation){
                                 $sql='INSERT INTO clientes (name,lastname,email,address,phone,dni,password) VALUES ("'.$createname.'","'.$createlastname.'","'.$createemail.'","'.$createaddress.'","'.$createphone.'","'.$createdni.'","'.$hashedpass.'")';
                                 if(mysqli_query($conn,$sql)){        
-                                    echo 'Nuevo usuario creado<BR>'.$createname.'<BR>'.$createlastname.'<BR>'.$createemail.'<BR>'.$createphone.'<BR>'.$createdni.'<BR>'.$createaddress;
+                                    echo '<h3>Nuevo usuario creado</H3><BR>';
+                                    $tabletext=$tabletext."<table border='1'>";
+                                    $tabletext=$tabletext."<tr><td>DNI: ".$createdni."</td></tr><tr><td>Nombre: ".$createname."</td></tr><tr><td>Apellido: ".$createlastname."</td></tr><tr><td>E-mail: ".$createemail."</td></tr><tr><td>Domicilio: ".$createaddress."</td></tr><tr><td>Telefono: ".$createphone."</td></tr>";
+                                    $tabletext=$tabletext."</table><P></P>";
+                                    echo $tabletext;
                                 }else{
                                     echo 'Error creando usuario<BR>';
                                 }
@@ -312,7 +316,7 @@
                         }
                     }
 
-                    //Random string generator
+                    //Random 4 digit string generator
                     function randompass() {
                         $alphabet = 'abcdefghijklmnopqrstuvwxyz0123456789';
                         $pass = array(); 
