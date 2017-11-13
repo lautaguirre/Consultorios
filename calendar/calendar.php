@@ -143,8 +143,17 @@
 
     <body>
         <?php
-            //Check if logged for logout button
-            require '../pages/logoutbutton.php';
+            if(isset($_SESSION['logged'])){
+                echo '<div class="container">
+                    <div class="header2">
+                        <ul class="headerlist">
+                            <li>
+                                <A class="btn" HREF = "../pages/logout.php">Cerrar sesion</A>
+                            </li>
+                        </ul>
+                    </div>
+                </div>';
+            }
         ?>
         <script src="../templates/calendarheader.js"></script>
         <div class="content">

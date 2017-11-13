@@ -14,8 +14,17 @@
 
 	<BODY>
 		<?php
-            //Check if logged for logout button
-            require 'pages/logoutbutton.php';
+			if(isset($_SESSION['logged'])){
+				echo '<div class="container">
+					<div class="header2">
+						<ul class="headerlist">
+							<li>
+								<A class="btn" HREF = "pages/logout.php">Cerrar sesion</A>
+							</li>
+						</ul>
+					</div>
+				</div>';
+			}
         ?>
 		<div class="container">
 			<div class="header">
@@ -100,13 +109,14 @@
 					</table>
 				</div>
 				<div class="aside">
+					<div class="imgcontainer">
+						<a href='pages/login.php'><img class="avatar" height="250" width="250" src="images/avatar2.png" alt="Avatar"></a>
+					</div>
+					<p></p>
 					<?php 
 						//Hide login panel if logged
 						if(!isset($_SESSION['logged'])){
 						echo '<form action="pages/login.php" method="post">
-							<div class="imgcontainer">
-								<img class="avatar" height="250" width="250" src="images/avatar2.png" alt="Avatar">
-							</div>
 							<div class="logincontainer">
 								<label><b>Usuario</b></label>
 								<input type="text" maxlength="9" placeholder="Ingresar su DNI" name="logindni" required>
@@ -118,9 +128,10 @@
 							</div>
 						</form>';
 						}else{
-							echo '<A class="btn" HREF = pages/login.php>Panel de usuario</A>';
+							echo '<div align="center"><A class="btn" HREF = pages/login.php>Panel de usuario</A></div>';
 						}
 					?>
+					<p></p>
 					<hr>
 					<blockquote>
 						<p id="quote">

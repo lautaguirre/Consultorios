@@ -242,7 +242,7 @@
                     <div id="cancelevent" class="hidden">
                         <input class="btn" type="button" value="Borrar eventos" id="deleteevent">
                         <input class="btn" type="button" value="Cancelar" id="cancelselection">
-                    </div>           
+                    </div>      
                 </div>
 			</div>
 		</div>

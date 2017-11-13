@@ -73,6 +73,10 @@ hr
 	border-top: 1px solid #ddd;
 }
 
+errorspan{
+	color: red;
+}
+
 .scroller
 {
 	background-color: transparent;
@@ -321,6 +325,18 @@ Single styles
 	width: 100%;
 	max-width: 100%;
 	margin-bottom: 20px;
+	background-color:transparent;
+    border-spacing:0;
+    border-collapse:collapse;
+    border-top:1px solid #ddd
+}
+
+.table th,td
+{
+    padding:0.5em 0.75em;
+    vertical-align:top;
+    text-align:left;
+    border-bottom:1px solid #ddd
 }
 
 .list-unstyled
@@ -368,6 +384,22 @@ Wide styles
 	{
 		float: left;
 		width: 30%;
+		margin-bottom: 1em;
+	}
+
+	.main2
+	{
+		float: left;
+		width: 50%;
+		margin-right: 5%;
+		margin-bottom: 1em;
+	}
+
+	.aside2
+	{
+		overflow: auto;
+		float: left;
+		width: 45%;
 		margin-bottom: 1em;
 	}
 
