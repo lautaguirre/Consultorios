@@ -87,9 +87,16 @@
                         </li>
                     </ul>
                 </div>
-                <A class="btn" HREF = "login.php">Panel de usuario</A>
-                <hr>
                 <div class='aside2'>
+                    <div class='horizontalnavbar'>
+                        <ul>
+                            <li><a class='reserve' href="../calendar/calendar.php">Hacer una reserva</a></li>
+                            <li><A HREF = "login.php">Panel de usuario</A></li>
+                            <li style="float:right"><a class="active" href="changepass.php">Modificar contraseña</a></li>
+                        </ul>
+                    </div>
+                    <hr>
+                    <div class='autoscroll'>
                 <?php 
                     //Set variables
                     $createname=$createlastname=$createemail=$createphone=$createdni='';
@@ -446,6 +453,7 @@
                         }
                     }
                 ?>  
+                </div>
                 </div>
 			</div>
 		</div>

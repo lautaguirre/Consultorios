@@ -122,7 +122,20 @@
                         }
                         if(event.id!=1 && alreadyselected==false){
                             //Show selected events
-                            selection=selection=selection.concat('Comienzo de reserva: '+event.start.format()+'<BR>Final de reserva: '+event.end.format()+'<BR>');
+                            selection=selection+`<table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Comienzo</th>
+                                            <th>Fin</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>`;
+                            selection=selection+`<tr>                    
+                                    <td >`+event.start.format()+`</td>
+                                    <td>`+event.end.format()+`</td>
+                                    </tr>`;
+                            selection=selection+"</tbody></table>";
+
                             $('#selection').html(selection);
                             console.log(selection);
 
@@ -227,20 +240,24 @@
                     <div id='calendar'></div>
                 </div>
                 <div class='aside'>
-                    <A class="btn" HREF = "../calendar/calendar.php">Hacer una reserva</A>
-                    <p></p>
-                    <A class="btn" HREF = "changepass.php">Cambiar contraseña</A>
-                    <p></p>
-                    <?php
-                        if(isset($_SESSION['admin'])){
-                            echo '<A class="btn" HREF = "admin.php">Panel de administrador</A>';
-                        }
-                    ?>    
+                    <div class='horizontalnavbar'>
+                        <ul>
+                            <li><a class='reserve' href="../calendar/calendar.php">Hacer una reserva</a></li>
+                            <li>
+                                <?php
+                                    if(isset($_SESSION['admin'])){
+                                        echo '<a HREF = "admin.php">Panel de administrador</a>';
+                                    }
+                                ?>
+                            </li>
+                            <li style="float:right"><a class="active" href="changepass.php">Modificar contraseña</a></li>
+                        </ul>
+                    </div> 
                     <hr>
                     <h3 id='response'></h3>
                     <h3 id='selection'></h3>
                     <div id="cancelevent" class="hidden">
-                        <input class="btn" type="button" value="Borrar eventos" id="deleteevent">
+                        <input class="btn2" type="button" value="Borrar eventos" id="deleteevent">
                         <input class="btn" type="button" value="Cancelar" id="cancelselection">
                     </div>      
                 </div>

@@ -283,6 +283,80 @@ Single styles
 
 .img-responsive { max-width: 100%; }
 
+.btn3
+{
+	color: #fff !important;
+	background-color: green;
+	border-color: #222;
+	display: inline-block;
+	padding: .5em 1em;
+	margin-bottom: 0;
+	font-weight: 400;
+	line-height: 1.2;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	cursor: pointer;
+	border: 1px solid transparent;
+	border-radius: .2em;
+	text-decoration: none;
+}
+
+.btn3:hover
+{
+	color: #fff !important;
+	background-color: darkgreen;
+}
+
+.btn3:focus
+{
+	color: #fff !important;
+	background-color: green;
+}
+
+.btn3:active
+{
+	color: #fff !important;
+	background-color: darkgreen;
+}
+
+.btn2
+{
+	color: #fff !important;
+	background-color: rgb(243, 59, 59);
+	border-color: #222;
+	display: inline-block;
+	padding: .5em 1em;
+	margin-bottom: 0;
+	font-weight: 400;
+	line-height: 1.2;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	cursor: pointer;
+	border: 1px solid transparent;
+	border-radius: .2em;
+	text-decoration: none;
+}
+
+.btn2:hover
+{
+	color: #fff !important;
+	background-color: darkred;
+}
+
+.btn2:focus
+{
+	color: #fff !important;
+	background-color: rgb(243, 59, 59);
+}
+
+.btn2:active
+{
+	color: #fff !important;
+	background-color: darkred;
+}
+
 .btn
 {
 	color: #fff !important;
@@ -362,6 +436,48 @@ Single styles
 	padding-left: 5px;
 }
 
+.horizontalnavbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+	background-color: #343434;
+	border-radius: .2em;
+}
+
+.horizontalnavbar li {
+    float: left;
+}
+
+.horizontalnavbar li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.horizontalnavbar li a:hover:not(.active):not(.reserve) {
+    background-color: #111;
+}
+
+.active {
+    background-color: rgb(243, 59, 59);
+}
+
+.active:hover{
+	background-color: darkred;
+}
+
+.reserve{
+	background-color: green;
+}
+
+.reserve:hover{
+	background-color: darkgreen;
+}
+
+
 /* -----------------------
 Wide styles
 ------------------------*/
@@ -395,9 +511,12 @@ Wide styles
 		margin-bottom: 1em;
 	}
 
+	.autoscroll{
+		overflow: auto;
+	}
+
 	.aside2
 	{
-		overflow: auto;
 		float: left;
 		width: 45%;
 		margin-bottom: 1em;

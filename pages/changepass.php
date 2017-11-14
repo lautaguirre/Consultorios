@@ -46,7 +46,19 @@
 					</form>
                 </div>
                 <div class='aside'>
-                    <A class="btn" HREF = "login.php">Panel de usuario</A>
+                    <div class='horizontalnavbar'>
+                        <ul>
+                            <li><a class='reserve' href="../calendar/calendar.php">Hacer una reserva</a></li>
+                            <li><a href="login.php">Panel de usuario</a></li>
+                            <li style="float:right">
+                                <?php
+                                    if(isset($_SESSION['admin'])){
+                                        echo '<a HREF = "admin.php">Panel de administrador</a>';
+                                    }
+                                ?>
+                            </li>
+                        </ul>
+                    </div> 
                     <hr>
                     <?php
                         //Change password
@@ -63,8 +75,12 @@
                                     $hashednewpass=password_hash($changepass, PASSWORD_DEFAULT);
                                     $sql='UPDATE clientes SET password="'.$hashednewpass.'" WHERE dni='.$changepassdni;
                                     if(mysqli_query($conn,$sql)){
-                                        echo '<H1>Contraseña actualizada</H1><BR>';
+                                        echo '<H3>Contraseña actualizada</H3><BR>';
+                                    }else{
+                                        echo '<errorspan>Error al actualizar contraseña</errorspan>'
                                     }
+                                }else{
+                                    echo '<errorspan>La contraseña debe ser igual en ambos campos</errorspan>'
                                 }
                             }
                         }
@@ -83,7 +99,7 @@
                         //Validate
                         function validateint($inttovalidate){
                             if (!filter_var($inttovalidate, FILTER_VALIDATE_INT)) {
-                                echo 'Error al insertar DNI o telefono.<br>';
+                                echo '<errorspan>Error al insertar DNI</errorspan><br>';
                                 global $validation;
                                 $validation=false;
                             }

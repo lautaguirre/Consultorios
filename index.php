@@ -19,7 +19,7 @@
 					<div class="header2">
 						<ul class="headerlist">
 							<li>
-								<A class="btn" HREF = "pages/logout.php">Cerrar sesion</A>
+								<A class="btn2" HREF = "pages/logout.php">Cerrar sesion</A>
 							</li>
 						</ul>
 					</div>

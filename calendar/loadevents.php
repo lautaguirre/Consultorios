@@ -73,6 +73,7 @@
                     'start'=>$row['start'],
                     'end'=>$row['end'],
                     'id'=>$row['id'],
+                    'backgroundColor'=>'green',
                 ];
                 array_push($arr,$obj);
             }

@@ -60,7 +60,21 @@
                     select: function(start, end){          
 
                         //Show selected events
-                        selection=selection.concat('Comienzo de reserva: '+start.format()+'<BR>Final de reserva: '+end.format()+'<BR>'); 
+                        
+                        selection=selection+`<table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Comienzo</th>
+                                            <th>Fin</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>`;
+                        selection=selection+`<tr>                    
+                                    <td >`+start.format()+`</td>
+                                    <td>`+end.format()+`</td>
+                                    </tr>`;
+                        selection=selection+"</tbody></table>";
+                    
                         $('#selection').html(selection);
                         console.log(selection);
 
@@ -148,7 +162,7 @@
                     <div class="header2">
                         <ul class="headerlist">
                             <li>
-                                <A class="btn" HREF = "../pages/logout.php">Cerrar sesion</A>
+                                <A class="btn2" HREF = "../pages/logout.php">Cerrar sesion</A>
                             </li>
                         </ul>
                     </div>
@@ -162,15 +176,26 @@
                     <div id='calendar'></div>
                 </div>
                 <div class='aside'>
-                    <A class="btn" HREF = "../pages/login.php">Panel de usuario</A>
+                    <div class='horizontalnavbar'>
+                        <ul>
+                            <li><A HREF = "../pages/login.php">Panel de usuario</A></li>
+                            <li>
+                                <?php
+                                    if(isset($_SESSION['admin'])){
+                                        echo '<a HREF = "../pages/admin.php">Panel de administrador</a>';
+                                    }
+                                ?>
+                            </li>
+                        </ul>
+                    </div>
                     <hr>
                     <h3 id="response"></h3>
                     <h3 id="selection"></h3>
                     <div id="reservetext" class="hidden">
                         <h3>Ingrese titulo de reserva</h3>
                         <input type="text" id="titletext">
-                        <input class="btn" type="button" value="Reservar" id="reserve">
-                        <input class="btn" type="button" value="Cancelar" id="removeevents">
+                        <input class="btn3" type="button" value="Reservar" id="reserve">
+                        <input class="btn2" type="button" value="Cancelar" id="removeevents">
                     </div>
                 </div>
 			</div>
