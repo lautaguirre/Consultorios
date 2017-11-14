@@ -79,6 +79,7 @@
                 var selected=false;
                 var alreadyselected=false;
                 var selectedevents=[];
+                var office=1;
 
                 //Calendar config
                 $('#calendar').fullCalendar({
@@ -167,7 +168,8 @@
                                         'deleteevents.php',
                                         {
                                             startev:event.start.format(),
-                                            endev:event.end.format()
+                                            endev:event.end.format(),
+                                            officenumber:office
                                         },
                                         function(data){
                                             console.log(data);
@@ -188,7 +190,8 @@
                             '../calendar/loadevents.php',
                             {
                                 moment:'onlogin',
-                                evdni:<?php echo $_SESSION['logged']; ?>
+                                evdni:<?php echo $_SESSION['logged']; ?>,
+                                officenumber:office
                             },
                             function(data){
                                 eventos=JSON.parse(data);
@@ -221,6 +224,43 @@
                         $('#welcome').html('<b>'+data+'</b>');
                     }
                 );
+
+                //Select office
+                $('#office1').click(function(){
+                    office=1;
+                    $("#office1").addClass('reserve');
+                    $("#office2").removeClass('reserve');
+
+                    //Reset
+                    $('#calendar').fullCalendar( 'removeEvents',1 );
+                    $('#selection').html('');
+                    $('#cancelevent').addClass('hidden');
+                    selected=false;
+                    selection='';
+                    alreadyselected=false;
+                    selectedevents=[];
+                    $('#deleteevent').click(); //dump click handlers
+
+                    $('#calendar').fullCalendar( 'refetchEvents' );
+                });
+                $('#office2').click(function(){
+                    office=2;
+                    $("#office2").addClass('reserve');
+                    $("#office1").removeClass('reserve');
+
+                    //Reset
+                    $('#calendar').fullCalendar( 'removeEvents',1 );
+                    $('#selection').html('');
+                    $('#cancelevent').addClass('hidden');
+                    selected=false;
+                    selection='';
+                    alreadyselected=false;
+                    selectedevents=[];
+                    $('#deleteevent').click(); //dump click handlers
+
+                    $('#calendar').fullCalendar( 'refetchEvents' );
+                });
+                
             });
         </script>
     </head>
@@ -238,7 +278,7 @@
                     <p></p>
                     <h3>En esta seccion usted puede:</h3>
                     <ul>
-                        <li>Ver solo sus reservas realizadas</li>
+                        <li>Ver solo <b>TUS</b> reservas realizadas (Para ver todas las reservas seleccione "Hacer una reserva")</li>
                         <li>Cancelar reservas que esten dentro del plazo permitido haciendo click en las mismas y seleccionando "Borrar evento"</li>
                         <li>Realizar una nueva reserva presionando el boton "Hacer una reserva"</li>
                         <li>Disponemos de 2 consultorios y cada uno posee su respectivo calendario, puede seleccionar cual/es mostrar en las opciones debajo</li>
@@ -247,9 +287,8 @@
                     <div class='horizontalnavbar'>
                         <ul>
                             <li><a class='show'>Mostrar: </a></li>
-                            <li><a id='office1'>Consultorio 1</a></li>
+                            <li><a id='office1' class='reserve'>Consultorio 1</a></li>
                             <li><a id='office2'>Consultorio 2</a></li>
-                            <li><a id='officeboth'>Ambos</a></li>
                         </ul>
                     </div> 
                     <p></p>

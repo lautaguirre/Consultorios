@@ -21,6 +21,7 @@
             $(document).ready(function() {
                 var selection='';
                 var selected=false;
+                var office=1;
 
                 //Calendar config
                 $('#calendar').fullCalendar({
@@ -109,7 +110,8 @@
                                         startev:start.format(),
                                         endev:end.format(),
                                         titleev:title,
-                                        evdni:<?php echo $_SESSION['logged']; ?>
+                                        evdni:<?php echo $_SESSION['logged']; ?>,
+                                        officenumber:office
                                     },
                                     function(data){
                                         console.log(data);
@@ -130,7 +132,8 @@
                             'loadevents.php',
                             {
                                 moment:'onload',
-                                evdni:<?php echo $_SESSION['logged']; ?>
+                                evdni:<?php echo $_SESSION['logged']; ?>,
+                                officenumber:office
                             },
                             function(data){
                                 eventos=JSON.parse(data);
@@ -151,6 +154,41 @@
                     selection='';
                     $('#reserve').click(); //dump click handlers
                 });
+
+                //Select office
+                $('#office1').click(function(){
+                    office=1;
+                    $("#office1").addClass('reserve');
+                    $("#office2").removeClass('reserve');
+
+                    //Reset
+                    $('#calendar').fullCalendar( 'removeEvents',1 );
+                    $('#selection').html('');
+                    $('#titletext').val('');
+                    $('#reservetext').addClass('hidden');
+                    selected=false;
+                    selection='';
+                    $('#reserve').click(); //dump click handlers
+
+                    $('#calendar').fullCalendar( 'refetchEvents' );
+                });
+                $('#office2').click(function(){
+                    office=2;
+                    $("#office2").addClass('reserve');
+                    $("#office1").removeClass('reserve');
+
+                    //Reset
+                    $('#calendar').fullCalendar( 'removeEvents',1 );
+                    $('#selection').html('');
+                    $('#titletext').val('');
+                    $('#reservetext').addClass('hidden');
+                    selected=false;
+                    selection='';
+                    $('#reserve').click(); //dump click handlers
+
+                    $('#calendar').fullCalendar( 'refetchEvents' );
+                });
+
             });
         </script>
     </head>
@@ -173,6 +211,15 @@
         <div class="content">
 			<div class="container">  
                 <div class='main'>
+                    <p></p>
+                    <div class='horizontalnavbar'>
+                        <ul>
+                            <li><a class='show'>Mostrar: </a></li>
+                            <li><a id='office1' class='reserve'>Consultorio 1</a></li>
+                            <li><a id='office2'>Consultorio 2</a></li>
+                        </ul>
+                    </div> 
+                    <p></p>
                     <div id='calendar'></div>
                 </div>
                 <div class='aside'>

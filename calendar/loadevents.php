@@ -12,7 +12,7 @@
         $arr=array(); //Set up events array
 
         //Load only events that ends after today
-        $sql='SELECT title,start,end,dni FROM reservas WHERE CAST(end AS DATETIME) >= CAST("'.$todaydate.'" AS DATETIME)'; 
+        $sql='SELECT title,start,end,dni FROM reservas WHERE (CAST(end AS DATETIME) >= CAST("'.$todaydate.'" AS DATETIME)) AND officenumber='.$_POST['officenumber']; 
         $result=mysqli_query($conn,$sql);
         if(mysqli_num_rows($result)>0){
             while($row=mysqli_fetch_assoc($result)){
@@ -40,7 +40,7 @@
     //Insert reservation
     }else if($_POST['moment']=='reserve'){
         $validation=true; //Check overlap
-        $sql='SELECT start,end FROM reservas WHERE CAST(end AS DATETIME) >= CAST("'.$todaydate.'" AS DATETIME)';
+        $sql='SELECT start,end FROM reservas WHERE (CAST(end AS DATETIME) >= CAST("'.$todaydate.'" AS DATETIME)) AND officenumber='.$_POST['officenumber'];
         $result=mysqli_query($conn,$sql);
         if(mysqli_num_rows($result)>0){
             while($row=mysqli_fetch_assoc($result)){
@@ -51,7 +51,7 @@
             }
         }
         if($validation==true){
-            $sql='INSERT INTO reservas (title,start,end,dni) VALUES ("'.$_POST['titleev'].'","'.$_POST['startev'].'","'.$_POST['endev'].'",'.$_POST['evdni'].')';
+            $sql='INSERT INTO reservas (title,start,end,dni,officenumber) VALUES ("'.$_POST['titleev'].'","'.$_POST['startev'].'","'.$_POST['endev'].'",'.$_POST['evdni'].','.$_POST['officenumber'].')';
             if(mysqli_query($conn,$sql)){        
                 echo 'Nueva reserva creada<BR>';
             }
@@ -64,7 +64,7 @@
         $arr=array(); //Set up events array
         
         //Load only events that ends after today and match dni
-        $sql='SELECT title,start,end,id FROM reservas WHERE (CAST(end AS DATETIME) >= CAST("'.$todaydate.'" AS DATETIME)) AND dni='.$_POST['evdni']; 
+        $sql='SELECT title,start,end,id FROM reservas WHERE (CAST(end AS DATETIME) >= CAST("'.$todaydate.'" AS DATETIME)) AND dni='.$_POST['evdni'].' AND officenumber='.$_POST['officenumber']; 
         $result=mysqli_query($conn,$sql);
         if(mysqli_num_rows($result)>0){
             while($row=mysqli_fetch_assoc($result)){
