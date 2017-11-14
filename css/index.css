@@ -454,11 +454,12 @@ Single styles
     color: white;
     text-align: center;
     padding: 14px 16px;
-    text-decoration: none;
+	text-decoration: none;
 }
 
-.horizontalnavbar li a:hover:not(.active):not(.reserve) {
-    background-color: #111;
+.horizontalnavbar li a:hover:not(.active):not(.reserve):not(.show) {
+	background-color: #111;
+	cursor: pointer;
 }
 
 .active {

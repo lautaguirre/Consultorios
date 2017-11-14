@@ -218,10 +218,9 @@
                         userdni:<?php echo $_SESSION['logged']; ?>
                     },
                     function(data){
-                        $('#welcome').html(data);
+                        $('#welcome').html('<b>'+data+'</b>');
                     }
                 );
-
             });
         </script>
     </head>
@@ -234,12 +233,29 @@
         <script src="../templates/header.js"></script>
         <div class="content">
 			<div class="container">  
-                <div class='main'>
+                <div class='main2'>
                     <h1 id='welcome' style='text-transform:capitalize;'></h1>
+                    <p></p>
+                    <h3>En esta seccion usted puede:</h3>
+                    <ul>
+                        <li>Ver solo sus reservas realizadas</li>
+                        <li>Cancelar reservas que esten dentro del plazo permitido haciendo click en las mismas y seleccionando "Borrar evento"</li>
+                        <li>Realizar una nueva reserva presionando el boton "Hacer una reserva"</li>
+                        <li>Disponemos de 2 consultorios y cada uno posee su respectivo calendario, puede seleccionar cual/es mostrar en las opciones debajo</li>
+                    </ul>
+                    <p></p>
+                    <div class='horizontalnavbar'>
+                        <ul>
+                            <li><a class='show'>Mostrar: </a></li>
+                            <li><a id='office1'>Consultorio 1</a></li>
+                            <li><a id='office2'>Consultorio 2</a></li>
+                            <li><a id='officeboth'>Ambos</a></li>
+                        </ul>
+                    </div> 
                     <p></p>
                     <div id='calendar'></div>
                 </div>
-                <div class='aside'>
+                <div class='aside2'>
                     <div class='horizontalnavbar'>
                         <ul>
                             <li><a class='reserve' href="../calendar/calendar.php">Hacer una reserva</a></li>

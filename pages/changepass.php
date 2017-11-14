@@ -28,7 +28,7 @@
         <script src="../templates/header.js"></script>
         <div class="content">
 			<div class="container">  
-                <div class='main'>
+                <div class='main2'>
                     <form action="changepass.php" method="post">
 						<div class="logincontainer">
                             <h3>Modificar contraseña</h3>
@@ -45,7 +45,7 @@
 						</div>
 					</form>
                 </div>
-                <div class='aside'>
+                <div class='aside2'>
                     <div class='horizontalnavbar'>
                         <ul>
                             <li><a class='reserve' href="../calendar/calendar.php">Hacer una reserva</a></li>
@@ -77,10 +77,10 @@
                                     if(mysqli_query($conn,$sql)){
                                         echo '<H3>Contraseña actualizada</H3><BR>';
                                     }else{
-                                        echo '<errorspan>Error al actualizar contraseña</errorspan>'
+                                        echo '<errorspan>Error al actualizar contraseña</errorspan>';
                                     }
                                 }else{
-                                    echo '<errorspan>La contraseña debe ser igual en ambos campos</errorspan>'
+                                    echo '<errorspan>La contraseña debe ser igual en ambos campos</errorspan>';
                                 }
                             }
                         }
