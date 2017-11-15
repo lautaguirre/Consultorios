@@ -77,6 +77,8 @@
              $(document).ready(function() {
                 var selection='';
                 var selected=false;
+                var selection2='';
+                var selected2=false;
                 var alreadyselected=false;
                 var selectedevents=[];
                 var office=1;
@@ -98,6 +100,10 @@
                     displayEventEnd:true,
                     navLinks:true,
                     noEventsMessage: 'No hay eventos para mostrar',
+                    selectable: true,
+                    selectHelper:true,
+                    selectOverlap:false,
+                    selectMinDistance:25,
                     businessHours:[ 
                         {
                             dow: [ 1, 2, 3, 4, 5, 6], 
@@ -113,6 +119,10 @@
 
                     //Event click callback
                     eventClick:function(event){
+                        if(event.id!=2){
+                            $('#removeevents').click();
+                        }
+                        
                         for(selectedevi=0;selectedevi<selectedevents.length;selectedevi++){
                             if(selectedevents[selectedevi]==event.id){
                                 alreadyselected=true;
@@ -121,7 +131,7 @@
                                 alreadyselected=false;
                             }
                         }
-                        if(event.id!=1 && alreadyselected==false){
+                        if(event.id!=2 && event.id!=1 && alreadyselected==false && event.backgroundColor=='green'){
                             //Show selected events
                             selection=selection+`<table class="table">
                                     <thead>
@@ -183,13 +193,82 @@
                         }
                     },
 
+                    //Select callback
+                    select: function(start, end){          
+                        $('#cancelselection').click();
+
+                        //Show selected events
+                        
+                        selection2=selection2+`<table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Comienzo</th>
+                                            <th>Fin</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>`;
+                        selection2=selection2+`<tr>                    
+                                    <td >`+start.format()+`</td>
+                                    <td>`+end.format()+`</td>
+                                    </tr>`;
+                        selection2=selection2+"</tbody></table>";
+                    
+                        $('#selection2').html(selection2);
+                        console.log(selection2);
+
+                        $('#reservetext').removeClass('hidden'); //Show title input and reserve submit button
+
+                        //Unselect method
+                        $('#calendar').fullCalendar( 'unselect' );
+
+                        //Render selected event as background event
+                        var backevent=
+                            {
+                                'id':2,
+                                'start':start.format(),
+                                'end':end.format(),
+                                'backgroundColor':'green'
+                            }
+                        $('#calendar').fullCalendar( 'renderEvent',backevent,true);
+
+                        selected2=true;
+
+                        //Send selected dates to db
+                        $('#reserve').one('click',function(){ 
+                            if(selected2){ //If there is no selection avoid post handlers acumulated
+                                var title=$('#titletext').val();
+                                $('#selection2').html('');
+                                $('#reservetext').addClass('hidden');
+                                selection2='';
+                                $.post(
+                                    'loadevents.php',
+                                    {
+                                        moment:'reserve',
+                                        startev:start.format(),
+                                        endev:end.format(),
+                                        titleev:title,
+                                        evdni:<?php echo $_SESSION['logged']; ?>,
+                                        officenumber:office
+                                    },
+                                    function(data){
+                                        console.log(data);
+                                        $('#selection2').html(data);
+                                        $('#calendar').fullCalendar( 'removeEvents',2 ); //Remove green highlight
+                                        $('#calendar').fullCalendar( 'refetchEvents' );
+                                        $('#titletext').val('');
+                                    }
+                                );
+                            }
+                        });
+                    },
+
                     //Events load function
                     events: function(start,end,timezone,callback){
                         //Request events
                         $.post(
                             '../calendar/loadevents.php',
                             {
-                                moment:'onlogin',
+                                moment:'onload',
                                 evdni:<?php echo $_SESSION['logged']; ?>,
                                 officenumber:office
                             },
@@ -207,11 +286,24 @@
                     $('#calendar').fullCalendar( 'removeEvents',1 );
                     $('#selection').html('');
                     $('#cancelevent').addClass('hidden');
+                    $('#response').html('');
                     selected=false;
                     selection='';
                     alreadyselected=false;
                     selectedevents=[];
                     $('#deleteevent').click(); //dump click handlers
+                });
+
+                //Remove selected events button
+                $('#removeevents').click(function(){
+                    $('#calendar').fullCalendar( 'removeEvents',2 );
+                    $('#selection2').html('');
+                    $('#titletext').val('');
+                    $('#reservetext').addClass('hidden');
+                    $('#response').html('');
+                    selected2=false;
+                    selection2='';
+                    $('#reserve').click(); //dump click handlers
                 });
 
                 //Get user name by id
@@ -233,13 +325,20 @@
 
                     //Reset
                     $('#calendar').fullCalendar( 'removeEvents',1 );
+                    $('#calendar').fullCalendar( 'removeEvents',2 );
                     $('#selection').html('');
+                    $('#selection2').html('');
                     $('#cancelevent').addClass('hidden');
+                    $('#reservetext').addClass('hidden');
+                    $('#titletext').val('');
                     selected=false;
+                    selected2=false;
                     selection='';
+                    selection2='';
                     alreadyselected=false;
                     selectedevents=[];
                     $('#deleteevent').click(); //dump click handlers
+                    $('#reserve').click(); //dump click handlers
 
                     $('#calendar').fullCalendar( 'refetchEvents' );
                 });
@@ -250,13 +349,20 @@
 
                     //Reset
                     $('#calendar').fullCalendar( 'removeEvents',1 );
+                    $('#calendar').fullCalendar( 'removeEvents',2 );
                     $('#selection').html('');
+                    $('#selection2').html('');
                     $('#cancelevent').addClass('hidden');
+                    $('#reservetext').addClass('hidden');
+                    $('#titletext').val('');
                     selected=false;
+                    selected2=false;
                     selection='';
+                    selection2='';
                     alreadyselected=false;
                     selectedevents=[];
                     $('#deleteevent').click(); //dump click handlers
+                    $('#reserve').click(); //dump click handlers
 
                     $('#calendar').fullCalendar( 'refetchEvents' );
                 });
@@ -308,9 +414,16 @@
                     <hr>
                     <h3 id='response'></h3>
                     <h3 id='selection'></h3>
+                    <h3 id='selection2'></h3>
                     <div id="cancelevent" class="hidden">
                         <input class="btn2" type="button" value="Borrar eventos" id="deleteevent">
                         <input class="btn" type="button" value="Cancelar" id="cancelselection">
+                    </div>
+                    <div id="reservetext" class="hidden">
+                        <h3>Ingrese titulo de reserva</h3>
+                        <input type="text" id="titletext">
+                        <input class="btn3" type="button" value="Reservar" id="reserve">
+                        <input class="btn2" type="button" value="Cancelar" id="removeevents">
                     </div>      
                 </div>
 			</div>

@@ -12,7 +12,7 @@
         $arr=array(); //Set up events array
 
         //Load only events that ends after today
-        $sql='SELECT title,start,end,dni FROM reservas WHERE (CAST(end AS DATETIME) >= CAST("'.$todaydate.'" AS DATETIME)) AND officenumber='.$_POST['officenumber']; 
+        $sql='SELECT title,start,end,dni,id FROM reservas WHERE (CAST(end AS DATETIME) >= CAST("'.$todaydate.'" AS DATETIME)) AND officenumber='.$_POST['officenumber']; 
         $result=mysqli_query($conn,$sql);
         if(mysqli_num_rows($result)>0){
             while($row=mysqli_fetch_assoc($result)){
@@ -21,6 +21,7 @@
                         'title'=>$row['title'],
                         'start'=>$row['start'],
                         'end'=>$row['end'],
+                        'id'=>$row['id'],
                         'backgroundColor'=>'green',
                     ];
                 }else{
@@ -28,6 +29,7 @@
                         'title'=>$row['title'],
                         'start'=>$row['start'],
                         'end'=>$row['end'],
+                        'id'=>$row['id'],
                     ];
                 }
                 array_push($arr,$obj);
