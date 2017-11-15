@@ -43,7 +43,7 @@
                     selectable: true,
                     selectHelper:true,
                     selectOverlap:false,
-                    selectMinDistance:50,
+                    selectMinDistance:25,
                     businessHours:[ 
                         {
                             dow: [ 1, 2, 3, 4, 5, 6], 
@@ -194,23 +194,16 @@
     </head>
 
     <body>
-        <?php
-            if(isset($_SESSION['logged'])){
-                echo '<div class="container">
-                    <div class="header2">
-                        <ul class="headerlist">
-                            <li>
-                                <A class="btn2" HREF = "../pages/logout.php">Cerrar sesion</A>
-                            </li>
-                        </ul>
-                    </div>
-                </div>';
-            }
-        ?>
         <script src="../templates/calendarheader.js"></script>
         <div class="content">
 			<div class="container">  
                 <div class='main'>
+                    <h3>En esta seccion usted puede:</h3>
+                    <ul>
+                        <li>Ver todas las reservas y horarios disponibles (Para cancelar reservas seleccione "Panel de usuario")</li>
+                        <li>Realizar una nueva reserva <b>ARRASTRANDO</b> el raton sobre los dias deseados y seleccionando "Reservar" (Notese que puede ver y reservar las fechas por horas en la pestaña "Semana")</li>
+                        <li>Disponemos de 2 consultorios y cada uno posee su respectivo calendario, puede seleccionar cual/es mostrar en las opciones debajo</li>
+                    </ul>
                     <p></p>
                     <div class='horizontalnavbar'>
                         <ul>
@@ -225,7 +218,7 @@
                 <div class='aside'>
                     <div class='horizontalnavbar'>
                         <ul>
-                            <li><A HREF = "../pages/login.php">Panel de usuario</A></li>
+                            <li><A class='userpanel'  HREF = "../pages/login.php">Panel de usuario</A></li>
                             <li>
                                 <?php
                                     if(isset($_SESSION['admin'])){
@@ -233,6 +226,7 @@
                                     }
                                 ?>
                             </li>
+                            <li style="float:right"><a class="active" href="../pages/logout.php">Cerrar sesion</a></li>
                         </ul>
                     </div>
                     <hr>

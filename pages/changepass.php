@@ -21,10 +21,6 @@
     </head>
 
     <body>
-        <?php
-            //Check if logged for logout button
-            require 'logoutbutton.php';
-        ?>
         <script src="../templates/header.js"></script>
         <div class="content">
 			<div class="container">  
@@ -49,14 +45,15 @@
                     <div class='horizontalnavbar'>
                         <ul>
                             <li><a class='reserve' href="../calendar/calendar.php">Hacer una reserva</a></li>
-                            <li><a href="login.php">Panel de usuario</a></li>
-                            <li style="float:right">
+                            <li><a class='userpanel' href="login.php">Panel de usuario</a></li>
+                            <li>
                                 <?php
                                     if(isset($_SESSION['admin'])){
                                         echo '<a HREF = "admin.php">Panel de administrador</a>';
                                     }
                                 ?>
                             </li>
+                            <li style="float:right"><A class="active" HREF = "logout.php">Cerrar sesion</A></li>
                         </ul>
                     </div> 
                     <hr>

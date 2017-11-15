@@ -15,10 +15,6 @@
     </head>
 
     <body>
-        <?php
-            //Check if logged for logout button
-            require 'logoutbutton.php';
-        ?>
         <script src="../templates/header.js"></script>
         <div class="content">
 			<div class="container">  
@@ -46,8 +42,8 @@
                                     <li><input type="text" name='actphone' placeholder='Telefono'></li>
                                     <li><input type="email" name='actemail' placeholder='E-mail'></li>
                                     <li><input type="text" name='actaddress' placeholder='Domicilio' ></li>
-                                    <li><input type="text" disabled></li>
-                                    <li><input type="text" disabled></li>
+                                    <li><input type="text" name='actname' placeholder='Nombre'></li>
+                                    <li><input type="text" name='actlastname' placeholder='Apellido'></li>
                                     <li><input type="submit" class='btn' value="Actualizar" name='actsubmit'></li>
                                 </ul>
                             </form>
@@ -91,8 +87,8 @@
                     <div class='horizontalnavbar'>
                         <ul>
                             <li><a class='reserve' href="../calendar/calendar.php">Hacer una reserva</a></li>
-                            <li><A HREF = "login.php">Panel de usuario</A></li>
-                            <li style="float:right"><a class="active" href="changepass.php">Modificar contraseña</a></li>
+                            <li><A class='userpanel' HREF = "login.php">Panel de usuario</A></li>
+                            <li style="float:right"><a class="active" href="logout.php">Cerrar sesion</a></li>
                         </ul>
                     </div>
                     <hr>
@@ -120,6 +116,9 @@
                             $createphone=sanitizeint('createphone');
                             $createdni=sanitizeint('createdni');
                             $createaddress=sanitizestring('createaddress');
+
+                            //Validate address
+                            validateaddress($createaddress);
 
                             //Validate name and lastname
                             validatestring($createname);
@@ -209,6 +208,7 @@
                             }
                             if(!empty($_POST['actaddress'])){
                                 $actaddress=sanitizestring('actaddress');
+                                validateaddress($actaddress);
                                 if($validation){
                                     $sql='UPDATE clientes SET address="'.$actaddress.'" WHERE dni='.$actdni;
                                     if(mysqli_query($conn,$sql)){
@@ -216,6 +216,34 @@
                                             echo "<errorspan>Error al actualizar domicilio o DNI erroneo</errorspan><BR>";
                                         }else{
                                             echo '<h3>Domicilio actualizado</h3><BR>';                                                              
+                                        }
+                                    }
+                                }
+                            }
+                            if(!empty($_POST['actname'])){
+                                $actname=sanitizestring('actname');
+                                validatestring($actname);
+                                if($validation){
+                                    $sql='UPDATE clientes SET name="'.$actname.'" WHERE dni='.$actdni;
+                                    if(mysqli_query($conn,$sql)){
+                                        if(mysqli_affected_rows($conn)==0){
+                                            echo "<errorspan>Error al actualizar nombre o DNI erroneo</errorspan><BR>";
+                                        }else{
+                                            echo '<h3>Nombre actualizado</h3><BR>';                                                              
+                                        }
+                                    }
+                                }
+                            }
+                            if(!empty($_POST['actlastname'])){
+                                $actlastname=sanitizestring('actlastname');
+                                validatestring($actlastname);
+                                if($validation){
+                                    $sql='UPDATE clientes SET lastname="'.$actlastname.'" WHERE dni='.$actdni;
+                                    if(mysqli_query($conn,$sql)){
+                                        if(mysqli_affected_rows($conn)==0){
+                                            echo "<errorspan>Error al actualizar apellido o DNI erroneo</errorspan><BR>";
+                                        }else{
+                                            echo '<h3>Apellido actualizado</h3><BR>';                                                              
                                         }
                                     }
                                 }
@@ -327,9 +355,9 @@
                                 $sql='UPDATE clientes SET authorization="no" WHERE dni='.$unauthdni;
                                 if(mysqli_query($conn,$sql)){
                                     if(mysqli_affected_rows($conn)==0){
-                                        echo "<errorspan>Error al deshabilitar</errorspan><BR>";
+                                        echo "<errorspan>Error al deshabilitar o ya esta deshabilitado</errorspan><BR>";
                                     }else{
-                                        echo '<h3>Usuario deshabilitado</h3><BR>';                                                              
+                                        echo '<h3>Usuario '.$unauthdni.' deshabilitado</h3><BR>';                                                              
                                     }
                                 }
                             }
@@ -341,9 +369,9 @@
                                 $sql='UPDATE clientes SET authorization="si" WHERE dni='.$authdni;
                                 if(mysqli_query($conn,$sql)){
                                     if(mysqli_affected_rows($conn)==0){
-                                        echo "<errorspan>Error al habilitar</errorspan><BR>";
+                                        echo "<errorspan>Error al habilitar o ya esta habilitado</errorspan><BR>";
                                     }else{
-                                        echo '<h3>Usuario habilitado</h3><BR>';                                                              
+                                        echo '<h3>Usuario '.$authdni.' habilitado</h3><BR>';                                                              
                                     }
                                 }
                             }
@@ -440,6 +468,14 @@
                     function validatestring($stringtovalidate){
                         if (!preg_match("/^[a-z ]*$/",$stringtovalidate)){
                             echo '<errorspan>Error al insertar el nombre o apellido</errorspan><br>';
+                            global $validation;
+                            $validation=false;
+                        }                        
+                    }
+
+                    function validateaddress($stringtovalidate){
+                        if (!preg_match("/^[a-z0-9 ]*$/",$stringtovalidate)){
+                            echo '<errorspan>Error al insertar el domicilio</errorspan><br>';
                             global $validation;
                             $validation=false;
                         }                        

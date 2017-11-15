@@ -266,10 +266,6 @@
     </head>
 
     <body>
-        <?php
-            //Check if logged for logout button
-            require 'logoutbutton.php';
-        ?>
         <script src="../templates/header.js"></script>
         <div class="content">
 			<div class="container">  
@@ -305,7 +301,8 @@
                                     }
                                 ?>
                             </li>
-                            <li style="float:right"><a class="active" href="changepass.php">Modificar contraseña</a></li>
+                            <li><a href="changepass.php">Modificar contraseña</a></li>
+                            <li style="float:right"><A class="active" HREF = "logout.php">Cerrar sesion</A></li>
                         </ul>
                     </div> 
                     <hr>

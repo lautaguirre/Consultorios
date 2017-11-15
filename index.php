@@ -13,19 +13,6 @@
 	</HEAD>
 
 	<BODY>
-		<?php
-			if(isset($_SESSION['logged'])){
-				echo '<div class="container">
-					<div class="header2">
-						<ul class="headerlist">
-							<li>
-								<A class="btn2" HREF = "pages/logout.php">Cerrar sesion</A>
-							</li>
-						</ul>
-					</div>
-				</div>';
-			}
-        ?>
 		<div class="container">
 			<div class="header">
 				<ul class="headerlist">
@@ -128,7 +115,8 @@
 							</div>
 						</form>';
 						}else{
-							echo '<div align="center"><A class="btn" HREF = pages/login.php>Panel de usuario</A></div>';
+							echo '<div align="center"><A class="btn" HREF = pages/login.php>Panel de usuario</A><P></P>
+							<A class="btn2" HREF = "pages/logout.php">Cerrar sesion</A></div>';
 						}
 					?>
 					<p></p>
