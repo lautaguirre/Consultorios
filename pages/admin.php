@@ -86,9 +86,8 @@
                 <div class='aside2'>
                     <div class='horizontalnavbar'>
                         <ul>
-                            <li><a class='reserve' href="../calendar/calendar.php">Hacer una reserva</a></li>
                             <li><A class='userpanel' HREF = "login.php">Panel de usuario</A></li>
-                            <li style="float:right"><a class="active" href="logout.php">Cerrar sesion</a></li>
+                            <li style="float:right"><a class="active" href="../scripts/logout.php">Cerrar sesion</a></li>
                         </ul>
                     </div>
                     <hr>
@@ -104,7 +103,7 @@
 
                     if ($_SERVER["REQUEST_METHOD"] == "POST"){
                         //DB connection
-                        require 'connection.php';
+                        require '../scripts/connection.php';
 
                         //Create user
                         if(isset($_POST["createsubmit"])){

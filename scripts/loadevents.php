@@ -1,5 +1,5 @@
 <?php
-    require '../pages/connection.php';
+    require 'connection.php';
 
     //Define timezone and today date
     date_default_timezone_set('America/Argentina/Buenos_Aires');
@@ -60,29 +60,6 @@
         }else{
             echo 'Error creando reserva, parece que otro usuario ya ocupo las fechas solicitadas.<BR>';
         }
-
-    //Load login events
-    }else if($_POST['moment']=='onlogin'){
-        $arr=array(); //Set up events array
-        
-        //Load only events that ends after today and match dni
-        $sql='SELECT title,start,end,id FROM reservas WHERE (CAST(end AS DATETIME) >= CAST("'.$todaydate.'" AS DATETIME)) AND dni='.$_POST['evdni'].' AND officenumber='.$_POST['officenumber']; 
-        $result=mysqli_query($conn,$sql);
-        if(mysqli_num_rows($result)>0){
-            while($row=mysqli_fetch_assoc($result)){
-                $obj=(object)[
-                    'title'=>$row['title'],
-                    'start'=>$row['start'],
-                    'end'=>$row['end'],
-                    'id'=>$row['id'],
-                    'backgroundColor'=>'green',
-                ];
-                array_push($arr,$obj);
-            }
-        }
-        $json=json_encode($arr);
-                
-        echo $json;
     }
 
     //Avoid overlaping function

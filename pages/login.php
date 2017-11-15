@@ -4,7 +4,7 @@
     $validation=true;
 
     //DB connection
-    require 'connection.php';
+    require '../scripts/connection.php';
     
     if(!isset($_SESSION['logged'])){
         if($_SERVER['REQUEST_METHOD']=='POST'){
@@ -98,6 +98,7 @@
                     timeFormat:'HH(:mm)',
                     slotLabelFormat:'HH(:mm)A',
                     displayEventEnd:true,
+                    slotDuration:'01:00:00',
                     navLinks:true,
                     noEventsMessage: 'No hay eventos para mostrar',
                     selectable: true,
@@ -142,8 +143,8 @@
                                     </thead>
                                     <tbody>`;
                             selection=selection+`<tr>                    
-                                    <td >`+event.start.format()+`</td>
-                                    <td>`+event.end.format()+`</td>
+                                    <td >`+event.start.format('DD/MM/YY HH:mm')+`</td>
+                                    <td>`+event.end.format('DD/MM/YY HH:mm')+`</td>
                                     </tr>`;
                             selection=selection+"</tbody></table>";
 
@@ -175,7 +176,7 @@
                                     alreadyselected=false;
                                     selectedevents=[];
                                     $.post(
-                                        'deleteevents.php',
+                                        '../scripts/deleteevents.php',
                                         {
                                             startev:event.start.format(),
                                             endev:event.end.format(),
@@ -208,8 +209,8 @@
                                     </thead>
                                     <tbody>`;
                         selection2=selection2+`<tr>                    
-                                    <td >`+start.format()+`</td>
-                                    <td>`+end.format()+`</td>
+                                    <td >`+start.format('DD/MM/YY HH:mm')+`</td>
+                                    <td>`+end.format('DD/MM/YY HH:mm')+`</td>
                                     </tr>`;
                         selection2=selection2+"</tbody></table>";
                     
@@ -241,7 +242,7 @@
                                 $('#reservetext').addClass('hidden');
                                 selection2='';
                                 $.post(
-                                    'loadevents.php',
+                                    '../scripts/loadevents.php',
                                     {
                                         moment:'reserve',
                                         startev:start.format(),
@@ -266,7 +267,7 @@
                     events: function(start,end,timezone,callback){
                         //Request events
                         $.post(
-                            '../calendar/loadevents.php',
+                            '../scripts/loadevents.php',
                             {
                                 moment:'onload',
                                 evdni:<?php echo $_SESSION['logged']; ?>,
@@ -308,7 +309,7 @@
 
                 //Get user name by id
                 $.post(
-                    'getname.php',
+                    '../scripts/getname.php',
                     {
                         userdni:<?php echo $_SESSION['logged']; ?>
                     },
@@ -378,14 +379,6 @@
                 <div class='main2'>
                     <h1 id='welcome' style='text-transform:capitalize;'></h1>
                     <p></p>
-                    <h3>En esta seccion usted puede:</h3>
-                    <ul>
-                        <li>Ver solo <b>TUS</b> reservas realizadas (Para ver todas las reservas seleccione "Hacer una reserva")</li>
-                        <li>Cancelar reservas que esten dentro del plazo permitido haciendo click en las mismas y seleccionando "Borrar evento"</li>
-                        <li>Realizar una nueva reserva presionando el boton "Hacer una reserva"</li>
-                        <li>Disponemos de 2 consultorios y cada uno posee su respectivo calendario, puede seleccionar cual/es mostrar en las opciones debajo</li>
-                    </ul>
-                    <p></p>
                     <div class='horizontalnavbar'>
                         <ul>
                             <li><a class='show'>Mostrar: </a></li>
@@ -399,18 +392,26 @@
                 <div class='aside2'>
                     <div class='horizontalnavbar'>
                         <ul>
-                            <li><a class='reserve' href="../calendar/calendar.php">Hacer una reserva</a></li>
                             <li>
                                 <?php
                                     if(isset($_SESSION['admin'])){
-                                        echo '<a HREF = "admin.php">Panel de administrador</a>';
+                                        echo '<a class="userpanel" HREF = "admin.php">Panel de administrador</a>';
                                     }
                                 ?>
                             </li>
                             <li><a href="changepass.php">Modificar contraseña</a></li>
-                            <li style="float:right"><A class="active" HREF = "logout.php">Cerrar sesion</A></li>
+                            <li style="float:right"><A class="active" HREF = "../scripts/logout.php">Cerrar sesion</A></li>
                         </ul>
                     </div> 
+                    <p></p>
+                    <h3>En esta seccion usted puede:</h3>
+                    <ul>
+                        <li>Ver todas las reservas y horarios disponibles.</li>
+                        <li>Cancelar reservas haciendo click en las mismas y seleccionando "Borrar evento" (Siempre que esten dentro del plazo permitido).</li>
+                        <li>Realizar una nueva reserva <b>ARRASTRANDO</b> el raton sobre los dias deseados y seleccionando "Reservar" (Notese que puede ver y reservar por horas en la pestaña "Semana").</li>
+                        <li>Disponemos de 2 consultorios y cada uno posee su respectivo calendario, puede seleccionar cual mostrar en las opciones debajo.</li>
+                    </ul>
+                    <p></p>
                     <hr>
                     <h3 id='response'></h3>
                     <h3 id='selection'></h3>
@@ -423,7 +424,7 @@
                         <h3>Ingrese titulo de reserva</h3>
                         <input type="text" id="titletext">
                         <input class="btn3" type="button" value="Reservar" id="reserve">
-                        <input class="btn2" type="button" value="Cancelar" id="removeevents">
+                        <input class="btn" type="button" value="Cancelar" id="removeevents">
                     </div>      
                 </div>
 			</div>
