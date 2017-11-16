@@ -67,8 +67,8 @@
         <title>Panel de usuario</title>
         <meta charset="UTF-8">
 		<link rel="shortcut icon" href="../images/favicon.png" type="image/png">
-        <link rel="stylesheet" href="../css/index.css">
-        <link rel='stylesheet' href='../calendar/fullcalendar.css' />
+        <link rel="stylesheet" href="../css/index.css" type="text/css">
+        <link rel='stylesheet' type="text/css" href='../calendar/fullcalendar.css' />
         <script src='../calendar/lib/jquery.min.js'></script>
         <script src='../calendar/lib/moment.min.js'></script>
         <script src='../calendar/fullcalendar.js'></script>

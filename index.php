@@ -7,7 +7,7 @@
 		<TITLE>Consultorios Villa Martina</TITLE>
 		<meta charset="UTF-8">
 		<link rel="shortcut icon" href="images/favicon.png" type="image/png">
-		<link rel="stylesheet" href="css/index.css">
+		<link rel="stylesheet" href="css/index.css" type="text/css">
 		<script src="scripts/jquery-3.2.1.min.js"></script>
 		<SCRIPT src="scripts/index.js"></SCRIPT>
 	</HEAD>
