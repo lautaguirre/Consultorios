@@ -186,7 +186,7 @@
                                         if(mysqli_affected_rows($conn)==0){
                                             echo "<errorspan>Error al actualizar E-mail o DNI erroneo</errorspan><BR>";
                                         }else{
-                                            echo '<h3>E-mail actualizado</h3><BR>';                                                              
+                                            echo '<h3>E-mail del usuario '.$actdni.' actualizado</h3><BR>';                                                              
                                         }
                                     }
                                 }
@@ -200,7 +200,7 @@
                                         if(mysqli_affected_rows($conn)==0){
                                             echo "<errorspan>Error al actualizar telefono o DNI erroneo</errorspan><BR>";
                                         }else{
-                                            echo '<h3>Telefono actualizado</h3><BR>';                                                              
+                                            echo '<h3>Telefono del usuario '.$actdni.' actualizado</h3><BR>';                                                              
                                         }
                                     }
                                 }
@@ -214,7 +214,7 @@
                                         if(mysqli_affected_rows($conn)==0){
                                             echo "<errorspan>Error al actualizar domicilio o DNI erroneo</errorspan><BR>";
                                         }else{
-                                            echo '<h3>Domicilio actualizado</h3><BR>';                                                              
+                                            echo '<h3>Domicilio del usuario '.$actdni.' actualizado</h3><BR>';                                                              
                                         }
                                     }
                                 }
@@ -228,7 +228,7 @@
                                         if(mysqli_affected_rows($conn)==0){
                                             echo "<errorspan>Error al actualizar nombre o DNI erroneo</errorspan><BR>";
                                         }else{
-                                            echo '<h3>Nombre actualizado</h3><BR>';                                                              
+                                            echo '<h3>Nombre del usuario '.$actdni.' actualizado</h3><BR>';                                                              
                                         }
                                     }
                                 }
@@ -242,7 +242,7 @@
                                         if(mysqli_affected_rows($conn)==0){
                                             echo "<errorspan>Error al actualizar apellido o DNI erroneo</errorspan><BR>";
                                         }else{
-                                            echo '<h3>Apellido actualizado</h3><BR>';                                                              
+                                            echo '<h3>Apellido  del usuario '.$actdni.' actualizado</h3><BR>';                                                              
                                         }
                                     }
                                 }

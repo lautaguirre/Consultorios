@@ -143,8 +143,8 @@
                                     </thead>
                                     <tbody>`;
                             selection=selection+`<tr>                    
-                                    <td >`+event.start.format('DD/MM/YY HH:mm')+`</td>
-                                    <td>`+event.end.format('DD/MM/YY HH:mm')+`</td>
+                                    <td >`+event.start.format('DD/MM/YYYY HH:mm')+`</td>
+                                    <td>`+event.end.format('DD/MM/YYYY HH:mm')+`</td>
                                     </tr>`;
                             selection=selection+"</tbody></table>";
 
@@ -209,8 +209,8 @@
                                     </thead>
                                     <tbody>`;
                         selection2=selection2+`<tr>                    
-                                    <td >`+start.format('DD/MM/YY HH:mm')+`</td>
-                                    <td>`+end.format('DD/MM/YY HH:mm')+`</td>
+                                    <td >`+start.format('DD/MM/YYYY HH:mm')+`</td>
+                                    <td>`+end.format('DD/MM/YYYY HH:mm')+`</td>
                                     </tr>`;
                         selection2=selection2+"</tbody></table>";
                     
@@ -315,7 +315,7 @@
                     },
                     function(data){
                         $('#welcome').append(data)
-                        username='Dr. ';
+                        username='Dr./Dra. ';
                         username=username.concat(data.replace(/\b\w/g, l => l.toUpperCase()));
                     }
                 );
@@ -411,7 +411,8 @@
                         <li>Ver todas las reservas y horarios disponibles.</li>
                         <li>Cancelar reservas haciendo click en las mismas y seleccionando "Borrar evento" (Siempre que esten dentro del plazo permitido).</li>
                         <li>Realizar una nueva reserva <b>ARRASTRANDO</b> el raton sobre los dias deseados y seleccionando "Reservar" (Notese que puede ver y reservar por horas en la pestaña "Semana").</li>
-                        <li>Disponemos de 2 consultorios y cada uno posee su respectivo calendario, puede seleccionar cual mostrar en las opciones debajo.</li>
+                        <li><errorspan>Recuerde que los horarios de reserva solo pueden ser de Lunes a Viernes (9:00 a 13:00 y 16:00 a 20:00) y Sabados de 9:00 a 13:00. </errorspan></li>
+                        <li>Disponemos de 2 consultorios y cada uno posee su respectivo calendario, puede seleccionar cual mostrar en las opciones arriba del mismo.</li>
                     </ul>
                     <p></p>
                     <hr>
