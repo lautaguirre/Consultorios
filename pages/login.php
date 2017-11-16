@@ -237,7 +237,7 @@
                         //Send selected dates to db
                         $('#reserve').one('click',function(){ 
                             if(selected2){ //If there is no selection avoid post handlers acumulated
-                                var title=$('#titletext').val();
+                                //var title=$('#titletext').val();
                                 $('#selection2').html('');
                                 $('#reservetext').addClass('hidden');
                                 selection2='';
@@ -247,7 +247,7 @@
                                         moment:'reserve',
                                         startev:start.format(),
                                         endev:end.format(),
-                                        titleev:title,
+                                        titleev:username,
                                         evdni:<?php echo $_SESSION['logged']; ?>,
                                         officenumber:office
                                     },
@@ -256,7 +256,7 @@
                                         $('#selection2').html(data);
                                         $('#calendar').fullCalendar( 'removeEvents',2 ); //Remove green highlight
                                         $('#calendar').fullCalendar( 'refetchEvents' );
-                                        $('#titletext').val('');
+                                        //$('#titletext').val('');
                                     }
                                 );
                             }
@@ -299,7 +299,7 @@
                 $('#removeevents').click(function(){
                     $('#calendar').fullCalendar( 'removeEvents',2 );
                     $('#selection2').html('');
-                    $('#titletext').val('');
+                    //$('#titletext').val('');
                     $('#reservetext').addClass('hidden');
                     $('#response').html('');
                     selected2=false;
@@ -314,7 +314,9 @@
                         userdni:<?php echo $_SESSION['logged']; ?>
                     },
                     function(data){
-                        $('#welcome').html('<b>'+data+'</b>');
+                        $('#welcome').append(data)
+                        username='Dr. ';
+                        username=username.concat(data.replace(/\b\w/g, l => l.toUpperCase()));
                     }
                 );
 
@@ -331,7 +333,7 @@
                     $('#selection2').html('');
                     $('#cancelevent').addClass('hidden');
                     $('#reservetext').addClass('hidden');
-                    $('#titletext').val('');
+                    //$('#titletext').val('');
                     selected=false;
                     selected2=false;
                     selection='';
@@ -355,7 +357,7 @@
                     $('#selection2').html('');
                     $('#cancelevent').addClass('hidden');
                     $('#reservetext').addClass('hidden');
-                    $('#titletext').val('');
+                    //$('#titletext').val('');
                     selected=false;
                     selected2=false;
                     selection='';
@@ -377,7 +379,7 @@
         <div class="content">
 			<div class="container">  
                 <div class='main2'>
-                    <h1 id='welcome' style='text-transform:capitalize;'></h1>
+                    <h1 id='welcome' style='text-transform:capitalize;'>Bienvenido </h1>
                     <p></p>
                     <div class='horizontalnavbar'>
                         <ul>
@@ -421,8 +423,8 @@
                         <input class="btn" type="button" value="Cancelar" id="cancelselection">
                     </div>
                     <div id="reservetext" class="hidden">
-                        <h3>Ingrese titulo de reserva</h3>
-                        <input type="text" id="titletext">
+                        <!--<h3>Ingrese titulo de reserva</h3>
+                        <input type="text" id="titletext"> -->
                         <input class="btn3" type="button" value="Reservar" id="reserve">
                         <input class="btn" type="button" value="Cancelar" id="removeevents">
                     </div>      
