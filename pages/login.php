@@ -240,7 +240,6 @@
                                 //var title=$('#titletext').val();
                                 $('#selection2').html('');
                                 $('#reservetext').addClass('hidden');
-                                selection2='';
                                 $.post(
                                     '../scripts/loadevents.php',
                                     {
@@ -249,9 +248,11 @@
                                         endev:end.format(),
                                         titleev:username,
                                         evdni:<?php echo $_SESSION['logged']; ?>,
-                                        officenumber:office
+                                        officenumber:office,
+                                        mailev:selection2
                                     },
                                     function(data){
+                                        selection2='';
                                         console.log(data);
                                         $('#selection2').html(data);
                                         $('#calendar').fullCalendar( 'removeEvents',2 ); //Remove green highlight
@@ -315,7 +316,7 @@
                     },
                     function(data){
                         $('#welcome').append(data)
-                        username='Dr./Dra. ';
+                        username='';
                         username=username.concat(data.replace(/\b\w/g, l => l.toUpperCase()));
                     }
                 );

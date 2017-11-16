@@ -54,7 +54,24 @@
         }
         if($validation==true){
             $sql='INSERT INTO reservas (title,start,end,dni,officenumber) VALUES ("'.$_POST['titleev'].'","'.$_POST['startev'].'","'.$_POST['endev'].'",'.$_POST['evdni'].','.$_POST['officenumber'].')';
-            if(mysqli_query($conn,$sql)){        
+            if(mysqli_query($conn,$sql)){  
+
+                $to = 'damelakey@gmail.com';
+                $subject = "Villa Martina Consultorios: Reserva creada";
+                $message = "<html>
+                <head>
+                    <title>Villa Martina Consultorios</title>
+                </head>
+                <body>
+                    El usuario ".$_POST['evdni']." hizo la siguiente reserva en el consultorio Nro ".$_POST['officenumber'].":
+                    <p></p>
+                    ".$_POST['']."
+                </body>
+                </html>";
+                $headers = "MIME-Version: 1.0" . "\r\n";
+                $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+                mail($to,$subject,$message,$headers);
+
                 echo 'Nueva reserva creada<BR>';
             }
         }else{

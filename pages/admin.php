@@ -132,13 +132,29 @@
 
                             //Generate password
                             $createpass=randompass();
-                            echo 'Pass: '.$createpass.'<p></p>'; //Send email to client
                             $hashedpass=password_hash($createpass, PASSWORD_DEFAULT);
 
                             //Query
                             if($validation){
                                 $sql='INSERT INTO clientes (name,lastname,email,address,phone,dni,password) VALUES ("'.$createname.'","'.$createlastname.'","'.$createemail.'","'.$createaddress.'","'.$createphone.'","'.$createdni.'","'.$hashedpass.'")';
                                 if(mysqli_query($conn,$sql)){        
+
+                                    $to = $createemail;
+                                    $subject = "Villa Martina Consultorios: Usuario creado";
+                                    $message = "<html>
+                                    <head>
+                                        <title>Villa Martina Consultorios</title>
+                                    </head>
+                                    <body>
+                                        <p><H2>Bienvenido, su cuenta en Consultorios Villa Martina ya fue creada.<br>
+                                        Para ingresar a la misma use los siguientes datos:</h2></p>
+                                        <p>- Su DNI: ".$createdni."<br>
+                                        - Y la siguiente contraseña: ".$createpass."</p>
+                                    </body>
+                                    </html>";
+                                    $headers = "MIME-Version: 1.0" . "\r\n";
+                                    $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+                                    mail($to,$subject,$message,$headers);
 
                                     echo '<h3>Nuevo usuario creado</H3><BR>';
 
