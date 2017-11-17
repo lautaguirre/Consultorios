@@ -57,15 +57,12 @@
             if(mysqli_query($conn,$sql)){  
 
                 $to = 'damelakey@gmail.com';
-                $subject = "Villa Martina Consultorios: Reserva creada";
+                $subject = "Consultorios Villa Martina: Reserva creada";
                 $message = "<html>
-                <head>
-                    <title>Villa Martina Consultorios</title>
-                </head>
                 <body>
-                    El usuario ".$_POST['evdni']." hizo la siguiente reserva en el consultorio Nro ".$_POST['officenumber'].":
+                    <h3>El usuario ".$_POST['titleev']." (DNI: ".$_POST['evdni'].") hizo la siguiente reserva en el consultorio Nro ".$_POST['officenumber'].":</h3>
                     <p></p>
-                    ".$_POST['']."
+                    ".$_POST['mailev']."
                 </body>
                 </html>";
                 $headers = "MIME-Version: 1.0" . "\r\n";

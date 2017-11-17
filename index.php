@@ -10,6 +10,37 @@
 		<link rel="stylesheet" href="css/index.css" type="text/css">
 		<script src="scripts/jquery-3.2.1.min.js"></script>
 		<SCRIPT src="scripts/index.js"></SCRIPT>
+		<script>
+
+			$(document).ready(function(){
+				$('#recoverbtn').click(function(){
+					$('#recoverbtn').hide();
+					$('#ajaxsuccess').html('');
+					$('#recovertext').removeClass('hidden');
+				});
+
+				$('#sendrecbtn').click(function(){
+					dnitorecover=$('#recoverdni').val();
+					emailtorecover=$('#recoveremail').val();
+					$('#recoverbtn').show();
+					$('#recovertext').addClass('hidden');
+
+					$.post(
+	                    'scripts/recoverpass.php',
+                    	{
+							dni:dnitorecover,
+							email:emailtorecover
+        	            },
+    	                function(data){
+							$('#ajaxsuccess').html(data);
+							$('#recoverdni').val('');
+							$('#recoveremail').val('');
+                    	}
+                	);
+				});
+			});
+
+		</script>
 	</HEAD>
 
 	<BODY>
@@ -113,10 +144,22 @@
 
 								<button class="btn" type="submit" >Ingresar</button>
 							</div>
-						</form>';
+						</form>
+						<p></p>
+						<button class="btn"  id="recoverbtn" >Olvido su contraseña?</button>
+						<p></p>
+						<div id="ajaxsuccess"></div>
+						<div class="hidden" id="recovertext">
+							<input type="text" id="recoverdni" placeholder="Ingrese su DNI">
+							<input type="email" id="recoveremail" placeholder="Ingrese su email">
+							<button class="btn" id="sendrecbtn" >Enviar</button>
+						</div>';
 						}else{
-							echo '<div align="center"><A class="btn" HREF = pages/login.php>Panel de usuario</A><P></P>
-							<A class="btn2" HREF = "pages/logout.php">Cerrar sesion</A></div>';
+							echo '<div align="center">
+								<A class="btn" HREF = pages/login.php>Panel de usuario</A>
+								<P></P>
+								<A class="btn2" HREF = "scripts/logout.php">Cerrar sesion</A>
+							</div>';
 						}
 					?>
 					<p></p>

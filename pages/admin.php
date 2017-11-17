@@ -140,16 +140,14 @@
                                 if(mysqli_query($conn,$sql)){        
 
                                     $to = $createemail;
-                                    $subject = "Villa Martina Consultorios: Usuario creado";
+                                    $subject = "Consultorios Villa Martina: Usuario creado";
                                     $message = "<html>
-                                    <head>
-                                        <title>Villa Martina Consultorios</title>
-                                    </head>
                                     <body>
                                         <p><H2>Bienvenido, su cuenta en Consultorios Villa Martina ya fue creada.<br>
                                         Para ingresar a la misma use los siguientes datos:</h2></p>
-                                        <p>- Su DNI: ".$createdni."<br>
-                                        - Y la siguiente contraseña: ".$createpass."</p>
+                                        <p><h3>- Su DNI: ".$createdni."<br>
+                                        - Y la siguiente contraseña: ".$createpass."</h3></p>
+                                        <p style='color:red;'>UNA VEZ INGRESADO A SU CUENTA RECUERDE SELECCIONAR 'CAMBIAR CONTRASEÑA'</p>
                                     </body>
                                     </html>";
                                     $headers = "MIME-Version: 1.0" . "\r\n";
