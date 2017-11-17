@@ -1,5 +1,5 @@
 <?php
-    require '../pages/connection.php';
+    require 'connection.php';
 
     //Define timezone and today date
     date_default_timezone_set('America/Argentina/Buenos_Aires');
@@ -12,7 +12,7 @@
         $arr=array(); //Set up events array
 
         //Load only events that ends after today
-        $sql='SELECT title,start,end,dni FROM reservas WHERE (CAST(end AS DATETIME) >= CAST("'.$todaydate.'" AS DATETIME)) AND officenumber='.$_POST['officenumber']; 
+        $sql='SELECT title,start,end,dni,id FROM reservas WHERE (CAST(end AS DATETIME) >= CAST("'.$todaydate.'" AS DATETIME)) AND officenumber='.$_POST['officenumber']; 
         $result=mysqli_query($conn,$sql);
         if(mysqli_num_rows($result)>0){
             while($row=mysqli_fetch_assoc($result)){
@@ -21,6 +21,7 @@
                         'title'=>$row['title'],
                         'start'=>$row['start'],
                         'end'=>$row['end'],
+                        'id'=>$row['id'],
                         'backgroundColor'=>'green',
                     ];
                 }else{
@@ -28,6 +29,7 @@
                         'title'=>$row['title'],
                         'start'=>$row['start'],
                         'end'=>$row['end'],
+                        'id'=>$row['id'],
                     ];
                 }
                 array_push($arr,$obj);
@@ -52,35 +54,26 @@
         }
         if($validation==true){
             $sql='INSERT INTO reservas (title,start,end,dni,officenumber) VALUES ("'.$_POST['titleev'].'","'.$_POST['startev'].'","'.$_POST['endev'].'",'.$_POST['evdni'].','.$_POST['officenumber'].')';
-            if(mysqli_query($conn,$sql)){        
+            if(mysqli_query($conn,$sql)){  
+
+                $to = 'damelakey@gmail.com';
+                $subject = "Consultorios Villa Martina: Reserva creada";
+                $message = "<html>
+                <body>
+                    <h3>El usuario ".$_POST['titleev']." (DNI: ".$_POST['evdni'].") hizo la siguiente reserva en el consultorio Nro ".$_POST['officenumber'].":</h3>
+                    <p></p>
+                    ".$_POST['mailev']."
+                </body>
+                </html>";
+                $headers = "MIME-Version: 1.0" . "\r\n";
+                $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+                mail($to,$subject,$message,$headers);
+
                 echo 'Nueva reserva creada<BR>';
             }
         }else{
             echo 'Error creando reserva, parece que otro usuario ya ocupo las fechas solicitadas.<BR>';
         }
-
-    //Load login events
-    }else if($_POST['moment']=='onlogin'){
-        $arr=array(); //Set up events array
-        
-        //Load only events that ends after today and match dni
-        $sql='SELECT title,start,end,id FROM reservas WHERE (CAST(end AS DATETIME) >= CAST("'.$todaydate.'" AS DATETIME)) AND dni='.$_POST['evdni'].' AND officenumber='.$_POST['officenumber']; 
-        $result=mysqli_query($conn,$sql);
-        if(mysqli_num_rows($result)>0){
-            while($row=mysqli_fetch_assoc($result)){
-                $obj=(object)[
-                    'title'=>$row['title'],
-                    'start'=>$row['start'],
-                    'end'=>$row['end'],
-                    'id'=>$row['id'],
-                    'backgroundColor'=>'green',
-                ];
-                array_push($arr,$obj);
-            }
-        }
-        $json=json_encode($arr);
-                
-        echo $json;
     }
 
     //Avoid overlaping function

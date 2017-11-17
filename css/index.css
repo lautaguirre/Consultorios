@@ -77,6 +77,10 @@ errorspan{
 	color: red;
 }
 
+.fc-event{
+    cursor: pointer;
+}
+
 .scroller
 {
 	background-color: transparent;

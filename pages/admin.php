@@ -11,7 +11,7 @@
         <title>Panel de administrador</title>
         <meta charset="UTF-8">
 		<link rel="shortcut icon" href="../images/favicon.png" type="image/png">
-		<link rel="stylesheet" href="../css/index.css">
+		<link rel="stylesheet" href="../css/index.css" type="text/css">
     </head>
 
     <body>
@@ -86,9 +86,8 @@
                 <div class='aside2'>
                     <div class='horizontalnavbar'>
                         <ul>
-                            <li><a class='reserve' href="../calendar/calendar.php">Hacer una reserva</a></li>
                             <li><A class='userpanel' HREF = "login.php">Panel de usuario</A></li>
-                            <li style="float:right"><a class="active" href="logout.php">Cerrar sesion</a></li>
+                            <li style="float:right"><a class="active" href="../scripts/logout.php">Cerrar sesion</a></li>
                         </ul>
                     </div>
                     <hr>
@@ -104,7 +103,7 @@
 
                     if ($_SERVER["REQUEST_METHOD"] == "POST"){
                         //DB connection
-                        require 'connection.php';
+                        require '../scripts/connection.php';
 
                         //Create user
                         if(isset($_POST["createsubmit"])){
@@ -133,13 +132,27 @@
 
                             //Generate password
                             $createpass=randompass();
-                            echo 'Pass: '.$createpass.'<p></p>'; //Send email to client
                             $hashedpass=password_hash($createpass, PASSWORD_DEFAULT);
 
                             //Query
                             if($validation){
                                 $sql='INSERT INTO clientes (name,lastname,email,address,phone,dni,password) VALUES ("'.$createname.'","'.$createlastname.'","'.$createemail.'","'.$createaddress.'","'.$createphone.'","'.$createdni.'","'.$hashedpass.'")';
                                 if(mysqli_query($conn,$sql)){        
+
+                                    $to = $createemail;
+                                    $subject = "Consultorios Villa Martina: Usuario creado";
+                                    $message = "<html>
+                                    <body>
+                                        <p><H2>Bienvenido, su cuenta en Consultorios Villa Martina ya fue creada.<br>
+                                        Para ingresar a la misma use los siguientes datos:</h2></p>
+                                        <p><h3>- Su DNI: ".$createdni."<br>
+                                        - Y la siguiente contraseña: ".$createpass."</h3></p>
+                                        <p style='color:red;'>UNA VEZ INGRESADO A SU CUENTA RECUERDE SELECCIONAR 'CAMBIAR CONTRASEÑA'</p>
+                                    </body>
+                                    </html>";
+                                    $headers = "MIME-Version: 1.0" . "\r\n";
+                                    $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+                                    mail($to,$subject,$message,$headers);
 
                                     echo '<h3>Nuevo usuario creado</H3><BR>';
 
@@ -187,7 +200,7 @@
                                         if(mysqli_affected_rows($conn)==0){
                                             echo "<errorspan>Error al actualizar E-mail o DNI erroneo</errorspan><BR>";
                                         }else{
-                                            echo '<h3>E-mail actualizado</h3><BR>';                                                              
+                                            echo '<h3>E-mail del usuario '.$actdni.' actualizado</h3><BR>';                                                              
                                         }
                                     }
                                 }
@@ -201,7 +214,7 @@
                                         if(mysqli_affected_rows($conn)==0){
                                             echo "<errorspan>Error al actualizar telefono o DNI erroneo</errorspan><BR>";
                                         }else{
-                                            echo '<h3>Telefono actualizado</h3><BR>';                                                              
+                                            echo '<h3>Telefono del usuario '.$actdni.' actualizado</h3><BR>';                                                              
                                         }
                                     }
                                 }
@@ -215,7 +228,7 @@
                                         if(mysqli_affected_rows($conn)==0){
                                             echo "<errorspan>Error al actualizar domicilio o DNI erroneo</errorspan><BR>";
                                         }else{
-                                            echo '<h3>Domicilio actualizado</h3><BR>';                                                              
+                                            echo '<h3>Domicilio del usuario '.$actdni.' actualizado</h3><BR>';                                                              
                                         }
                                     }
                                 }
@@ -229,7 +242,7 @@
                                         if(mysqli_affected_rows($conn)==0){
                                             echo "<errorspan>Error al actualizar nombre o DNI erroneo</errorspan><BR>";
                                         }else{
-                                            echo '<h3>Nombre actualizado</h3><BR>';                                                              
+                                            echo '<h3>Nombre del usuario '.$actdni.' actualizado</h3><BR>';                                                              
                                         }
                                     }
                                 }
@@ -243,7 +256,7 @@
                                         if(mysqli_affected_rows($conn)==0){
                                             echo "<errorspan>Error al actualizar apellido o DNI erroneo</errorspan><BR>";
                                         }else{
-                                            echo '<h3>Apellido actualizado</h3><BR>';                                                              
+                                            echo '<h3>Apellido  del usuario '.$actdni.' actualizado</h3><BR>';                                                              
                                         }
                                     }
                                 }

@@ -3,7 +3,7 @@
     $validation=true;
     
     //DB connection
-    require 'connection.php';
+    require '../scripts/connection.php';
 
     //Check if logged
     if(!isset($_SESSION['logged'])){
@@ -17,7 +17,7 @@
         <title>Cambiar contraseña</title>
         <meta charset="UTF-8">
 		<link rel="shortcut icon" href="../images/favicon.png" type="image/png">
-		<link rel="stylesheet" href="../css/index.css">
+		<link rel="stylesheet" href="../css/index.css" type="text/css">
     </head>
 
     <body>
@@ -44,7 +44,6 @@
                 <div class='aside2'>
                     <div class='horizontalnavbar'>
                         <ul>
-                            <li><a class='reserve' href="../calendar/calendar.php">Hacer una reserva</a></li>
                             <li><a class='userpanel' href="login.php">Panel de usuario</a></li>
                             <li>
                                 <?php
@@ -53,7 +52,7 @@
                                     }
                                 ?>
                             </li>
-                            <li style="float:right"><A class="active" HREF = "logout.php">Cerrar sesion</A></li>
+                            <li style="float:right"><A class="active" HREF = "../scripts/logout.php">Cerrar sesion</A></li>
                         </ul>
                     </div> 
                     <hr>

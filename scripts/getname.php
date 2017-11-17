@@ -6,6 +6,6 @@
     if(mysqli_num_rows($result)==1){
         $row=mysqli_fetch_assoc($result);
 
-        echo 'Bienvenido '.$row['name'].' '.$row['lastname'];
+        echo $row['name'].' '.$row['lastname'];
     }
 ?>
