@@ -56,6 +56,10 @@ img.avatar {
     border-radius: 50%;
 }
 
+.hidden{
+	display: none;
+}
+
 .map{
 	border-radius: 5%;
 }
@@ -67,6 +71,14 @@ hr
 	margin-bottom: 2em;
 	border: 0;
 	border-top: 1px solid #ddd;
+}
+
+errorspan{
+	color: red;
+}
+
+.fc-event{
+    cursor: pointer;
 }
 
 .scroller
@@ -230,7 +242,7 @@ Nav
 	padding: 0;
 	list-style: none;
 	position: relative;
-	right: 27px;
+	right: 30px;
 }
 
 .nav li
@@ -247,7 +259,7 @@ Nav
 	color: #fff;
 	text-decoration: none;
 	position: relative;
-	right: 10px;
+	right: 5px;
 }
 
 .nav a:link { color: white; }
@@ -274,6 +286,80 @@ Single styles
 ------------------------*/
 
 .img-responsive { max-width: 100%; }
+
+.btn3
+{
+	color: #fff !important;
+	background-color: green;
+	border-color: #222;
+	display: inline-block;
+	padding: .5em 1em;
+	margin-bottom: 0;
+	font-weight: 400;
+	line-height: 1.2;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	cursor: pointer;
+	border: 1px solid transparent;
+	border-radius: .2em;
+	text-decoration: none;
+}
+
+.btn3:hover
+{
+	color: #fff !important;
+	background-color: darkgreen;
+}
+
+.btn3:focus
+{
+	color: #fff !important;
+	background-color: green;
+}
+
+.btn3:active
+{
+	color: #fff !important;
+	background-color: darkgreen;
+}
+
+.btn2
+{
+	color: #fff !important;
+	background-color: rgb(243, 59, 59);
+	border-color: #222;
+	display: inline-block;
+	padding: .5em 1em;
+	margin-bottom: 0;
+	font-weight: 400;
+	line-height: 1.2;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	cursor: pointer;
+	border: 1px solid transparent;
+	border-radius: .2em;
+	text-decoration: none;
+}
+
+.btn2:hover
+{
+	color: #fff !important;
+	background-color: darkred;
+}
+
+.btn2:focus
+{
+	color: #fff !important;
+	background-color: rgb(243, 59, 59);
+}
+
+.btn2:active
+{
+	color: #fff !important;
+	background-color: darkred;
+}
 
 .btn
 {
@@ -317,6 +403,18 @@ Single styles
 	width: 100%;
 	max-width: 100%;
 	margin-bottom: 20px;
+	background-color:transparent;
+    border-spacing:0;
+    border-collapse:collapse;
+    border-top:1px solid #ddd
+}
+
+.table th,td
+{
+    padding:0.5em 0.75em;
+    vertical-align:top;
+    text-align:left;
+    border-bottom:1px solid #ddd
 }
 
 .list-unstyled
@@ -342,6 +440,57 @@ Single styles
 	padding-left: 5px;
 }
 
+.horizontalnavbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+	background-color: #343434;
+	border-radius: .2em;
+}
+
+.horizontalnavbar li {
+    float: left;
+}
+
+.horizontalnavbar li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+	text-decoration: none;
+}
+
+.horizontalnavbar li a:hover:not(.active):not(.reserve):not(.show):not(.userpanel) {
+	background-color: #111;
+	cursor: pointer;
+}
+
+.active {
+    background-color: rgb(243, 59, 59);
+}
+
+.active:hover{
+	background-color: darkred;
+}
+
+.reserve{
+	background-color: green;
+}
+
+.reserve:hover{
+	background-color: darkgreen;
+}
+
+.userpanel{
+	background-color: royalblue;
+}
+
+.userpanel:hover{
+	background-color: darkblue;
+}
+
+
 /* -----------------------
 Wide styles
 ------------------------*/
@@ -364,6 +513,25 @@ Wide styles
 	{
 		float: left;
 		width: 30%;
+		margin-bottom: 1em;
+	}
+
+	.main2
+	{
+		float: left;
+		width: 50%;
+		margin-right: 5%;
+		margin-bottom: 1em;
+	}
+
+	.autoscroll{
+		overflow: auto;
+	}
+
+	.aside2
+	{
+		float: left;
+		width: 45%;
 		margin-bottom: 1em;
 	}
 

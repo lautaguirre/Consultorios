@@ -8,31 +8,17 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Admin Panel</title>
+        <title>Panel de administrador</title>
         <meta charset="UTF-8">
 		<link rel="shortcut icon" href="../images/favicon.png" type="image/png">
-		<link rel="stylesheet" href="../css/index.css">
+		<link rel="stylesheet" href="../css/index.css" type="text/css">
     </head>
 
     <body>
-        <?php
-        //Check if logged for logout button
-		if(isset($_SESSION['logged'])){
-		echo '<div class="container">
-			<div class="header2">
-				<ul class="headerlist">
-					<li>
-						<A class="btn" HREF = logout.php>Cerrar sesion</A>
-                    </li>
-				</ul>
-			</div>
-		</div>';
-		}
-        ?>
         <script src="../templates/header.js"></script>
         <div class="content">
 			<div class="container">  
-                <div class='main'>
+                <div class='main2'>
                     <ul class='list-inline'>
                         <li>
                             <form action="admin.php" method='post'>
@@ -56,8 +42,8 @@
                                     <li><input type="text" name='actphone' placeholder='Telefono'></li>
                                     <li><input type="email" name='actemail' placeholder='E-mail'></li>
                                     <li><input type="text" name='actaddress' placeholder='Domicilio' ></li>
-                                    <li><input type="text" disabled></li>
-                                    <li><input type="text" disabled></li>
+                                    <li><input type="text" name='actname' placeholder='Nombre'></li>
+                                    <li><input type="text" name='actlastname' placeholder='Apellido'></li>
                                     <li><input type="submit" class='btn' value="Actualizar" name='actsubmit'></li>
                                 </ul>
                             </form>
@@ -97,21 +83,27 @@
                         </li>
                     </ul>
                 </div>
-                <div class='aside'>
-                    <form action="login.php" method="post">
-                        <button type="submit" class="btn" name="gotologin">Go to login</button>
-                    </form>
+                <div class='aside2'>
+                    <div class='horizontalnavbar'>
+                        <ul>
+                            <li><A class='userpanel' HREF = "login.php">Panel de usuario</A></li>
+                            <li style="float:right"><a class="active" href="../scripts/logout.php">Cerrar sesion</a></li>
+                        </ul>
+                    </div>
                     <hr>
+                    <div class='autoscroll'>
                 <?php 
                     //Set variables
                     $createname=$createlastname=$createemail=$createphone=$createdni='';
                     $actdni=$actphone=$actemail='';
                     $consultname=$consultlastname=$consultdni='';
+                    $tabletext='';
+                    $allinfoneeded=false;
                     $validation=true;
 
                     if ($_SERVER["REQUEST_METHOD"] == "POST"){
                         //DB connection
-                        require 'connection.php';
+                        require '../scripts/connection.php';
 
                         //Create user
                         if(isset($_POST["createsubmit"])){
@@ -123,6 +115,9 @@
                             $createphone=sanitizeint('createphone');
                             $createdni=sanitizeint('createdni');
                             $createaddress=sanitizestring('createaddress');
+
+                            //Validate address
+                            validateaddress($createaddress);
 
                             //Validate name and lastname
                             validatestring($createname);
@@ -137,19 +132,58 @@
 
                             //Generate password
                             $createpass=randompass();
-                            echo 'Pass: '.$createpass.'<BR>';
                             $hashedpass=password_hash($createpass, PASSWORD_DEFAULT);
 
                             //Query
                             if($validation){
                                 $sql='INSERT INTO clientes (name,lastname,email,address,phone,dni,password) VALUES ("'.$createname.'","'.$createlastname.'","'.$createemail.'","'.$createaddress.'","'.$createphone.'","'.$createdni.'","'.$hashedpass.'")';
                                 if(mysqli_query($conn,$sql)){        
-                                    echo 'Nuevo usuario creado<BR>'.$createname.'<BR>'.$createlastname.'<BR>'.$createemail.'<BR>'.$createphone.'<BR>'.$createdni.'<BR>'.$createaddress;
+
+                                    $to = $createemail;
+                                    $subject = "Consultorios Villa Martina: Usuario creado";
+                                    $message = "<html>
+                                    <body>
+                                        <p><H2>Bienvenido, su cuenta en Consultorios Villa Martina ya fue creada.<br>
+                                        Para ingresar a la misma use los siguientes datos:</h2></p>
+                                        <p><h3>- Su DNI: ".$createdni."<br>
+                                        - Y la siguiente contraseña: ".$createpass."</h3></p>
+                                        <p style='color:red;'>UNA VEZ INGRESADO A SU CUENTA RECUERDE SELECCIONAR 'CAMBIAR CONTRASEÑA'</p>
+                                    </body>
+                                    </html>";
+                                    $headers = "MIME-Version: 1.0" . "\r\n";
+                                    $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+                                    mail($to,$subject,$message,$headers);
+
+                                    echo '<h3>Nuevo usuario creado</H3><BR>';
+
+                                    $tabletext=$tabletext.'<table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>DNI</th>
+                                            <th>Nombre</th>
+                                            <th>Apellido</th>
+                                            <th>E-mail</th>
+                                            <th>Telefono</th>
+                                            <th>Domicilio</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>';
+                                    $tabletext=$tabletext.'<tr>                    
+                                    <th scope=row>'.$createdni.'</th>
+                                    <td>'.$createname.'</td>
+                                    <td>'.$createlastname.'</td>
+                                    <td>'.$createemail.'</td>
+                                    <td>'.$createphone.'</td>
+                                    <td>'.$createaddress.'</td>
+                                    </tr>';
+                                    $tabletext=$tabletext."</tbody></table>";
+
+                                    echo $tabletext;
                                 }else{
-                                    echo 'Error creando usuario<BR>';
+                                    echo '<errorspan>Error creando usuario</errorspan><BR>';
                                 }
                             }else{
-                                echo 'Algun campo no es valido.<BR>';
+                                echo '<errorspan>Algun campo no es valido</errorspan><BR>';
                             } 
                         }
 
@@ -164,9 +198,9 @@
                                     $sql='UPDATE clientes SET email="'.$actemail.'" WHERE dni='.$actdni;
                                     if(mysqli_query($conn,$sql)){
                                         if(mysqli_affected_rows($conn)==0){
-                                            echo "Error al actualizar E-mail o DNI erroneo<BR>";
+                                            echo "<errorspan>Error al actualizar E-mail o DNI erroneo</errorspan><BR>";
                                         }else{
-                                            echo 'E-mail actualizado<BR>';                                                              
+                                            echo '<h3>E-mail del usuario '.$actdni.' actualizado</h3><BR>';                                                              
                                         }
                                     }
                                 }
@@ -178,22 +212,51 @@
                                     $sql='UPDATE clientes SET phone='.$actphone.' WHERE dni='.$actdni;
                                     if(mysqli_query($conn,$sql)){
                                         if(mysqli_affected_rows($conn)==0){
-                                            echo "Error al actualizar telefono o DNI erroneo<BR>";
+                                            echo "<errorspan>Error al actualizar telefono o DNI erroneo</errorspan><BR>";
                                         }else{
-                                            echo 'Telefono actualizado<BR>';                                                              
+                                            echo '<h3>Telefono del usuario '.$actdni.' actualizado</h3><BR>';                                                              
                                         }
                                     }
                                 }
                             }
                             if(!empty($_POST['actaddress'])){
                                 $actaddress=sanitizestring('actaddress');
+                                validateaddress($actaddress);
                                 if($validation){
                                     $sql='UPDATE clientes SET address="'.$actaddress.'" WHERE dni='.$actdni;
                                     if(mysqli_query($conn,$sql)){
                                         if(mysqli_affected_rows($conn)==0){
-                                            echo "Error al actualizar domicilio o DNI erroneo<BR>";
+                                            echo "<errorspan>Error al actualizar domicilio o DNI erroneo</errorspan><BR>";
                                         }else{
-                                            echo 'Domicilio actualizado<BR>';                                                              
+                                            echo '<h3>Domicilio del usuario '.$actdni.' actualizado</h3><BR>';                                                              
+                                        }
+                                    }
+                                }
+                            }
+                            if(!empty($_POST['actname'])){
+                                $actname=sanitizestring('actname');
+                                validatestring($actname);
+                                if($validation){
+                                    $sql='UPDATE clientes SET name="'.$actname.'" WHERE dni='.$actdni;
+                                    if(mysqli_query($conn,$sql)){
+                                        if(mysqli_affected_rows($conn)==0){
+                                            echo "<errorspan>Error al actualizar nombre o DNI erroneo</errorspan><BR>";
+                                        }else{
+                                            echo '<h3>Nombre del usuario '.$actdni.' actualizado</h3><BR>';                                                              
+                                        }
+                                    }
+                                }
+                            }
+                            if(!empty($_POST['actlastname'])){
+                                $actlastname=sanitizestring('actlastname');
+                                validatestring($actlastname);
+                                if($validation){
+                                    $sql='UPDATE clientes SET lastname="'.$actlastname.'" WHERE dni='.$actdni;
+                                    if(mysqli_query($conn,$sql)){
+                                        if(mysqli_affected_rows($conn)==0){
+                                            echo "<errorspan>Error al actualizar apellido o DNI erroneo</errorspan><BR>";
+                                        }else{
+                                            echo '<h3>Apellido  del usuario '.$actdni.' actualizado</h3><BR>';                                                              
                                         }
                                     }
                                 }
@@ -204,27 +267,49 @@
                         //Consult dni
                         if(isset($_POST['consultsubmit'])){
                             if(!empty($_POST['consultdni'])){
+                                $allinfoneeded=true;
                                 $consultdni=sanitizeint('consultdni');
                                 validateint($consultdni);
                                 if($validation){
-                                    $sql='SELECT name,lastname,dni,email,phone,authorization FROM clientes WHERE dni='.$consultdni;
+                                    $sql='SELECT name,lastname,dni,email,phone,authorization,address FROM clientes WHERE dni='.$consultdni;
                                     $result=mysqli_query($conn,$sql);
-                                    if(mysqli_num_rows($result)>0){
-                                        $totalresults=0;
-                                        while($row=mysqli_fetch_assoc($result)){
-                                            echo 'DNI '.$row['dni'].' - '.$row['name'].' - '.$row['lastname'].' - '.$row['email'].' - '.$row['phone'].' - Habilitado: '.$row['authorization'].'<BR>';
-                                            $totalresults++;
-                                        }
-                                        echo 'Cantidad de resultados'.$totalresults;
+                                    if(mysqli_num_rows($result)==1){
+                                        $row=mysqli_fetch_assoc($result);
+
+                                        $tabletext=$tabletext.'<table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>DNI</th>
+                                                <th>Nombre</th>
+                                                <th>Apellido</th>
+                                                <th>E-mail</th>
+                                                <th>Telefono</th>
+                                                <th>Domicilio</th>
+                                                <th>Habilitado</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>';
+                                        $tabletext=$tabletext.'<tr>                    
+                                        <th scope=row>'.$row['dni'].'</th>
+                                        <td>'.$row['name'].'</td>
+                                        <td>'.$row['lastname'].'</td>
+                                        <td>'.$row['email'].'</td>
+                                        <td>'.$row['phone'].'</td>
+                                        <td>'.$row['address'].'</td>
+                                        <td>'.$row['authorization'].'</td>
+                                        </tr>';
+                                        $tabletext=$tabletext."</tbody></table>";
+                                    
+                                        echo $tabletext;
                                     }else{
-                                        echo 'Error consultando dni<br>';
+                                        echo '<errorspan>Error consultando dni</errorspan><br>';
                                     }
                                 }else{
-                                    echo 'DNI invalido.<br>';
+                                    echo '<errorspan>DNI invalido</errorspan><br>';
                                 }
                             }
                             //Consult name and lastname
-                            if(!empty($_POST['consultname']) and !empty($_POST['consultlastname'])){
+                            if(!empty($_POST['consultname']) and !empty($_POST['consultlastname'] and $allinfoneeded==false)){
                                 $consultname=sanitizestring('consultname');
                                 $consultlastname=sanitizestring('consultlastname');
                                 validatestring($consultname);
@@ -234,18 +319,41 @@
                                     $result=mysqli_query($conn,$sql);
                                     if(mysqli_num_rows($result)>0){
                                         $totalresults=0;
+                                        $tabletext=$tabletext.'<table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>DNI</th>
+                                                <th>Nombre</th>
+                                                <th>Apellido</th>
+                                                <th>E-mail</th>
+                                                <th>Telefono</th>
+                                                <th>Domicilio</th>
+                                                <th>Habilitado</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>';
                                         while($row=mysqli_fetch_assoc($result)){
-                                            echo 'DNI '.$row['dni'].' - '.$row['name'].' - '.$row['lastname'].' - '.$row['email'].' - '.$row['address'].' - '.$row['phone'].' - Habilitado: '.$row['authorization'].'<BR>';
                                             $totalresults++;
+                                            $tabletext=$tabletext.'<tr>                    
+                                            <th scope=row>'.$row['dni'].'</th>
+                                            <td>'.$row['name'].'</td>
+                                            <td>'.$row['lastname'].'</td>
+                                            <td>'.$row['email'].'</td>
+                                            <td>'.$row['phone'].'</td>
+                                            <td>'.$row['address'].'</td>
+                                            <td>'.$row['authorization'].'</td>
+                                            </tr>';
                                         }
-                                        echo 'Cantidad de resultados'.$totalresults;
+                                        $tabletext=$tabletext.'</tbody></table>';
+                                        echo '<h3>Cantidad de resultados: '.$totalresults.'</h3><P>';
+                                        echo $tabletext;
                                     }else{
-                                        echo 'Error consultando nombre o apellido<br>';
+                                        echo '<errorspan>Error consultando nombre o apellido</errorspan><br>';
                                     }
                                 }else{
-                                    echo 'Nombre o apellido invalido.<br>';
+                                    echo '<errorspan>Nombre o apellido invalido</errorspan><br>';
                                 }
-                            }else{
+                            }else if($allinfoneeded==false){
                                 //Consult name or lastname
                                 consultnameorlastname($consultname,'consultname','name');
                                 consultnameorlastname($consultlastname,'consultlastname','lastname');
@@ -260,9 +368,9 @@
                                 $sql='UPDATE clientes SET authorization="no" WHERE dni='.$unauthdni;
                                 if(mysqli_query($conn,$sql)){
                                     if(mysqli_affected_rows($conn)==0){
-                                        echo "Error al deshabilitar<BR>";
+                                        echo "<errorspan>Error al deshabilitar o ya esta deshabilitado</errorspan><BR>";
                                     }else{
-                                        echo 'Usuario deshabilitado<BR>';                                                              
+                                        echo '<h3>Usuario '.$unauthdni.' deshabilitado</h3><BR>';                                                              
                                     }
                                 }
                             }
@@ -274,9 +382,9 @@
                                 $sql='UPDATE clientes SET authorization="si" WHERE dni='.$authdni;
                                 if(mysqli_query($conn,$sql)){
                                     if(mysqli_affected_rows($conn)==0){
-                                        echo "Error al habilitar<BR>";
+                                        echo "<errorspan>Error al habilitar o ya esta habilitado</errorspan><BR>";
                                     }else{
-                                        echo 'Usuario habilitado<BR>';                                                              
+                                        echo '<h3>Usuario '.$authdni.' habilitado</h3><BR>';                                                              
                                     }
                                 }
                             }
@@ -295,21 +403,45 @@
                                 $result=mysqli_query($conn,$sql);
                                 if(mysqli_num_rows($result)>0){
                                     $totalresults=0;
+                                    global $tabletext;
+                                    $tabletext=$tabletext.'<table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>DNI</th>
+                                            <th>Nombre</th>
+                                            <th>Apellido</th>
+                                            <th>E-mail</th>
+                                            <th>Telefono</th>
+                                            <th>Domicilio</th>
+                                            <th>Habilitado</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>';
                                     while($row=mysqli_fetch_assoc($result)){
-                                        echo 'DNI '.$row['dni'].' - '.$row['name'].' - '.$row['lastname'].' - '.$row['email'].' - '.$row['address'].' - '.$row['phone'].' - Habilitado: '.$row['authorization'].'<BR>';
                                         $totalresults++;
+                                        $tabletext=$tabletext.'<tr>                    
+                                        <th scope=row>'.$row['dni'].'</th>
+                                        <td>'.$row['name'].'</td>
+                                        <td>'.$row['lastname'].'</td>
+                                        <td>'.$row['email'].'</td>
+                                        <td>'.$row['phone'].'</td>
+                                        <td>'.$row['address'].'</td>
+                                        <td>'.$row['authorization'].'</td>
+                                        </tr>';
                                     }
-                                    echo 'Cantidad de resultados: '.$totalresults;
+                                    $tabletext=$tabletext.'</tbody></table>';
+                                    echo '<h3>Cantidad de resultados: '.$totalresults.'</h3><P>';
+                                    echo $tabletext;
                                 }else{
-                                    echo 'Error consultando nombre o apellido<BR>';
+                                    echo '<errorspan>Error consultando nombre o apellido</errorspan><BR>';
                                 }
                             }else{
-                                echo 'Nombre o apellido invalido<BR>';
+                                echo '<errorspan>Nombre o apellido invalido</errorspan><BR>';
                             }
                         }
                     }
 
-                    //Random string generator
+                    //Random 4 digit string generator
                     function randompass() {
                         $alphabet = 'abcdefghijklmnopqrstuvwxyz0123456789';
                         $pass = array(); 
@@ -336,7 +468,7 @@
                     function validateemail($emailtovalidate){
                         $emailtovalidate=filter_var($emailtovalidate, FILTER_SANITIZE_EMAIL);
                         if (!filter_var($emailtovalidate, FILTER_VALIDATE_EMAIL)){
-                            echo 'Error al insertar E-mail.<br>';
+                            echo '<errorspan>Error al insertar E-mail</errorspan><br>';
                             global $validation;
                             $validation=false;
                             $emailtovalidate='';
@@ -348,7 +480,15 @@
 
                     function validatestring($stringtovalidate){
                         if (!preg_match("/^[a-z ]*$/",$stringtovalidate)){
-                            echo 'Error al insertar el nombre o apellido.<br>';
+                            echo '<errorspan>Error al insertar el nombre o apellido</errorspan><br>';
+                            global $validation;
+                            $validation=false;
+                        }                        
+                    }
+
+                    function validateaddress($stringtovalidate){
+                        if (!preg_match("/^[a-z0-9 ]*$/",$stringtovalidate)){
+                            echo '<errorspan>Error al insertar el domicilio</errorspan><br>';
                             global $validation;
                             $validation=false;
                         }                        
@@ -356,12 +496,13 @@
 
                     function validateint($inttovalidate){
                         if (!filter_var($inttovalidate, FILTER_VALIDATE_INT)) {
-                            echo 'Error al insertar DNI o telefono.<br>';
+                            echo '<errorspan>Error al insertar DNI o telefono</errorspan><br>';
                             global $validation;
                             $validation=false;
                         }
                     }
-                ?>
+                ?>  
+                </div>
                 </div>
 			</div>
 		</div>

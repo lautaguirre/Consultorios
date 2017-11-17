@@ -7,26 +7,43 @@
 		<TITLE>Consultorios Villa Martina</TITLE>
 		<meta charset="UTF-8">
 		<link rel="shortcut icon" href="images/favicon.png" type="image/png">
-		<link rel="stylesheet" href="css/index.css">
+		<link rel="stylesheet" href="css/index.css" type="text/css">
 		<script src="scripts/jquery-3.2.1.min.js"></script>
 		<SCRIPT src="scripts/index.js"></SCRIPT>
+		<script>
+
+			$(document).ready(function(){
+				$('#recoverbtn').click(function(){
+					$('#recoverbtn').hide();
+					$('#ajaxsuccess').html('');
+					$('#recovertext').removeClass('hidden');
+				});
+
+				$('#sendrecbtn').click(function(){
+					dnitorecover=$('#recoverdni').val();
+					emailtorecover=$('#recoveremail').val();
+					$('#recoverbtn').show();
+					$('#recovertext').addClass('hidden');
+
+					$.post(
+	                    'scripts/recoverpass.php',
+                    	{
+							dni:dnitorecover,
+							email:emailtorecover
+        	            },
+    	                function(data){
+							$('#ajaxsuccess').html(data);
+							$('#recoverdni').val('');
+							$('#recoveremail').val('');
+                    	}
+                	);
+				});
+			});
+
+		</script>
 	</HEAD>
 
 	<BODY>
-		<?php
-		//Check if logged for logout button
-		if(isset($_SESSION['logged'])){
-		echo '<div class="container">
-			<div class="header2">
-				<ul class="headerlist">
-					<li>
-						<A class="btn" HREF = pages/logout.php>Cerrar sesion</A>
-					</li>
-				</ul>
-			</div>
-		</div>';
-		}
-		?>
 		<div class="container">
 			<div class="header">
 				<ul class="headerlist">
@@ -110,27 +127,42 @@
 					</table>
 				</div>
 				<div class="aside">
+					<div class="imgcontainer">
+						<a href='pages/login.php'><img class="avatar" height="250" width="250" src="images/avatar2.png" alt="Avatar"></a>
+					</div>
+					<p></p>
 					<?php 
-					//Hide login panel if logged
-					if(!isset($_SESSION['logged'])){
-					echo '<form action="pages/login.php" method="post">
-						<div class="imgcontainer">
-							<img class="avatar" height="250" width="250" src="images/avatar2.png" alt="Avatar">
-						</div>
-						<div class="logincontainer">
-							<label><b>Usuario</b></label>
-							<input type="text" maxlength="9" placeholder="Ingresar su DNI" name="logindni" required>
+						//Hide login panel if logged
+						if(!isset($_SESSION['logged'])){
+						echo '<form action="pages/login.php" method="post">
+							<div class="logincontainer">
+								<label><b>Usuario</b></label>
+								<input type="text" maxlength="9" placeholder="Ingresar su DNI" name="logindni" required>
 
-							<label><b>Contraseña</b> (No mas de 16 caracteres)</label>
-							<input type="password" maxlength="16" placeholder="Ingresar contraseña" name="loginpass" required>
+								<label><b>Contraseña</b> (No mas de 16 caracteres)</label>
+								<input type="password" maxlength="16" placeholder="Ingresar contraseña" name="loginpass" required>
 
-							<button class="btn" type="submit" >Ingresar</button>
-						</div>
-					</form>';
-					}else{
-						echo '<A class="btn" HREF = pages/login.php>Panel de usuario</A>';
-					}
+								<button class="btn" type="submit" >Ingresar</button>
+							</div>
+						</form>
+						<p></p>
+						<button class="btn"  id="recoverbtn" >Olvido su contraseña?</button>
+						<p></p>
+						<div id="ajaxsuccess"></div>
+						<div class="hidden" id="recovertext">
+							<input type="text" id="recoverdni" placeholder="Ingrese su DNI">
+							<input type="email" id="recoveremail" placeholder="Ingrese su email">
+							<button class="btn" id="sendrecbtn" >Enviar</button>
+						</div>';
+						}else{
+							echo '<div align="center">
+								<A class="btn" HREF = pages/login.php>Panel de usuario</A>
+								<P></P>
+								<A class="btn2" HREF = "scripts/logout.php">Cerrar sesion</A>
+							</div>';
+						}
 					?>
+					<p></p>
 					<hr>
 					<blockquote>
 						<p id="quote">
