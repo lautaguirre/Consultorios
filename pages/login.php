@@ -99,6 +99,7 @@
                     slotLabelFormat:'HH(:mm)A',
                     displayEventEnd:true,
                     slotDuration:'01:00:00',
+                    hiddenDays: [0],
                     navLinks:true,
                     noEventsMessage: 'No hay eventos para mostrar',
                     selectable: true,
@@ -252,6 +253,15 @@
                                         mailev:selection2
                                     },
                                     function(data){
+                                        $.post(
+                                            '../scripts/sendemail.php',
+                                            {
+                                                emailbody:selection2,
+                                                emailuser:username,
+                                                emaildni:<?php echo $_SESSION['logged']; ?>,
+                                                emailoffice:office
+                                            }
+                                        );
                                         selection2='';
                                         console.log(data);
                                         $('#selection2').html(data);
@@ -320,6 +330,10 @@
                         username=username.concat(data.replace(/\b\w/g, l => l.toUpperCase()));
                     }
                 );
+
+                if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
+                    $('#mobile').html('<errorspan>SI SE ENCUENTRA NAVEGANDO DESDE UN DISPOSITIVO MOVIL Y DESEA SELECCIONAR UNA DETERMINADA FECHA DEBE MANTENER APRETADO POR UN BREVE LAPSO Y LUEGO SELECCIONAR LOS DIAS/HORAS DESEADOS.</errorspan>');
+                }
 
                 //Select office
                 $('#office1').click(function(){
@@ -415,6 +429,8 @@
                         <li><errorspan>Recuerde que los horarios de reserva solo pueden ser de Lunes a Viernes (9:00 a 13:00 y 16:00 a 20:00) y Sabados de 9:00 a 13:00. </errorspan></li>
                         <li>Disponemos de 2 consultorios y cada uno posee su respectivo calendario, puede seleccionar cual mostrar en las opciones arriba del mismo.</li>
                     </ul>
+                    <p></p>
+                    <div id='mobile'></div>
                     <p></p>
                     <hr>
                     <h3 id='response'></h3>
