@@ -105,7 +105,7 @@
                     selectable: true,
                     selectHelper:true,
                     selectOverlap:false,
-                    selectMinDistance:25,
+                    selectMinDistance:10,
                     businessHours:[ 
                         {
                             dow: [ 1, 2, 3, 4, 5, 6], 
@@ -162,7 +162,7 @@
                                 'start':event.start.format(),
                                 'end':event.end.format(),
                                 'backgroundColor':'red'
-                            }
+                            };
                             $('#calendar').fullCalendar( 'renderEvent',backevent,true);
                             selectedevents.push(event.id);
 
@@ -230,7 +230,7 @@
                                 'start':start.format(),
                                 'end':end.format(),
                                 'backgroundColor':'green'
-                            }
+                            };
                         $('#calendar').fullCalendar( 'renderEvent',backevent,true);
 
                         selected2=true;
@@ -276,6 +276,18 @@
 
                     //Events load function
                     events: function(start,end,timezone,callback){
+                        
+                        /*var bhours= 
+                        {
+                            start: '13:00:00',
+                            end: '16:00:00',
+                            color: 'gray',
+                            rendering: 'background',
+                            dow: [1,2,3,4,5]
+                        };
+                        $('#calendar').fullCalendar( 'renderEvent',bhours,true);*/ //Avoid bussines hours (month view not available, and same as select constraint)
+
+
                         //Request events
                         $.post(
                             '../scripts/loadevents.php',
@@ -385,6 +397,11 @@
                     $('#calendar').fullCalendar( 'refetchEvents' );
                 });
                 
+                //Instructions slider
+                $("#instructionsslide").click(function(){
+                    $("#instructions").slideToggle("slow");
+                });
+                
             });
         </script>
     </head>
@@ -424,11 +441,17 @@
                     <h3>En esta seccion usted puede:</h3>
                     <ul>
                         <li>Ver todas las reservas y horarios disponibles.</li>
-                        <li>Cancelar reservas haciendo click en las mismas y seleccionando "Borrar evento" (Siempre que esten dentro del plazo permitido).</li>
-                        <li>Realizar una nueva reserva <b>ARRASTRANDO</b> el raton sobre los dias deseados y seleccionando "Reservar" (Notese que puede ver y reservar por horas en la pestaña "Semana").</li>
-                        <li><errorspan>Recuerde que los horarios de reserva solo pueden ser de Lunes a Viernes (9:00 a 13:00 y 16:00 a 20:00) y Sabados de 9:00 a 13:00. </errorspan></li>
+                        <li><errorspan>Recuerde que los horarios de reserva solo pueden ser de Lunes a Viernes (9:00 a 13:00 y 16:00 a 20:00) y Sabados (9:00 a 13:00). </errorspan></li>
                         <li>Disponemos de 2 consultorios y cada uno posee su respectivo calendario, puede seleccionar cual mostrar en las opciones arriba del mismo.</li>
                     </ul>
+                    <p></p>
+                    <div id='instructionsslide'><button class='btn'>Instrucciones</button></div>
+                    <div style='display:none;' id='instructions'>
+                        <ul>
+                            <li>Puede cancelar reservas haciendo click en las mismas y seleccionando "Borrar evento" (Siempre que esten dentro del plazo permitido).</li>
+                            <li>Puede realizar una nueva reserva <b>ARRASTRANDO</b> el raton sobre los dias deseados y seleccionando "Reservar" (Notese que puede ver y reservar por horas en la pestaña "Semana").</li>
+                        </ul>
+                    </div>
                     <p></p>
                     <div id='mobile'></div>
                     <p></p>
