@@ -82,6 +82,7 @@
                 var alreadyselected=false;
                 var selectedevents=[];
                 var office=1;
+                var evdesc='';
 
                 //Calendar config
                 $('#calendar').fullCalendar({
@@ -99,6 +100,7 @@
                     slotLabelFormat:'HH(:mm)A',
                     displayEventEnd:true,
                     slotDuration:'01:00:00',
+                    //selectConstraint: 'businessHours', In case you want to avoid selection
                     hiddenDays: [0],
                     navLinks:true,
                     noEventsMessage: 'No hay eventos para mostrar',
@@ -238,7 +240,12 @@
                         //Send selected dates to db
                         $('#reserve').one('click',function(){ 
                             if(selected2){ //If there is no selection avoid post handlers acumulated
-                                //var title=$('#titletext').val();
+                                var title=$('#titletext').val();
+                                if(title==''){
+                                    evdesc=username;
+                                }else{
+                                    evdesc=title;
+                                }
                                 $('#selection2').html('');
                                 $('#reservetext').addClass('hidden');
                                 $.post(
@@ -247,7 +254,7 @@
                                         moment:'reserve',
                                         startev:start.format(),
                                         endev:end.format(),
-                                        titleev:username,
+                                        titleev:evdesc,
                                         evdni:<?php echo $_SESSION['logged']; ?>,
                                         officenumber:office,
                                         mailev:selection2
@@ -267,7 +274,7 @@
                                         $('#selection2').html(data);
                                         $('#calendar').fullCalendar( 'removeEvents',2 ); //Remove green highlight
                                         $('#calendar').fullCalendar( 'refetchEvents' );
-                                        //$('#titletext').val('');
+                                        $('#titletext').val('');
                                     }
                                 );
                             }
@@ -277,17 +284,6 @@
                     //Events load function
                     events: function(start,end,timezone,callback){
                         
-                        /*var bhours= 
-                        {
-                            start: '13:00:00',
-                            end: '16:00:00',
-                            color: 'gray',
-                            rendering: 'background',
-                            dow: [1,2,3,4,5]
-                        };
-                        $('#calendar').fullCalendar( 'renderEvent',bhours,true);*/ //Avoid bussines hours (month view not available, and same as select constraint)
-
-
                         //Request events
                         $.post(
                             '../scripts/loadevents.php',
@@ -322,7 +318,7 @@
                 $('#removeevents').click(function(){
                     $('#calendar').fullCalendar( 'removeEvents',2 );
                     $('#selection2').html('');
-                    //$('#titletext').val('');
+                    $('#titletext').val('');
                     $('#reservetext').addClass('hidden');
                     $('#response').html('');
                     selected2=false;
@@ -344,7 +340,7 @@
                 );
 
                 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
-                    $('#mobile').html('<errorspan>SI SE ENCUENTRA NAVEGANDO DESDE UN DISPOSITIVO MOVIL Y DESEA SELECCIONAR UNA DETERMINADA FECHA DEBE MANTENER APRETADO POR UN BREVE LAPSO Y LUEGO SELECCIONAR LOS DIAS/HORAS DESEADOS.</errorspan>');
+                    $('#mobile').html('<errorspan>SI SE ENCUENTRA EN UN DISPOSITIVO TACTIL Y DEBE MANTENER APRETADO SOBRE EL CALENDARIO POR UN BREVE LAPSO Y LUEGO ARRASTRAR EL DEDO PARA SELECCIONAR LOS DIAS/HORAS DESEADOS.</errorspan>');
                 }
 
                 //Select office
@@ -360,7 +356,7 @@
                     $('#selection2').html('');
                     $('#cancelevent').addClass('hidden');
                     $('#reservetext').addClass('hidden');
-                    //$('#titletext').val('');
+                    $('#titletext').val('');
                     selected=false;
                     selected2=false;
                     selection='';
@@ -384,7 +380,7 @@
                     $('#selection2').html('');
                     $('#cancelevent').addClass('hidden');
                     $('#reservetext').addClass('hidden');
-                    //$('#titletext').val('');
+                    $('#titletext').val('');
                     selected=false;
                     selected2=false;
                     selection='';
@@ -445,11 +441,13 @@
                         <li>Disponemos de 2 consultorios y cada uno posee su respectivo calendario, puede seleccionar cual mostrar en las opciones arriba del mismo.</li>
                     </ul>
                     <p></p>
-                    <div id='instructionsslide'><button class='btn'>Instrucciones</button></div>
+                    <div id='instructionsslide'><a class='btn'>Instrucciones</a></div>
                     <div style='display:none;' id='instructions'>
                         <ul>
                             <li>Puede cancelar reservas haciendo click en las mismas y seleccionando "Borrar evento" (Siempre que esten dentro del plazo permitido).</li>
                             <li>Puede realizar una nueva reserva <b>ARRASTRANDO</b> el raton sobre los dias deseados y seleccionando "Reservar" (Notese que puede ver y reservar por horas en la pestaña "Semana").</li>
+                            <li>Puede agregar una descripcion a la hora de hacer una reserva, la cual sera mostrada junto con el evento (Si decide no agregar una, se usara su nombre y apellido como descripcion).</li>
+                            <li>Para un uso eficiente del calendario seleccione todas las fechas q desea y luego haga click en "Reservar", en vez de hacerlo uno por uno.</li>
                         </ul>
                     </div>
                     <p></p>
@@ -464,8 +462,8 @@
                         <input class="btn" type="button" value="Cancelar" id="cancelselection">
                     </div>
                     <div id="reservetext" class="hidden">
-                        <!--<h3>Ingrese titulo de reserva</h3>
-                        <input type="text" id="titletext"> -->
+                        <h3>Descripcion de la reserva (Si no ingresa nada se usara por defecto su nombre y apellido).</h3>
+                        <input type="text" id="titletext">
                         <input class="btn3" type="button" value="Reservar" id="reserve">
                         <input class="btn" type="button" value="Cancelar" id="removeevents">
                     </div>      
