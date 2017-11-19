@@ -183,7 +183,8 @@
                                         {
                                             startev:event.start.format(),
                                             endev:event.end.format(),
-                                            officenumber:office
+                                            officenumber:office,
+                                            deletedni:<?php echo $_SESSION['logged']; ?>
                                         },
                                         function(data){
                                             console.log(data);
