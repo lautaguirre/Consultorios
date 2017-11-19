@@ -119,19 +119,27 @@
                                 if(selected){
                                     $('#selection').html('');
                                     $('#cancelevent').addClass('hidden');
-                                    selection='';
                                     alreadyselected=false;
                                     selectedevents=[];
                                     $.post(
-                                        '../scripts/deleteevents.php', //Validate backend with user dni
+                                        '../scripts/admindeleteevents.php', 
                                         {
                                             startev:event.start.format(),
                                             endev:event.end.format(),
                                             officenumber:office
                                         },
                                         function(data){
+                                            admindeletedata=JSON.parse(data);
                                             console.log(data);
-                                            $('#selection').html(data);
+                                            $.post(
+                                                '../scripts/admindeleteemail.php',
+                                                {
+                                                    deleteemailbody:selection,
+                                                    deleteemail:admindeletedata.useremail
+                                                }
+                                            );
+                                            selection='';
+                                            $('#selection').html(admindeletedata.msg);
                                             $('#calendar').fullCalendar( 'removeEvents',1 ); //Remove red events
                                             $('#calendar').fullCalendar( 'refetchEvents' );
                                         }
@@ -277,7 +285,7 @@
                         userdni:<?php echo $_SESSION['logged']; ?>
                     },
                     function(data){
-                        $('#welcome').append(data)
+                        $('#welcome').append(data);
                         username='';
                         username=username.concat(data.replace(/\b\w/g, l => l.toUpperCase()));
                     }

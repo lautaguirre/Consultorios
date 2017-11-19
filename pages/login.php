@@ -334,7 +334,7 @@
                         userdni:<?php echo $_SESSION['logged']; ?>
                     },
                     function(data){
-                        $('#welcome').append(data)
+                        $('#welcome').append(data);
                         username='';
                         username=username.concat(data.replace(/\b\w/g, l => l.toUpperCase()));
                     }
