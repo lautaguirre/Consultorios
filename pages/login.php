@@ -441,6 +441,8 @@
                         <li>Disponemos de 2 consultorios y cada uno posee su respectivo calendario, puede seleccionar cual mostrar en las opciones arriba del mismo.</li>
                     </ul>
                     <p></p>
+                    <div id='mobile'></div>
+                    <p></p>
                     <div id='instructionsslide'><a class='btn'>Instrucciones</a></div>
                     <div style='display:none;' id='instructions'>
                         <ul>
@@ -450,8 +452,6 @@
                             <li>Para un uso eficiente del calendario seleccione todas las fechas q desea y luego haga click en "Reservar", en vez de hacerlo uno por uno.</li>
                         </ul>
                     </div>
-                    <p></p>
-                    <div id='mobile'></div>
                     <p></p>
                     <hr>
                     <h3 id='response'></h3>
