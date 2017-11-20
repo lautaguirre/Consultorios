@@ -238,7 +238,7 @@
                         
                         //Request events
                         $.post(
-                            '../scripts/loadevents.php',
+                            '../scripts/adminloadevents.php',
                             {
                                 moment:'onload',
                                 evdni:<?php echo $_SESSION['logged']; ?>,
@@ -489,6 +489,7 @@
                                         <p><h3>- Su DNI: ".$createdni."<br>
                                         - Y la siguiente contraseña: ".$createpass."</h3></p>
                                         <p style='color:red;'>UNA VEZ INGRESADO A SU CUENTA RECUERDE SELECCIONAR 'CAMBIAR CONTRASEÑA'</p>
+                                        <p><a>http://consultoriosvillamartina.000webhostapp.com</a></p>
                                     </body>
                                     </html>";
                                     $headers = "MIME-Version: 1.0" . "\r\n";

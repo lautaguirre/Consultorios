@@ -8,6 +8,8 @@
         <h3La siguiente reserva/s en Consultorios Villa Martina fue cancelada:</h3>
         <p></p>
         ".$_POST['deleteemailbody']."
+        <p></p>
+        <a>http://consultoriosvillamartina.000webhostapp.com</a>
         </body>
         </html>";
         $headers = "MIME-Version: 1.0" . "\r\n";
