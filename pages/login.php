@@ -90,7 +90,7 @@
                     header: {
 				        left: 'today',
 				        center: 'prev title next',
-				        right: 'agendaWeek listMonth'
+				        right: 'month,agendaWeek listMonth'
                     },
                     
                     minTime:"09:00:00",
@@ -467,7 +467,7 @@
                     <div style='display:none;' id='instructions'>
                         <ul>
                             <li>Puede cancelar reservas haciendo click en las mismas y seleccionando "Borrar evento" (Siempre que esten dentro del plazo permitido).</li>
-                            <li>Puede realizar una nueva reserva <b>ARRASTRANDO</b> el raton sobre los dias deseados y seleccionando "Reservar" (Notese que puede ver y reservar por horas en la pestaña "Semana").</li>
+                            <li>Puede realizar una nueva reserva <b>ARRASTRANDO</b> el raton sobre los dias deseados y seleccionando "Reservar" (Notese que solo puede reservar por horas en la pestaña <b>"Semana"</b>).</li>
                             <li>Puede agregar una descripcion a la hora de hacer una reserva, la cual sera mostrada junto con el evento (Si decide no agregar una, se usara su nombre y apellido como descripcion).</li>
                             <li>Para un uso eficiente del calendario seleccione todas las fechas q desea y luego haga click en "Reservar", en vez de hacerlo uno por uno.</li>
                         </ul>

@@ -39,6 +39,7 @@
                     
                     minTime:"09:00:00",
                     maxTime:"20:00:00",
+                    allDaySlot:false,
                     slotEventOverlap:false,
                     timeFormat:'HH(:mm)',
                     slotLabelFormat:'HH(:mm)A',
@@ -52,7 +53,7 @@
                     selectHelper:true,
                     selectOverlap:false,
                     selectMinDistance:10,
-                    businessHours:[ 
+                    /*businessHours:[ 
                         {
                             dow: [ 1, 2, 3, 4, 5, 6], 
                             start: '09:00', 
@@ -63,7 +64,7 @@
                             start: '16:00', 
                             end: '20:00' 
                         }
-                    ], 
+                    ], */
 
                     //Event click callback
                     eventClick:function(event){
@@ -235,6 +236,23 @@
 
                     //Events load function
                     events: function(start,end,timezone,callback){
+
+                        var bhours= 
+                        [{
+                            start: '13:00:00',
+                            end: '16:00:00',
+                            color: 'gray',
+                            rendering: 'background',
+                            dow: [1,2,3,4,5]
+                        },
+                        {
+                            start: '13:00:00',
+                            end: '20:00:00',
+                            color: 'gray',
+                            rendering: 'background',
+                            dow: [6]
+                        }];
+                        $('#calendar').fullCalendar( 'renderEvents',bhours,true); //Avoid bussines hours (to avoid css issues with higher hour slots)
                         
                         //Request events
                         $.post(
