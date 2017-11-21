@@ -1,11 +1,19 @@
 <?php
     require 'connection.php';
 
-    $sql='SELECT name,lastname FROM clientes WHERE dni='.$_POST['userdni'];
+    $sql='SELECT name,lastname,email FROM clientes WHERE dni='.$_POST['userdni'];
     $result=mysqli_query($conn,$sql);
     if(mysqli_num_rows($result)==1){
         $row=mysqli_fetch_assoc($result);
 
-        echo $row['name'].' '.$row['lastname'];
+        $obj=(object)[
+            'namelastname'=>$row['name'].' '.$row['lastname'],
+            'getemail'=>$row['email'],
+        ];
+
+        $json=json_encode($obj);
+
+        echo $json;
+
     }
 ?>

@@ -269,7 +269,8 @@
                                                 emailbody:selection2,
                                                 emailuser:username,
                                                 emaildni:<?php echo $_SESSION['logged']; ?>,
-                                                emailoffice:office
+                                                emailoffice:office,
+                                                emailemail:useremail
                                             }
                                         );
                                         selection2='';
@@ -353,9 +354,12 @@
                         userdni:<?php echo $_SESSION['logged']; ?>
                     },
                     function(data){
-                        $('#welcome').append(data);
+                        userdata=JSON.parse(data);
+                        $('#welcome').append(userdata.namelastname);
+                        useremail='';
+                        useremail=userdata.getemail;
                         username='';
-                        username=username.concat(data.replace(/\b\w/g, l => l.toUpperCase()));
+                        username=username.concat(userdata.namelastname.replace(/\b\w/g, l => l.toUpperCase()));
                     }
                 );
 
