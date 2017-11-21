@@ -47,7 +47,7 @@
         $result=mysqli_query($conn,$sql);
         if(mysqli_num_rows($result)>0){
             while($row=mysqli_fetch_assoc($result)){
-                $validation=checkoverlap($row['start'],$row['end'],$_POST['startev'],$_POST['endev']);
+                $validation=checkoverlap($row['start'],$row['end'],$_POST['startev'],$_POST['endev'],$todaydate);
                 if($validation==false){
                     break;
                 }
@@ -64,7 +64,7 @@
                 echo 'Nueva reserva creada<BR>';
             }
         }else{
-            echo '<errorspan>Error creando reserva, parece que otro usuario ya ocupo las fechas solicitadas o la descripcion no es valida.</errorspan><BR>';
+            echo '<errorspan>Error creando reserva, parece que otro usuario ya ocupo las fechas solicitadas, la descripcion no es valida o solicito fechas anteriores al dia de hoy.</errorspan><BR>';
         }
     }
 
@@ -83,7 +83,9 @@
     }
 
     //Avoid overlaping function
-    function checkoverlap($sttime,$enTime,$checkstarttime,$checkendtime){
+    function checkoverlap($sttime,$enTime,$checkstarttime,$checkendtime,$todayDate){
+        $today=strtotime($todayDate);
+
         $startTime = strtotime($sttime);
         $endTime   = strtotime($enTime);
         
@@ -101,6 +103,9 @@
             return false;
         }elseif($startTime > $chkStartTime && $endTime < $chkEndTime)
         {	
+            return false;
+        }elseif($chkStartTime<$today)
+        {
             return false;
         }else{
             return true;

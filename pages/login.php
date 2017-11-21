@@ -75,9 +75,25 @@
         <script src='../calendar/locale/es.js'></script>
         <script>
              $(document).ready(function() {
-                var selection='';
+                var selection=`<table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Comienzo</th>
+                                            <th>Fin</th>
+                                        </tr>
+                                    </thead>`;
+                var selectionnumber=0;
                 var selected=false;
-                var selection2='';
+                var selection2=`<table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Comienzo</th>
+                                            <th>Fin</th>
+                                        </tr>
+                                    </thead>`;
+                var selection2number=0;
                 var selected2=false;
                 var alreadyselected=false;
                 var selectedevents=[];
@@ -104,7 +120,6 @@
                     defaultView:'agendaWeek',
                     //selectConstraint: 'businessHours', In case you want to avoid selection
                     hiddenDays: [0],
-                    navLinks:true,
                     noEventsMessage: 'No hay eventos para mostrar',
                     selectable: true,
                     selectHelper:true,
@@ -139,19 +154,14 @@
                         }
                         if(event.id!=2 && event.id!=1 && alreadyselected==false && event.backgroundColor=='green'){
                             //Show selected events
-                            selection=selection+`<table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>Comienzo</th>
-                                            <th>Fin</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>`;
-                            selection=selection+`<tr>                    
-                                    <td >`+event.start.format('DD/MM/YYYY HH:mm')+`</td>
-                                    <td>`+event.end.format('DD/MM/YYYY HH:mm')+`</td>
-                                    </tr>`;
-                            selection=selection+"</tbody></table>";
+                            selectionnumber++;
+                            selection=selection+`<tbody>
+                                    <tr> 
+                                        <td>`+selectionnumber+`</td>                   
+                                        <td >`+event.start.format('DD/MM/YYYY HH:mm')+`</td>
+                                        <td>`+event.end.format('DD/MM/YYYY HH:mm')+`</td>
+                                    </tr>
+                                    </tbody>`;
 
                             $('#selection').html(selection);
                             console.log(selection);
@@ -177,7 +187,15 @@
                                 if(selected){
                                     $('#selection').html('');
                                     $('#cancelevent').addClass('hidden');
-                                    selection='';
+                                    selectionnumber=0;
+                                    selection=`<table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Comienzo</th>
+                                            <th>Fin</th>
+                                        </tr>
+                                    </thead>`;
                                     alreadyselected=false;
                                     selectedevents=[];
                                     $.post(
@@ -205,20 +223,14 @@
                         $('#cancelselection').click();
 
                         //Show selected events
-                        
-                        selection2=selection2+`<table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>Comienzo</th>
-                                            <th>Fin</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>`;
-                        selection2=selection2+`<tr>                    
-                                    <td >`+start.format('DD/MM/YYYY HH:mm')+`</td>
-                                    <td>`+end.format('DD/MM/YYYY HH:mm')+`</td>
-                                    </tr>`;
-                        selection2=selection2+"</tbody></table>";
+                        selection2number++;
+                        selection2=selection2+`<tbody>
+                                    <tr>
+                                        <td>`+selection2number+`</td>                    
+                                        <td >`+start.format('DD/MM/YYYY HH:mm')+`</td>
+                                        <td>`+end.format('DD/MM/YYYY HH:mm')+`</td>
+                                    </tr>
+                                    </tbody>`;
                     
                         $('#selection2').html(selection2);
                         console.log(selection2);
@@ -273,7 +285,15 @@
                                                 emailemail:useremail
                                             }
                                         );
-                                        selection2='';
+                                        selection2number=0;
+                                        selection2=`<table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Comienzo</th>
+                                            <th>Fin</th>
+                                        </tr>
+                                    </thead>`;
                                         console.log(data);
                                         $('#selection2').html(data);
                                         $('#calendar').fullCalendar( 'removeEvents',2 ); //Remove green highlight
@@ -288,8 +308,11 @@
                     //Events load function
                     events: function(start,end,timezone,callback){
 
+                        $('#calendar').fullCalendar( 'removeEvents',3 );
+
                         var bhours= 
                         [{
+                            id:3,
                             start: '13:00:00',
                             end: '16:00:00',
                             color: 'gray',
@@ -297,6 +320,7 @@
                             dow: [1,2,3,4,5]
                         },
                         {
+                            id:3,
                             start: '13:00:00',
                             end: '20:00:00',
                             color: 'gray',
@@ -329,7 +353,15 @@
                     $('#cancelevent').addClass('hidden');
                     $('#response').html('');
                     selected=false;
-                    selection='';
+                    selectionnumber=0;
+                    selection=`<table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Comienzo</th>
+                                            <th>Fin</th>
+                                        </tr>
+                                    </thead>`;
                     alreadyselected=false;
                     selectedevents=[];
                     $('#deleteevent').click(); //dump click handlers
@@ -343,7 +375,15 @@
                     $('#reservetext').addClass('hidden');
                     $('#response').html('');
                     selected2=false;
-                    selection2='';
+                    selection2number=0;
+                    selection2=`<table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Comienzo</th>
+                                            <th>Fin</th>
+                                        </tr>
+                                    </thead>`;
                     $('#reserve').click(); //dump click handlers
                 });
 
@@ -364,7 +404,7 @@
                 );
 
                 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
-                    $('#mobile').html('<errorspan>SI SE ENCUENTRA EN UN DISPOSITIVO TACTIL Y DEBE MANTENER APRETADO SOBRE EL CALENDARIO POR UN BREVE LAPSO Y LUEGO ARRASTRAR EL DEDO PARA SELECCIONAR LOS DIAS/HORAS DESEADOS.</errorspan>');
+                    $('#mobile').html('<errorspan>SI SE ENCUENTRA EN UN DISPOSITIVO TACTIL DEBE MANTENER APRETADO SOBRE EL CALENDARIO POR UN BREVE LAPSO Y LUEGO ARRASTRAR EL DEDO PARA SELECCIONAR LOS DIAS/HORAS DESEADOS.</errorspan>');
                 }
 
                 //Select office
@@ -383,8 +423,24 @@
                     $('#titletext').val('');
                     selected=false;
                     selected2=false;
-                    selection='';
-                    selection2='';
+                    selectionnumber=0;
+                    selection=`<table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Comienzo</th>
+                                            <th>Fin</th>
+                                        </tr>
+                                    </thead>`;
+                    selection2number=0;
+                    selection2=`<table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Comienzo</th>
+                                            <th>Fin</th>
+                                        </tr>
+                                    </thead>`;
                     alreadyselected=false;
                     selectedevents=[];
                     $('#deleteevent').click(); //dump click handlers
@@ -407,8 +463,24 @@
                     $('#titletext').val('');
                     selected=false;
                     selected2=false;
-                    selection='';
-                    selection2='';
+                    selectionnumber=0;
+                    selection=`<table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Comienzo</th>
+                                            <th>Fin</th>
+                                        </tr>
+                                    </thead>`;
+                    selection2number=0;
+                    selection2=`<table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Comienzo</th>
+                                            <th>Fin</th>
+                                        </tr>
+                                    </thead>`;
                     alreadyselected=false;
                     selectedevents=[];
                     $('#deleteevent').click(); //dump click handlers
