@@ -225,15 +225,17 @@
                                         mailev:selection2
                                     },
                                     function(data){
-                                        $.post(
-                                            '../scripts/sendemail.php',
-                                            {
-                                                emailbody:selection2,
-                                                emailuser:username,
-                                                emaildni:<?php echo $_SESSION['logged']; ?>,
-                                                emailoffice:office
-                                            }
-                                        );
+                                        if(data!='<errorspan>Error creando reserva, parece que otro usuario ya ocupo las fechas solicitadas, la descripcion no es valida o solicito fechas anteriores al dia de hoy.</errorspan><BR>'){
+                                            $.post(
+                                                '../scripts/sendemail.php',
+                                                {
+                                                    emailbody:selection2,
+                                                    emailuser:username,
+                                                    emaildni:<?php echo $_SESSION['logged']; ?>,
+                                                    emailoffice:office
+                                                }
+                                            );
+                                        }
                                         selection2number=0;
                                         selection2=`<table class="table">
                                     <thead>

@@ -275,25 +275,27 @@
                                         mailev:selection2
                                     },
                                     function(data){
-                                        $.post(
-                                            '../scripts/sendemail.php',
-                                            {
-                                                emailbody:selection2,
-                                                emailuser:username,
-                                                emaildni:<?php echo $_SESSION['logged']; ?>,
-                                                emailoffice:office,
-                                                emailemail:useremail
-                                            }
-                                        );
+                                        if(data!='<errorspan>Error creando reserva, parece que otro usuario ya ocupo las fechas solicitadas, la descripcion no es valida o solicito fechas anteriores al dia de hoy.</errorspan><BR>'){
+                                            $.post(
+                                                '../scripts/sendemail.php',
+                                                {
+                                                    emailbody:selection2,
+                                                    emailuser:username,
+                                                    emaildni:<?php echo $_SESSION['logged']; ?>,
+                                                    emailoffice:office,
+                                                    emailemail:useremail
+                                                }
+                                            );
+                                        }
                                         selection2number=0;
                                         selection2=`<table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Comienzo</th>
-                                            <th>Fin</th>
-                                        </tr>
-                                    </thead>`;
+                                           <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Comienzo</th>
+                                                    <th>Fin</th>
+                                                </tr>
+                                            </thead>`;
                                         console.log(data);
                                         $('#selection2').html(data);
                                         $('#calendar').fullCalendar( 'removeEvents',2 ); //Remove green highlight
@@ -539,7 +541,7 @@
                     <p></p>
                     <div id='mobile'></div>
                     <p></p>
-                    <div id='instructionsslide'><a class='btn'>Instrucciones</a></div>
+                    <div id='instructionsslide'><a class='btn'>Instrucciones de uso</a></div>
                     <div style='display:none;' id='instructions'>
                         <ul>
                             <li>Puede cancelar reservas haciendo click en las mismas y seleccionando "Borrar evento" (Siempre que esten dentro del plazo permitido).</li>
