@@ -1,5 +1,5 @@
 <?php
-    if($_POST['deleteemailbody']!=''){
+    if($_POST['deleteemailbody']!='<table class="table"><thead><tr><th>#</th><th>Comienzo</th><th>Fin</th></tr></thead>'){
         
         $to = $_POST['deleteemail'];
         $subject = "Consultorios Villa Martina: Evento eliminado";

@@ -226,6 +226,9 @@
                                     },
                                     function(data){
                                         if(data!='<errorspan>Error creando reserva, parece que otro usuario ya ocupo las fechas solicitadas, la descripcion no es valida o solicito fechas anteriores al dia de hoy.</errorspan><BR>'){
+                                            if(selection2==`<table class="table"><thead><tr><th>#</th><th>Comienzo</th><th>Fin</th></tr></thead>`){
+                                                selection2=selectionaux;
+                                            }
                                             $.post(
                                                 '../scripts/sendemail.php',
                                                 {
@@ -235,6 +238,10 @@
                                                     emailoffice:office
                                                 }
                                             );
+                                        }else{
+                                            if(selection2!=`<table class="table"><thead><tr><th>#</th><th>Comienzo</th><th>Fin</th></tr></thead>`){
+                                                selectionaux=selection2;
+                                            }
                                         }
                                         selection2number=0;
                                         selection2=`<table class="table">
