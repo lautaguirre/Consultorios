@@ -29,15 +29,14 @@
         for($arrpos=0;$arrpos<$lenght;$arrpos++){
             $sql='DELETE FROM reservas WHERE (start="'.$evarray[$arrpos]->evstart.'") AND (end="'.$evarray[$arrpos]->evend.'") AND officenumber='.$_POST['officenumber'];
             mysqli_query($conn,$sql);  
-
-            $obj=(object)[
-                'msg'=>'Reserva borrada con exito, se le envio un mail al usuario notificandolo.<BR>',
-                'useremail'=>$useremail,
-            ]; 
-
-            $json=json_encode($obj);
-            echo $json;
         }
+        $obj=(object)[
+            'msg'=>'Reserva borrada con exito, se le envio un mail al usuario notificandolo.<BR>',
+            'useremail'=>$useremail,
+        ]; 
+
+        $json=json_encode($obj);
+        echo $json;
     }else{
         echo '<errorspan>Error borrando reserva, puede que haya elegido varios usuarios diferentes<errorspan><BR>';
     }
