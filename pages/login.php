@@ -101,6 +101,8 @@
                 var evdesc='';
                 var selectarr=[];
                 var selectobj={};
+                var clickevobj={};
+                var clickevarr=[];
 
                 //Calendar config
                 $('#calendar').fullCalendar({
@@ -127,18 +129,6 @@
                     selectHelper:true,
                     selectOverlap:false,
                     selectMinDistance:10,
-                    /*businessHours:[ 
-                        {
-                            dow: [ 1, 2, 3, 4, 5, 6], 
-                            start: '09:00', 
-                            end: '13:00' 
-                        },
-                        {
-                            dow: [ 1, 2, 3, 4, 5],
-                            start: '16:00', 
-                            end: '20:00' 
-                        }
-                    ], */
 
                     //Event click callback
                     eventClick:function(event){
@@ -166,7 +156,6 @@
                                     </tbody>`;
                             
                             $('#selection').html(selection);
-                            console.log(selection);
 
                             $('#cancelevent').removeClass('hidden'); //Show cancel submit button
 
@@ -184,40 +173,13 @@
 
                             selected=true;
 
-                            //Delete selected events
-                            $('#deleteevent').one('click',function(){
-                                if(selected){
-                                    $('#selection').html('');
-                                    $('#cancelevent').addClass('hidden');
-                                    selectionnumber=0;
-                                    selection=`<table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Comienzo</th>
-                                            <th>Fin</th>
-                                        </tr>
-                                    </thead>`;
-                                    alreadyselected=false;
-                                    selectedevents=[];
-                                    $.post(
-                                        '../scripts/deleteevents.php',
-                                        {
-                                            startev:event.start.format(),
-                                            endev:event.end.format(),
-                                            officenumber:office,
-                                            deletedni:<?php echo $_SESSION['logged']; ?>
-                                        },
-                                        function(data){
-                                            console.log(data);
-                                            $('#selection').html(data);
-                                            $('#calendar').fullCalendar( 'removeEvents',1 ); //Remove red events
-                                            $('#calendar').fullCalendar( 'refetchEvents' );
-                                        }
-                                    );
-                                }
-                            });
-                        }
+                            clickevobj.evstart=event.start.format();
+                            clickevobj.evend=event.end.format();
+
+                            clickevarr.push(clickevobj);
+
+                            clickevobj={};
+                        }  
                     },
 
                     //Select callback
@@ -305,6 +267,43 @@
                     }
                 });
 
+                //Delete selected events
+                $('#deleteevent').click(function(){
+                    if(selected){
+                        $('#selection').html('');
+                        $('#cancelevent').addClass('hidden');
+                        selectionnumber=0;
+                        selection=`<table class="table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Comienzo</th>
+                                    <th>Fin</th>
+                                </tr>
+                            </thead>`;
+                        alreadyselected=false;
+                        selectedevents=[];
+                        clickjson=JSON.stringify(clickevarr);
+                        clickevobj={};
+                        clickevarr=[];
+                        $.post(
+                            '../scripts/deleteevents.php',
+                            {
+                                clickevjson:clickjson,
+                                officenumber:office,
+                                deletedni:<?php echo $_SESSION['logged']; ?>
+                            },
+                            function(data){
+                                console.log(data);
+                                $('#selection').html(data);
+                                $('#calendar').fullCalendar( 'removeEvents',1 ); //Remove red events
+                                $('#calendar').fullCalendar( 'refetchEvents' );
+                            }
+                        );
+                    }
+                });
+
+
                 //Send selected dates to db
                 $('#reserve').click(function(){ 
                     if(selected2){ //If there is no selection avoid post 
@@ -367,6 +366,8 @@
                     $('#selection').html('');
                     $('#cancelevent').addClass('hidden');
                     $('#response').html('');
+                    clickevobj={};
+                    clickevarr=[];
                     selected=false;
                     selectionnumber=0;
                     selection=`<table class="table">
@@ -438,6 +439,8 @@
                     $('#cancelevent').addClass('hidden');
                     $('#reservetext').addClass('hidden');
                     $('#titletext').val('');
+                    clickevobj={};
+                    clickevarr=[];
                     selectobj={};
                     selectarr=[];
                     selected=false;
@@ -480,6 +483,8 @@
                     $('#cancelevent').addClass('hidden');
                     $('#reservetext').addClass('hidden');
                     $('#titletext').val('');
+                    clickevobj={};
+                    clickevarr=[];
                     selectobj={};
                     selectarr=[];
                     selected=false;

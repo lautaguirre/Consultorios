@@ -1,12 +1,11 @@
 <?php
     require 'connection.php';
-    
-    $sql='DELETE FROM reservas WHERE (start="'.$_POST['startev'].'") AND (end="'.$_POST['endev'].'") AND (officenumber='.$_POST['officenumber'].') AND dni='.$_POST['deletedni'];
-    if(mysqli_query($conn,$sql)){;
-        if(mysqli_affected_rows($conn)==1){        
-            echo 'Reserva borrada con exito<BR>';
-        }
-    }else{
-        echo '<errorspan>Error borrando reserva<errorspan><BR>';
+
+    $evarray=json_decode($_POST['clickevjson']);
+    $lenght=count($evarray);
+    for($arrpos=0;$arrpos<$lenght;$arrpos++){
+        $sql='DELETE FROM reservas WHERE (start="'.$evarray[$arrpos]->evstart.'") AND (end="'.$evarray[$arrpos]->evend.'") AND (officenumber='.$_POST['officenumber'].') AND dni='.$_POST['deletedni'];
+        mysqli_query($conn,$sql);
     }
+    echo 'Reserva borrada con exito<BR>';    
 ?>

@@ -1,21 +1,34 @@
 <?php
     require 'connection.php';
 
-    $sql='SELECT clientes.email 
-    FROM clientes
-    INNER JOIN reservas 
-    ON clientes.dni = reservas.dni 
-    WHERE (reservas.start="'.$_POST['startev'].'") AND (reservas.end="'.$_POST['endev'].'") AND reservas.officenumber='.$_POST['officenumber'];
-    $result=mysqli_query($conn,$sql);
-    if(mysqli_num_rows($result)==1){
-        $row=mysqli_fetch_assoc($result);
+    $evarray=json_decode($_POST['clickevjson']);
+    $lenght=count($evarray);
+    $aux='';
+    $validation=true;
 
+    for($arrpos=0;$arrpos<$lenght;$arrpos++){
+        $sql='SELECT clientes.email 
+        FROM clientes
+        INNER JOIN reservas 
+        ON clientes.dni = reservas.dni 
+        WHERE (reservas.start="'.$evarray[$arrpos]->evstart.'") AND (reservas.end="'.$evarray[$arrpos]->evend.'") AND reservas.officenumber='.$_POST['officenumber'];
+        $result=mysqli_query($conn,$sql);
+        $row=mysqli_fetch_assoc($result);
         $useremail=$row['email'];
+        if($arrpos==0){
+            $aux=$useremail;
+        }else{
+            if($aux!=$useremail){
+                $validation=false;
+                break;
+            }
+        }
     }
-    
-    $sql='DELETE FROM reservas WHERE (start="'.$_POST['startev'].'") AND (end="'.$_POST['endev'].'") AND officenumber='.$_POST['officenumber'];
-    if(mysqli_query($conn,$sql)){;
-        if(mysqli_affected_rows($conn)==1){    
+
+    if($validation){
+        for($arrpos=0;$arrpos<$lenght;$arrpos++){
+            $sql='DELETE FROM reservas WHERE (start="'.$evarray[$arrpos]->evstart.'") AND (end="'.$evarray[$arrpos]->evend.'") AND officenumber='.$_POST['officenumber'];
+            mysqli_query($conn,$sql);  
 
             $obj=(object)[
                 'msg'=>'Reserva borrada con exito, se le envio un mail al usuario notificandolo.<BR>',
@@ -23,10 +36,9 @@
             ]; 
 
             $json=json_encode($obj);
-
             echo $json;
         }
     }else{
-        echo '<errorspan>Error borrando reserva<errorspan><BR>';
+        echo '<errorspan>Error borrando reserva, puede que haya elegido varios usuarios diferentes<errorspan><BR>';
     }
 ?>

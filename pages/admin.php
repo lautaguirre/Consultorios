@@ -45,6 +45,8 @@
                 var evdesc='';
                 var selectarr=[];
                 var selectobj={};
+                var clickevobj={};
+                var clickevarr=[];
 
                 //Calendar config
                 $('#calendar').fullCalendar({
@@ -126,46 +128,12 @@
 
                             selected=true;
 
-                            //Delete selected events
-                            $('#deleteevent').one('click',function(){
-                                if(selected){
-                                    $('#selection').html('');
-                                    $('#cancelevent').addClass('hidden');
-                                    alreadyselected=false;
-                                    selectedevents=[];
-                                    $.post(
-                                        '../scripts/admindeleteevents.php', 
-                                        {
-                                            startev:event.start.format(),
-                                            endev:event.end.format(),
-                                            officenumber:office
-                                        },
-                                        function(data){
-                                            admindeletedata=JSON.parse(data);
-                                            console.log(data);
-                                            $.post(
-                                                '../scripts/admindeleteemail.php',
-                                                {
-                                                    deleteemailbody:selection,
-                                                    deleteemail:admindeletedata.useremail
-                                                }
-                                            );
-                                            selectionnumber=0;
-                                            selection=`<table class="table">
-                                                <thead>
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th>Comienzo</th>
-                                                        <th>Fin</th>
-                                                    </tr>
-                                                </thead>`;
-                                            $('#selection').html(admindeletedata.msg);
-                                            $('#calendar').fullCalendar( 'removeEvents',1 ); //Remove red events
-                                            $('#calendar').fullCalendar( 'refetchEvents' );
-                                        }
-                                    );
-                                }
-                            });
+                            clickevobj.evstart=event.start.format();
+                            clickevobj.evend=event.end.format();
+
+                            clickevarr.push(clickevobj);
+
+                            clickevobj={};
                         }
                     },
 
@@ -254,6 +222,54 @@
                     }
                 });
 
+                //Delete selected events
+                $('#deleteevent').click(function(){
+                    if(selected){
+                        $('#selection').html('');
+                        $('#cancelevent').addClass('hidden');
+                        alreadyselected=false;
+                        selectedevents=[];
+                        clickjson=JSON.stringify(clickevarr);
+                        clickevobj={};
+                        clickevarr=[];
+                        $.post(
+                            '../scripts/admindeleteevents.php', 
+                            {
+                                clickevjson:clickjson,
+                                officenumber:office
+                            },
+                            function(data){
+                                console.log(data);
+                                if(data=='<errorspan>Error borrando reserva, puede que haya elegido varios usuarios diferentes<errorspan><BR>'){
+                                    $('#selection').html(data);
+                                }else{
+                                    admindeletedata=JSON.parse(data);
+                                    $.post(
+                                        '../scripts/admindeleteemail.php',
+                                        {
+                                            deleteemailbody:selection,
+                                            deleteemail:admindeletedata.useremail
+                                        }
+                                    );
+                                    $('#selection').html(admindeletedata.msg);
+                                }
+                                selectionnumber=0;
+                                selection=`<table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Comienzo</th>
+                                            <th>Fin</th>
+                                        </tr>
+                                    </thead>`;
+                                $('#calendar').fullCalendar( 'removeEvents',1 ); //Remove red events
+                                $('#calendar').fullCalendar( 'refetchEvents' );
+                            }
+                        );
+                    }
+                });
+
+
                 //Send selected dates to db
                 $('#reserve').click(function(){ 
                     if(selected2){ //If there is no selection avoid post
@@ -303,6 +319,8 @@
                     $('#selection').html('');
                     $('#cancelevent').addClass('hidden');
                     $('#response').html('');
+                    clickevobj={};
+                    clickevarr=[];
                     selected=false;
                     selectionnumber=0;
                     selection=`<table class="table">
@@ -370,6 +388,8 @@
                     $('#cancelevent').addClass('hidden');
                     $('#reservetext').addClass('hidden');
                     $('#titletext').val('');
+                    clickevobj={};
+                    clickevarr=[];
                     selectarr=[];
                     selectobj={};
                     selected=false;
@@ -412,6 +432,8 @@
                     $('#cancelevent').addClass('hidden');
                     $('#reservetext').addClass('hidden');
                     $('#titletext').val('');
+                    clickevobj={};
+                    clickevarr=[];
                     selectarr=[];
                     selectobj={};
                     selected=false;
