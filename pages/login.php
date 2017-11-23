@@ -99,6 +99,8 @@
                 var selectedevents=[];
                 var office=1;
                 var evdesc='';
+                var selectarr=[];
+                var selectobj={};
 
                 //Calendar config
                 $('#calendar').fullCalendar({
@@ -162,7 +164,7 @@
                                         <td>`+event.end.format('DD/MM/YYYY HH:mm')+`</td>
                                     </tr>
                                     </tbody>`;
-
+                            
                             $('#selection').html(selection);
                             console.log(selection);
 
@@ -223,95 +225,43 @@
                         $('#cancelselection').click();
 
                         //Show selected events
-                        selection2number++;
-                        selection2=selection2+`<tbody>
-                                    <tr>
-                                        <td>`+selection2number+`</td>                    
-                                        <td >`+start.format('DD/MM/YYYY HH:mm')+`</td>
-                                        <td>`+end.format('DD/MM/YYYY HH:mm')+`</td>
-                                    </tr>
-                                    </tbody>`;
-                    
-                        $('#selection2').html(selection2);
-                        console.log(selection2);
+                        if(moment().isBefore(start.format())){
+                            selection2number++;
+                            selection2=selection2+`<tbody>
+                                <tr>
+                                    <td>`+selection2number+`</td>                    
+                                    <td >`+start.format('DD/MM/YYYY HH:mm')+`</td>
+                                    <td>`+end.format('DD/MM/YYYY HH:mm')+`</td>
+                                </tr>
+                                </tbody>`;
+                                
+                            $('#selection2').html(selection2);
 
-                        $('#reservetext').removeClass('hidden'); //Show title input and reserve submit button
+                            $('#reservetext').removeClass('hidden'); //Show title input and reserve submit button
 
-                        //Unselect method
-                        $('#calendar').fullCalendar( 'unselect' );
-
-                        //Render selected event as background event
-                        var backevent=
+                            //Render selected event as background event
+                            var backevent=
                             {
                                 'id':2,
                                 'start':start.format(),
                                 'end':end.format(),
                                 'backgroundColor':'green'
                             };
-                        $('#calendar').fullCalendar( 'renderEvent',backevent,true);
+                            $('#calendar').fullCalendar( 'renderEvent',backevent,true);
 
-                        selected2=true;
+                            selected2=true;
 
-                        //Send selected dates to db
-                        $('#reserve').one('click',function(){ 
-                            if(selected2){ //If there is no selection avoid post handlers acumulated
-                                var title=$('#titletext').val();
-                                if(title==''){
-                                    evdesc=username;
-                                }else{
-                                    evdesc=title;
-                                }
-                                $('#selection2').html('');
-                                $('#reservetext').addClass('hidden');
-                                $.post(
-                                    '../scripts/loadevents.php',
-                                    {
-                                        moment:'reserve',
-                                        startev:start.format(),
-                                        endev:end.format(),
-                                        titleev:evdesc,
-                                        evdni:<?php echo $_SESSION['logged']; ?>,
-                                        officenumber:office,
-                                        mailev:selection2
-                                    },
-                                    function(data){
-                                        if(data!='<errorspan>Error creando reserva, parece que otro usuario ya ocupo las fechas solicitadas, la descripcion no es valida o solicito fechas anteriores al dia de hoy.</errorspan><BR>'){
-                                            if(selection2==`<table class="table"><thead><tr><th>#</th><th>Comienzo</th><th>Fin</th></tr></thead>`){
-                                                selection2=selectionaux;
-                                            }
-                                            $.post(
-                                                '../scripts/sendemail.php',
-                                                {
-                                                    emailbody:selection2,
-                                                    emailuser:username,
-                                                    emaildni:<?php echo $_SESSION['logged']; ?>,
-                                                    emailoffice:office,
-                                                    emailemail:useremail
-                                                }
-                                            );
-                                        }else{
-                                            if(selection2!=`<table class="table"><thead><tr><th>#</th><th>Comienzo</th><th>Fin</th></tr></thead>`){
-                                                selectionaux=selection2;
-                                            }
-                                        }
-                                        selection2number=0;
-                                        selection2=`<table class="table">
-                                           <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Comienzo</th>
-                                                    <th>Fin</th>
-                                                </tr>
-                                            </thead>`;
-                                        console.log(data);
-                                        $('#selection2').html(data);
-                                        $('#calendar').fullCalendar( 'removeEvents',2 ); //Remove green highlight
-                                        $('#calendar').fullCalendar( 'refetchEvents' );
-                                        $('#titletext').val('');
-                                    }
-                                );
-                            }
-                        });
+                            selectobj.evstart=start.format();
+                            selectobj.evend=end.format();
+
+                            selectarr.push(selectobj);
+
+                            selectobj={};
+                        }
+
+                        //Unselect method
+                        $('#calendar').fullCalendar( 'unselect' );
+
                     },
 
                     //Events load function
@@ -355,6 +305,62 @@
                     }
                 });
 
+                //Send selected dates to db
+                $('#reserve').click(function(){ 
+                    if(selected2){ //If there is no selection avoid post 
+                        var title=$('#titletext').val();
+                        if(title==''){
+                            evdesc=username;
+                        }else{
+                            evdesc=title;
+                        }
+                        $('#selection2').html('');
+                        $('#reservetext').addClass('hidden');
+                        jsonarr=JSON.stringify(selectarr);
+                        selectobj={};
+                        selectarr=[];
+                        $.post(
+                            '../scripts/loadevents.php',
+                            {
+                                moment:'reserve',
+                                evjson:jsonarr,
+                                titleev:evdesc,
+                                evdni:<?php echo $_SESSION['logged']; ?>,
+                                officenumber:office
+                            },
+                            function(data){
+                                if(data!='<errorspan>Error creando reserva, parece que otro usuario ya ocupo las fechas solicitadas, la descripcion no es valida o solicito fechas anteriores al dia de hoy.</errorspan><BR>'){
+                                    $.post(
+                                        '../scripts/sendemail.php',
+                                        {
+                                            emailbody:selection2,
+                                            emailuser:username,
+                                            emaildni:<?php echo $_SESSION['logged']; ?>,
+                                            emailoffice:office,
+                                            emailemail:useremail
+                                        }
+                                    );
+                                }
+                                        
+                                selection2number=0;
+                                selection2=`<table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Comienzo</th>
+                                            <th>Fin</th>
+                                        </tr>
+                                    </thead>`;
+                                console.log(data);
+                                $('#selection2').html(data);
+                                $('#calendar').fullCalendar( 'removeEvents',2 ); //Remove green highlight
+                                $('#calendar').fullCalendar( 'refetchEvents' );
+                                $('#titletext').val('');
+                            }
+                        );
+                    }
+                });
+
                 //Cancel remove selected events button
                 $('#cancelselection').click(function(){
                     $('#calendar').fullCalendar( 'removeEvents',1 );
@@ -384,6 +390,8 @@
                     $('#reservetext').addClass('hidden');
                     $('#response').html('');
                     selected2=false;
+                    selectobj={};
+                    selectarr=[];
                     selection2number=0;
                     selection2=`<table class="table">
                                     <thead>
@@ -430,6 +438,8 @@
                     $('#cancelevent').addClass('hidden');
                     $('#reservetext').addClass('hidden');
                     $('#titletext').val('');
+                    selectobj={};
+                    selectarr=[];
                     selected=false;
                     selected2=false;
                     selectionnumber=0;
@@ -470,6 +480,8 @@
                     $('#cancelevent').addClass('hidden');
                     $('#reservetext').addClass('hidden');
                     $('#titletext').val('');
+                    selectobj={};
+                    selectarr=[];
                     selected=false;
                     selected2=false;
                     selectionnumber=0;

@@ -14,7 +14,7 @@
         $arr=array(); //Set up events array
 
         //Load only events that ends after today
-        $sql='SELECT title,start,end,dni,id FROM reservas WHERE (CAST(end AS DATETIME) >= CAST("'.$todaydate.'" AS DATETIME)) AND officenumber='.$_POST['officenumber']; 
+        $sql='SELECT title,start,end,dni,id FROM reservas WHERE (CAST(end AS DATETIME) >= CAST("'.$todaydate.'" AS DATETIME)) AND officenumber='.$_POST['officenumber'];
         $result=mysqli_query($conn,$sql);
         if(mysqli_num_rows($result)>0){
             while($row=mysqli_fetch_assoc($result)){
@@ -38,18 +38,22 @@
             }
         }
         $json=json_encode($arr);
-        
+
         echo $json;
 
     //Insert reservation
     }else if($_POST['moment']=='reserve'){
-        $sql='SELECT start,end FROM reservas WHERE (CAST(end AS DATETIME) >= CAST("'.$todaydate.'" AS DATETIME)) AND officenumber='.$_POST['officenumber'];
-        $result=mysqli_query($conn,$sql);
-        if(mysqli_num_rows($result)>0){
-            while($row=mysqli_fetch_assoc($result)){
-                $validation=checkoverlap($row['start'],$row['end'],$_POST['startev'],$_POST['endev'],$todaydate);
-                if($validation==false){
-                    break;
+        $evarray=json_decode($_POST['evjson']);
+        $lenght=count($evarray);
+        for($arrpos=0;$arrpos<$lenght;$arrpos++){
+            $sql='SELECT start,end FROM reservas WHERE (CAST(end AS DATETIME) >= CAST("'.$todaydate.'" AS DATETIME)) AND officenumber='.$_POST['officenumber'];
+            $result=mysqli_query($conn,$sql);
+            if(mysqli_num_rows($result)>0){
+                while($row=mysqli_fetch_assoc($result)){
+                    $validation=checkoverlap($row['start'],$row['end'],$evarray[$arrpos]->evstart,$evarray[$arrpos]->evend,$todaydate);
+                    if($validation==false){
+                        break 2;
+                    }
                 }
             }
         }
@@ -58,11 +62,11 @@
         validateaddress($createtitle);
 
         if($validation==true){
-            $sql='INSERT INTO reservas (title,start,end,dni,officenumber) VALUES ("'.$_POST['titleev'].'","'.$_POST['startev'].'","'.$_POST['endev'].'",'.$_POST['evdni'].','.$_POST['officenumber'].')';
-            if(mysqli_query($conn,$sql)){  
-                
-                echo 'Nueva reserva creada<BR>';
+            for($arrpos=0;$arrpos<$lenght;$arrpos++){
+                $sql='INSERT INTO reservas (title,start,end,dni,officenumber) VALUES ("'.$_POST['titleev'].'","'.$evarray[$arrpos]->evstart.'","'.$evarray[$arrpos]->evend.'",'.$_POST['evdni'].','.$_POST['officenumber'].')';
+                mysqli_query($conn,$sql);
             }
+            echo 'Nueva reserva creada<BR>'; 
         }else{
             echo '<errorspan>Error creando reserva, parece que otro usuario ya ocupo las fechas solicitadas, la descripcion no es valida o solicito fechas anteriores al dia de hoy.</errorspan><BR>';
         }
@@ -79,7 +83,7 @@
             echo '<errorspan>Ingrese solo letras y numeros.</errorspan><br>';
             global $validation;
             $validation=false;
-        }                        
+        }
     }
 
     //Avoid overlaping function
@@ -88,21 +92,21 @@
 
         $startTime = strtotime($sttime);
         $endTime   = strtotime($enTime);
-        
+
         $chkStartTime = strtotime($checkstarttime);
         $chkEndTime   = strtotime($checkendtime);
-        
+
         if($chkStartTime > $startTime && $chkEndTime < $endTime)
-        {	
+        {
             return false;
         }elseif(($chkStartTime > $startTime && $chkStartTime < $endTime) || ($chkEndTime > $startTime && $chkEndTime < $endTime))
-        {	
+        {
             return false;
         }elseif($chkStartTime==$startTime || $chkEndTime==$endTime)
-        {	
+        {
             return false;
         }elseif($startTime > $chkStartTime && $endTime < $chkEndTime)
-        {	
+        {
             return false;
         }elseif($chkStartTime<$today)
         {
