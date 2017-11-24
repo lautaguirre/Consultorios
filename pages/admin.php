@@ -86,7 +86,7 @@
                                 alreadyselected=false;
                             }
                         }
-                        if(event.id!=2 && event.id!=1 && alreadyselected==false){
+                        if(event.id!=2 && event.id!=1 && alreadyselected==false && moment().isBefore(event.start.format())){
                             //Show selected events
                             selectionnumber++;
                             selection=selection+`<tbody>
