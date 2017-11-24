@@ -22,9 +22,6 @@ document.write(`<div class="container">
             <a href="imagenes.html">Imagenes</a>
         </li>
         <li>
-            <a href="sobrenosotros.html">Sobre nosotros</a>
-        </li>
-        <li>
             <a href="contacto.html">Contacto</a>
         </li>
     </ul>

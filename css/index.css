@@ -40,7 +40,7 @@ blockquote
 	border-left: 5px solid #eee;
 }
 
-input[type=text], input[type=password], input[type=email] {
+input[type=text], input[type=password], input[type=email], input[type=month] {
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;

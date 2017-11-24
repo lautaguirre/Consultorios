@@ -68,9 +68,6 @@
 						<a href="pages/imagenes.html">Imagenes</a>
 					</li>
 					<li>
-						<a href="pages/sobrenosotros.html">Sobre nosotros</a>
-					</li>
-					<li>
 						<a href="pages/contacto.html">Contacto</a>
 					</li>
 				</ul>

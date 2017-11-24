@@ -122,7 +122,6 @@
                     displayEventEnd:true,
                     slotDuration:'01:00:00',
                     defaultView:'agendaWeek',
-                    //selectConstraint: 'businessHours', In case you want to avoid selection
                     hiddenDays: [0],
                     noEventsMessage: 'No hay eventos para mostrar',
                     selectable: true,

@@ -65,25 +65,12 @@
                     slotLabelFormat:'HH(:mm)A',
                     displayEventEnd:true,
                     slotDuration:'01:00:00',
-                    //selectConstraint: 'businessHours', In case you want to avoid selection
                     hiddenDays: [0],
                     noEventsMessage: 'No hay eventos para mostrar',
                     selectable: true,
                     selectHelper:true,
                     selectOverlap:false,
                     selectMinDistance:10,
-                    /*businessHours:[ 
-                        {
-                            dow: [ 1, 2, 3, 4, 5, 6], 
-                            start: '09:00', 
-                            end: '13:00' 
-                        },
-                        {
-                            dow: [ 1, 2, 3, 4, 5],
-                            start: '16:00', 
-                            end: '20:00' 
-                        }
-                    ], */
 
                     //Event click callback
                     eventClick:function(event){
@@ -463,6 +450,53 @@
 
                     $('#calendar').fullCalendar( 'refetchEvents' );
                 });
+
+                $('#monthselect').click(function(){
+                    month=$('#monthselector').val();
+                    monthdni='';
+                    monthdni=$('#monthdni').val();
+                    monthend = moment(month).endOf('month');
+                    monthstart = moment(month).startOf('month');
+                    ME=monthend.format('YYYY-MM-DD HH:mm:ss');
+                    MS=monthstart.format('YYYY-MM-DD HH:mm:ss');
+                    MS=MS.replace(' ','T');
+                    ME=ME.replace(' ','T');
+                    totalhours=0;
+                    $.post(
+                        '../scripts/getmonth.php',
+                        {
+                            getmonthstart:MS,
+                            getmonthend:ME,
+                            getmonthdni:monthdni
+                        },
+                        function(data){
+                            monthev=JSON.parse(data);
+                            monthtable=`<table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Titulo</th>
+                                        <th>Comienzo</th>
+                                        <th>Fin</th>
+                                        <th>Oficina</th>
+                                    </tr>
+                                </thead>`;
+                            for(monthpos=0;monthpos<monthev.length;monthpos++){
+                                totalhours=totalhours+moment(monthev[monthpos].start).diff(moment(monthev[monthpos].end),'hours');
+                                monthtable=monthtable+`<tbody>
+                                <tr>
+                                    <td>`+monthev[monthpos].title+`</td>                    
+                                    <td >`+moment(monthev[monthpos].start).format('DD/MM/YYYY HH:mm')+`</td>
+                                    <td>`+moment(monthev[monthpos].end).format('DD/MM/YYYY HH:mm')+`</td>
+                                    <td>`+monthev[monthpos].monthofficenumber+`</td>
+                                </tr>
+                                </tbody>`;
+                            }
+                            totalhours=Math.abs(totalhours);
+                            monthtable=monthtable+'</table><BR><h3>Horas totales: '+totalhours+'</h3>';
+                            $('#adminphp').html(monthtable);
+                        }
+                    );
+                });
                 
             });
             </script>
@@ -555,7 +589,14 @@
                         </ul>
                     </div>
                     <hr>
-                    <div class='autoscroll'>
+                    <div>
+                        <ul class='list-unstyled'>
+                            <li><input type="text" maxlength="9" name="monthdni" id="monthdni" placeholder='DNI'></li>
+                            <li><input type="month" name="monthselector" id="monthselector" style='width:25%;'> <a class='btn' id='monthselect'>Consultar reservas del mes</a></li>
+                        </ul>
+                    </div>
+                    <hr>
+                    <div id='adminphp' class='autoscroll'>
                     <?php 
                     //Set variables
                     $createname=$createlastname=$createemail=$createphone=$createdni='';
