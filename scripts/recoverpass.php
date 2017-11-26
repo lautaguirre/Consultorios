@@ -23,6 +23,7 @@
                 <h3>Al parecer usted solicito un cambio de contraseña, por lo tanto se genero una nueva para usted:</h3>
                 <p>Nueva contraseña: ".$newpass."</p>
                 <p style='color:red;'>UNA VEZ INGRESADO A SU CUENTA RECUERDE SELECCIONAR 'CAMBIAR CONTRASEÑA'</p>
+                <p>https://www.villamartinarosario.com</p>
             </body>
             </html>";
             $headers = "MIME-Version: 1.0" . "\r\n";

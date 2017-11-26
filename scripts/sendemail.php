@@ -8,6 +8,8 @@ if($_POST['emailbody']!='<table class="table"><thead><tr><th>#</th><th>Comienzo<
         <h3>El usuario ".$_POST['emailuser']." (DNI: ".$_POST['emaildni'].") hizo la siguiente reserva en el consultorio Nro ".$_POST['emailoffice'].":</h3>
         <p></p>
         ".$_POST['emailbody']."
+        <p></p>
+        <A>https://www.villamartinarosario.com</A>
     </body>
     </html>";
     $headers = "MIME-Version: 1.0" . "\r\n";
@@ -22,6 +24,8 @@ if($_POST['emailbody']!='<table class="table"><thead><tr><th>#</th><th>Comienzo<
         <h3>Usted: ".$_POST['emailuser']." hizo la siguiente reserva en el consultorio Nro ".$_POST['emailoffice']." de Consultorios Villa Martina:</h3>
         <p></p>
         ".$_POST['emailbody']."
+        <p></p>
+        <a>https://www.villamartinarosario.com</a>
     </body>
     </html>";
     $headers = "MIME-Version: 1.0" . "\r\n";
