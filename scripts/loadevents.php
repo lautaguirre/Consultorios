@@ -28,10 +28,11 @@
                     ];
                 }else{
                     $obj=(object)[
-                        'title'=>$row['title'],
+                        'title'=>'OCUPADO',
                         'start'=>$row['start'],
                         'end'=>$row['end'],
                         'id'=>$row['id'],
+                        'backgroundColor'=>'red',
                     ];
                 }
                 array_push($arr,$obj);

@@ -17,7 +17,7 @@
             while($row=mysqli_fetch_assoc($result)){
                 if($_POST['evdni']==$row['dni']){
                     $obj=(object)[
-                        'title'=>$row['dni'].' - '.$row['title'],
+                        'title'=>$row['title'].' - '.$row['dni'],
                         'start'=>$row['start'],
                         'end'=>$row['end'],
                         'id'=>$row['id'],
@@ -25,7 +25,7 @@
                     ];
                 }else{
                     $obj=(object)[
-                        'title'=>$row['dni'].' - '.$row['title'],
+                        'title'=>$row['title'].' - '.$row['dni'],
                         'start'=>$row['start'],
                         'end'=>$row['end'],
                         'id'=>$row['id'],

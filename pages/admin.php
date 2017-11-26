@@ -105,7 +105,7 @@
                             var backevent=
                             {
                                 'id':1,
-                                'title':event.title,
+                                'title':'Borrar ->',
                                 'start':event.start.format(),
                                 'end':event.end.format(),
                                 'backgroundColor':'red'
