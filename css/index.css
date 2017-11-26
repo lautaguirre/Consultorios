@@ -428,7 +428,7 @@ Single styles
 .list-inline
 {
 	padding-left: 0;
-	margin-left: -5px;
+	margin: 0px;
 	list-style: none;
 }
 
@@ -535,7 +535,7 @@ Wide styles
 		margin-bottom: 1em;
 	}
 
-	.footer { padding: 2em 3em; }
+	.footer { padding: 1.5em 2em; }
 	
 	.nav li
 	{

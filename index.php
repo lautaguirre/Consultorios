@@ -12,6 +12,7 @@
 		<link rel="stylesheet" href="css/index.css" type="text/css">
 		<script src="scripts/jquery-3.2.1.min.js"></script>
 		<SCRIPT src="scripts/index.js"></SCRIPT>
+		<script src="scripts/webemail.js"></script>
 		<script>
 
 			$(document).ready(function(){
@@ -177,7 +178,10 @@
 		</div>
 		<div class="footer">
 			<div class="container">
-				<img height="60px" width="125px" src="images/vmlogo.png"> 
+				<ul class='list-inline'>
+					<li><img height="60px" width="125px" src="images/vmlogo.png"></li>
+					<li style='position:relative;bottom:23px;'><H5 id='webemail'></H5></li>
+				</ul>
 			</div>
 		</div>
 	</BODY>

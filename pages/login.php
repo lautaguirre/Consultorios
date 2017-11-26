@@ -73,8 +73,10 @@
         <script src='../calendar/lib/moment.min.js'></script>
         <script src='../calendar/fullcalendar.js'></script>
         <script src='../calendar/locale/es.js'></script>
+        <script src="../scripts/webemail.js"></script>
         <script>
              $(document).ready(function() {
+
                 var selection=`<table class="table">
                                     <thead>
                                         <tr>
