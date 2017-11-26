@@ -127,7 +127,6 @@
                     selectable: true,
                     selectHelper:true,
                     selectOverlap:false,
-                    selectMinDistance:10,
 
                     //Event click callback
                     eventClick:function(event){
@@ -422,6 +421,10 @@
 
                 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
                     $('#mobile').html('<errorspan>SI SE ENCUENTRA EN UN DISPOSITIVO TACTIL DEBE MANTENER APRETADO SOBRE EL CALENDARIO POR UN BREVE LAPSO Y LUEGO ARRASTRAR EL DEDO PARA SELECCIONAR LOS DIAS/HORAS DESEADOS.</errorspan>');
+                    $('#maindiv').removeClass('main2');
+                    $('#asidediv').removeClass('aside2');
+                    $('#maindiv').addClass('main');
+                    $('#asidediv').addClass('aside');
                 }
 
                 //Select office
@@ -527,7 +530,7 @@
         <script src="../templates/header.js"></script>
         <div class="content">
 			<div class="container">  
-                <div class='main2'>
+                <div class='main2' id='maindiv'>
                     <h1 id='welcome' style='text-transform:capitalize;'>Bienvenido </h1>
                     <p></p>
                     <div class='horizontalnavbar'>
@@ -540,7 +543,7 @@
                     <p></p>
                     <div id='calendar'></div>
                 </div>
-                <div class='aside2'>
+                <div class='aside2' id='asidediv'>
                     <div class='horizontalnavbar'>
                         <ul>
                             <li>
