@@ -6,6 +6,8 @@
 	<HEAD>
 		<TITLE>Consultorios Villa Martina</TITLE>
 		<meta charset="UTF-8">
+		<META NAME="description" CONTENT="Consultorios Villa Martina: reserva de consultorios a pedido con horarios flexibles para todo tipo de profesionales que buscan desarrollar sus actividades.">
+		<META NAME="Keywords" CONTENT="consultorios,villa martina,reservar,rosario">
 		<link rel="shortcut icon" href="images/favicon.png" type="image/png">
 		<link rel="stylesheet" href="css/index.css" type="text/css">
 		<script src="scripts/jquery-3.2.1.min.js"></script>
