@@ -57,7 +57,10 @@ session_start();
         $('#movecontact').click();
       });
 
-    })
+      $('#collapseitems, #movecontact').click(function(){
+        $(".collapse").collapse('hide');
+      });
+    });
   </script>
 </head>
 
@@ -72,24 +75,24 @@ session_start();
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#myPage">Consultorios Villa Martina</a>
+        <a class="navbar-brand" id='collapseitems' href="#myPage">Consultorios Villa Martina</a>
       </div>
       <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav navbar-right">
           <li>
-            <a href="#services">SERVICIOS</a>
+            <a href="#services" id='collapseitems'>SERVICIOS</a>
           </li>
           <li>
-            <a href="#portfolio">IMAGENES</a>
+            <a href="#portfolio" id='collapseitems'>IMAGENES</a>
           </li>
           <li>
-              <a href="#pricing">PRECIOS</a>
+              <a href="#pricing" id='collapseitems'>PRECIOS</a>
           </li>
           <li>
             <a href="#contact" id="movecontact">CONTACTO</a>
           </li>
           <li>
-              <a href="#" class="alterlogo" data-toggle="modal" data-target="#loginmodal">
+              <a href="#" id='collapseitems' class="alterlogo" data-toggle="modal" data-target="#loginmodal">
                 <span class="glyphicon glyphicon-log-in"></span>
                 INGRESAR
               </a>
@@ -126,7 +129,7 @@ session_start();
   </div>
 
   <div class="jumbotron text-center">
-    <img src="images/vmlogo.png" class="img-circle" width="25%">
+    <img src="images/vmlogo.png" class="vmlogo img-circle" width="25%">
   </div>
 
   <!-- About Section -->
