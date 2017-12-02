@@ -81,7 +81,7 @@
 
     function validateaddress($stringtovalidate){
         if (!preg_match("/^[a-zA-Z0-9 ]*$/",$stringtovalidate)){
-            echo '<errorspan>Ingrese solo letras y numeros.</errorspan><br>';
+            echo '<errorspan>Ingrese solo letras y numeros, no se permiten caracteres del tipo (.,;/-).</errorspan><br>';
             global $validation;
             $validation=false;
         }
