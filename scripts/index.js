@@ -9,7 +9,7 @@ p1.src='images/interior1.jpg';
 p2.src='images/interior2.jpeg';
 p3.src='images/interior3.jpg';
 p4.src='images/interior4.jpg';
-p5.src='images/interior5.jpg';
+p5.src='images/interior5.png';
 
 var arr=new Array(p1,p2,p3,p4,p5);
 var end=arr.length-1;
