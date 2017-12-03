@@ -203,3 +203,9 @@ footer .glyphicon {
     overflow-y: auto;
 }
 
+.thumbnail{
+    border-radius: 10px;
+}
+.flatbottomrounded{
+    border-radius: 10px 10px 0px 0px;
+}

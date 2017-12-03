@@ -216,7 +216,7 @@ session_start();
     <div class="row text-center slideanim">
       <div class="col-sm-4">
         <div class="thumbnail">
-          <img src="images/interior1.jpg" class='img-rounded' width="400" height="300">
+          <img src="images/interior1.jpg" class='flatbottomrounded' width="400" height="300">
           <p>
             <strong>Consultorio 1</strong>
           </p>
@@ -224,7 +224,7 @@ session_start();
       </div>
       <div class="col-sm-4">
         <div class="thumbnail">
-          <img src="images/interior2.jpeg" class='img-rounded' width="400" height="300">
+          <img src="images/interior2.jpeg" class='flatbottomrounded' width="400" height="300">
           <p>
             <strong>Consultorio 2</strong>
           </p>
@@ -232,7 +232,7 @@ session_start();
       </div>
       <div class="col-sm-4">
         <div class="thumbnail">
-          <img src="images/interior3.jpg" class='img-rounded' width="400" height="300">
+          <img src="images/interior3.jpg" class='flatbottomrounded' width="400" height="300">
           <p>
             <strong>Consultorio 1</strong>
           </p>
@@ -242,7 +242,7 @@ session_start();
     <div class="row text-center slideanim">
       <div class="col-sm-4">
         <div class="thumbnail">
-          <img src="images/interior4.jpg" class='img-rounded' width="400" height="300">
+          <img src="images/interior4.jpg" class='flatbottomrounded' width="400" height="300">
           <p>
             <strong>Consultorio 1</strong>
           </p>
@@ -250,7 +250,7 @@ session_start();
       </div>
       <div class="col-sm-4">
         <div class="thumbnail">
-          <img src="images/interior5.png" class='img-rounded' width="400" height="300">
+          <img src="images/interior5.png" class='flatbottomrounded' width="400" height="300">
           <p>
             <strong>Consultorio 2</strong>
           </p>
@@ -258,7 +258,7 @@ session_start();
       </div>
       <div class="col-sm-4">
         <div class="thumbnail">
-          <img src="images/interior6.jpg" class='img-rounded' width="400" height="300">
+          <img src="images/interior6.jpg" class='flatbottomrounded' width="400" height="300">
           <p>
             <strong>Consultorio 1</strong>
           </p>
