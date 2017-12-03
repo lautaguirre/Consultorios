@@ -209,3 +209,12 @@ footer .glyphicon {
 .flatbottomrounded{
     border-radius: 10px 10px 0px 0px;
 }
+.alterlogo2{
+    background-color: red;
+}
+.alterlogo2:hover span{
+    color:red;
+}
+.hidden{
+	display: none;
+}

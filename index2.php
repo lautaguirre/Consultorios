@@ -49,17 +49,41 @@ session_start();
         });
       });
 
-      $(document).ready(function(){
-        $('[data-toggle="popover"]').popover(); 
-      });
-
+      //Scroll to contact from <A>
       $('#aboutcontact').click(function(){
         $('#movecontact').click();
       });
 
+      //Hide collapse after click
       $('#collapseitems, #movecontact').click(function(){
         $(".collapse").collapse('hide');
       });
+
+      $('#recoverbtn').click(function(){
+					$('#recoverbtn').hide();
+					$('#ajaxsuccess').html('');
+					$('#recovertext').removeClass('hidden');
+				});
+
+				$('#sendrecbtn').click(function(){
+					dnitorecover=$('#recoverdni').val();
+					emailtorecover=$('#recoveremail').val();
+					$('#recoverbtn').show();
+					$('#recovertext').addClass('hidden');
+
+					$.post(
+	          'scripts/recoverpass.php',
+            {
+							dni:dnitorecover,
+							email:emailtorecover
+        	  },
+    	      function(data){
+							$('#ajaxsuccess').html(data);
+							$('#recoverdni').val('');
+							$('#recoveremail').val('');
+            }
+          );
+				});
     });
   </script>
 </head>
@@ -91,12 +115,28 @@ session_start();
           <li>
             <a href="#contact" id="movecontact">CONTACTO</a>
           </li>
-          <li>
-              <a href="#" id='collapseitems' class="alterlogo" data-toggle="modal" data-target="#loginmodal">
-                <span class="glyphicon glyphicon-log-in"></span>
-                INGRESAR
-              </a>
-          </li>
+              <?php
+              if(!isset($_SESSION['logged'])){
+                echo '<li>
+                <a href="#" id="collapseitems" class="alterlogo" data-toggle="modal" data-target="#loginmodal">
+                  <span class="glyphicon glyphicon-log-in"></span>
+                  INGRESAR
+                </a>
+                </li>';
+              }else{
+                echo '<li>
+                  <a href="pages/login.php" id="collapseitems" class="alterlogo">
+                    <span class="glyphicon glyphicon-user"></span>
+                    PANEL DE USUARIO
+                  </a>
+                </li>
+                <li>
+                  <a class="alterlogo2" href="scripts/logout.php">
+                    <span class="glyphicon glyphicon-log-out"></span>
+                  </a>
+                </li>';
+              }
+              ?>
         </ul>
       </div>
     </div>
@@ -113,15 +153,28 @@ session_start();
           <h4 class="modal-title">Ingrese su DNI y contraseña</h4>
         </div>
         <div class="modal-body">
-          <form action="#">
+          <form action="pages/login.php" method='post'>
             <div class="form-group">
-              <input type="text" placeholder="DNI" class="form-control" id="logindni">
+              <input type="text" maxlength="9" name="logindni" required placeholder="DNI" class="form-control" id="logindni">
             </div>
             <div class="form-group">
-              <input type="password" placeholder="Contraseña" class="form-control" id="loginpass">
+              <input type="password" maxlength="16" name="loginpass" required placeholder="Contraseña" class="form-control" id="loginpass">
             </div>
-            <button type="submit" class="btn btn-success">Entrar</button>
+            <button type="submit" class="btn btn-success">Ingresar</button>
           </form>
+        </div>
+        <div class='modal-footer'>
+          <button class="btn btn-danger"  id="recoverbtn" >Olvido su contraseña?</button>
+          <p><div id="ajaxsuccess"></div></p>
+            <div class="hidden" id="recovertext">
+              <div class="form-group">
+                <input type="text" class="form-control" maxlength="9" id="recoverdni" placeholder="DNI">
+              </div>
+              <div class="form-group">
+                <input type="email" class="form-control" id="recoveremail" placeholder="E-mail">
+              </div>
+              <button class="btn btn-danger" id="sendrecbtn" >Recuperar</button>
+            </div>                                 
         </div>
       </div>
   
