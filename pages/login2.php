@@ -25,7 +25,7 @@
                         if($row['authorization']=='si'){
                             $_SESSION['logged']=$logindni;
                         }
-                        if($logindni==38333166 or $logindni=22773396){
+                        if($logindni==38333166 || $logindni==22773396){
                             $_SESSION['admin']=true;
                         }
                     }
