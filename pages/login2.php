@@ -597,6 +597,7 @@
         
         <div class="container-fluid">
             <div class="row">
+                <!-- Calendar -->
                 <div class="col-sm-6">
                     <p>&nbsp;</p>
                     <h3 id='welcome' style='text-transform:capitalize;'>Bienvenido </h3>
@@ -615,6 +616,7 @@
                     <p>&nbsp;</p>
                     <div id='calendar'></div>
                 </div>
+                <!-- Aside -->
                 <div class="col-sm-6">
                     <p>&nbsp;</p>
                     <p>&nbsp;</p>
@@ -624,7 +626,7 @@
                         <li class='bg-danger'>Recuerde que los horarios de reserva solo pueden ser de Lunes a Viernes (9:00 a 13:00 y 16:00 a 20:00) y Sabados (9:00 a 13:00).</li>
                         <li>Disponemos de 2 consultorios y cada uno posee su respectivo calendario, puede seleccionar cual mostrar en las opciones arriba del mismo.</li>
                     </ul>
-                    <button data-toggle="collapse" data-target="#instructions"class='btn btn-default' style='width:100%;'>Instrucciones</button>
+                    <button type="button" data-toggle="collapse" data-target="#instructions"class='btn btn-default' style='width:100%;'>Instrucciones</button>
                     <div id="instructions" class="collapse">
                         <ul>
                             <li>Puede cancelar reservas haciendo click en las mismas y seleccionando "Borrar evento" (Siempre que esten dentro del plazo permitido).</li>
@@ -636,16 +638,16 @@
                     <h4 id='selection'></h4>
                     <h4 id='selection2'></h4>
                     <div id="cancelevent" class="hidden">
-                        <button class="btn btn-success" id="deleteevent">Borrar eventos</button>
-                        <button class="btn btn-danger" id="cancelselection">Cancelar</button>
+                        <button type="button" class="btn btn-success" id="deleteevent">Borrar eventos</button>
+                        <button type="button" class="btn btn-danger" id="cancelselection">Cancelar</button>
                     </div>
                     <div id="reservetext" class="hidden">
                         <h3>Descripcion de la reserva (Si no ingresa nada se usara por defecto su nombre y apellido).</h3>
                         <div class='form-group' >
                             <input type="text" id="titletext" class='form-control'>
                         </div>
-                        <button class="btn btn-success" id="reserve">Reservar</button>
-                        <button class="btn btn-danger" id="removeevents">Cancelar</button>
+                        <button type="button" class="btn btn-success" id="reserve">Reservar</button>
+                        <button type="button" class="btn btn-danger" id="removeevents">Cancelar</button>
                     </div>  
                 </div>
             </div>
@@ -654,3 +656,4 @@
         <!-- Footer --> 
         <script src="../templates/footer2.js"></script>
     </body>
+</html>

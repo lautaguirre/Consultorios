@@ -165,7 +165,7 @@ session_start();
           </form>
         </div>
         <div class='modal-footer'>
-          <button class="btn btn-danger"  id="recoverbtn" >Olvido su contraseña?</button>
+          <button type="button" class="btn btn-danger"  id="recoverbtn" >Olvido su contraseña?</button>
           <p><div id="ajaxsuccess"></div></p>
             <div class="hidden" id="recovertext">
               <div class="form-group">
@@ -174,7 +174,7 @@ session_start();
               <div class="form-group">
                 <input type="email" class="form-control" id="recoveremail" placeholder="E-mail">
               </div>
-              <button class="btn btn-danger" id="sendrecbtn" >Recuperar</button>
+              <button class="btn btn-danger" id="sendrecbtn" type="button" >Recuperar</button>
             </div>                                 
         </div>
       </div>
@@ -390,7 +390,7 @@ session_start();
           <div class="panel-footer">
             <h3>$19</h3>
             <h4>per month</h4>
-            <button class="btn btn-lg">Sign Up</button>
+            <button type="button" class="btn btn-lg">Sign Up</button>
           </div>
         </div>
       </div>
@@ -414,7 +414,7 @@ session_start();
           <div class="panel-footer">
             <h3>$29</h3>
             <h4>per month</h4>
-            <button class="btn btn-lg">Sign Up</button>
+            <button type="button" class="btn btn-lg">Sign Up</button>
           </div>
         </div>
       </div>
@@ -438,7 +438,7 @@ session_start();
           <div class="panel-footer">
             <h3>$49</h3>
             <h4>per month</h4>
-            <button class="btn btn-lg">Sign Up</button>
+            <button type="button" class="btn btn-lg">Sign Up</button>
           </div>
         </div>
       </div>

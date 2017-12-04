@@ -9,19 +9,23 @@
 <html>
     <head>
         <title>Panel de administrador</title>
-        <meta charset="UTF-8">
-		<link rel="shortcut icon" href="../images/favicon.png" type="image/png">
-		<link rel="stylesheet" href="../css/index.css" type="text/css">
+        <meta charset="utf-8">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="shortcut icon" href="../images/favicon.png" type="image/png">
         <link rel='stylesheet' type="text/css" href='../calendar/fullcalendar.min.css' />
-        <script src='../calendar/lib/jquery.min.js'></script>
         <script src='../calendar/lib/moment.min.js'></script>
         <script src='../calendar/fullcalendar.js'></script>
         <script src='../calendar/locale/es.js'></script>
-        <script src="../scripts/webemail.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../css/index2.css" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script>
             $(document).ready(function(){
 
-                var selection=`<table class="table">
+                var selection=`<table class="table table-hover">
                                     <thead>
                                         <tr>
                                             <th>#</th>
@@ -31,7 +35,7 @@
                                     </thead>`;
                 var selectionnumber=0;
                 var selected=false;
-                var selection2=`<table class="table">
+                var selection2=`<table class="table table-hover">
                                     <thead>
                                         <tr>
                                             <th>#</th>
@@ -58,7 +62,14 @@
 				        center: 'prev title next',
 				        right: 'month,agendaWeek listMonth'
                     },
-                    
+                    themeSystem:'bootstrap3',
+                    bootstrapGlyphicons: {
+                        close: 'glyphicon-remove',
+                        prev: 'glyphicon-chevron-left',
+                        next: 'glyphicon-chevron-right',
+                        prevYear: 'glyphicon-backward',
+                        nextYear: 'glyphicon-forward'
+                    },
                     minTime:"09:00:00",
                     maxTime:"20:00:00",
                     allDaySlot:false,
@@ -72,7 +83,6 @@
                     selectable: true,
                     selectHelper:true,
                     selectOverlap:false,
-                    selectMinDistance:10,
 
                     //Event click callback
                     eventClick:function(event){
@@ -243,7 +253,7 @@
                                     $('#selection').html(admindeletedata.msg);
                                 }
                                 selectionnumber=0;
-                                selection=`<table class="table">
+                                selection=`<table class="table table-hover">
                                     <thead>
                                         <tr>
                                             <th>#</th>
@@ -284,7 +294,7 @@
                             },
                             function(data){
                                 selection2number=0;
-                                selection2=`<table class="table">
+                                selection2=`<table class="table table-hover">
                                 <thead>
                                     <tr>
                                         <th>#</th>
@@ -312,7 +322,7 @@
                     clickevarr=[];
                     selected=false;
                     selectionnumber=0;
-                    selection=`<table class="table">
+                    selection=`<table class="table table-hover">
                                     <thead>
                                         <tr>
                                             <th>#</th>
@@ -336,7 +346,7 @@
                     selectobj={};
                     selected2=false;
                     selection2number=0;
-                    selection2=`<table class="table">
+                    selection2=`<table class="table table-hover">
                                     <thead>
                                         <tr>
                                             <th>#</th>
@@ -384,7 +394,7 @@
                     selected=false;
                     selected2=false;
                     selectionnumber=0;
-                    selection=`<table class="table">
+                    selection=`<table class="table table-hover">
                                     <thead>
                                         <tr>
                                             <th>#</th>
@@ -393,7 +403,7 @@
                                         </tr>
                                     </thead>`;
                     selection2number=0;
-                    selection2=`<table class="table">
+                    selection2=`<table class="table table-hover">
                                     <thead>
                                         <tr>
                                             <th>#</th>
@@ -428,7 +438,7 @@
                     selected=false;
                     selected2=false;
                     selectionnumber=0;
-                    selection=`<table class="table">
+                    selection=`<table class="table table-hover">
                                     <thead>
                                         <tr>
                                             <th>#</th>
@@ -437,7 +447,7 @@
                                         </tr>
                                     </thead>`;
                     selection2number=0;
-                    selection2=`<table class="table">
+                    selection2=`<table class="table table-hover">
                                     <thead>
                                         <tr>
                                             <th>#</th>
@@ -474,7 +484,7 @@
                         },
                         function(data){
                             monthev=JSON.parse(data);
-                            monthtable=`<table class="table">
+                            monthtable=`<table class="table table-hover">
                                 <thead>
                                     <tr>
                                         <th>Titulo</th>
@@ -495,111 +505,200 @@
                                 </tbody>`;
                             }
                             totalhours=Math.abs(totalhours);
-                            monthtable=monthtable+'</table><BR><h3>Horas totales: '+totalhours+'</h3>';
-                            $('#adminphp').html(monthtable);
+                            monthtable=monthtable+'</table>';
+                            $('#adminphp').html('<strong>Horas totales: '+totalhours+'</strong><BR><p>&nbsp;</p>'+monthtable);
                         }
                     );
                 });
+
+                //Hide collapse after click
+                $('#collapseitems, #movecontact').click(function(){
+                    $(".collapse").collapse('hide');
+                });
+
+                // Add smooth scrolling
+                $(".navbar a, footer a[href='#myPage']").on('click', function (event) {
+                    if (this.hash !== "") {
+                        // Prevent default anchor click behavior
+                        event.preventDefault();
+
+                        // Store hash
+                        var hash = this.hash;
+
+                        $('html, body').animate({
+                            scrollTop: $(hash).offset().top
+                        }, 900, function () { //900 miliseconds to scroll to te desired area
+
+                        window.location.hash = hash;
+                        });
+                    }
+                });
                 
             });
-            </script>
+        </script>
     </head>
 
-    <body>
-        <script src="../templates/header.js"></script>
-        <div class="content">
-			<div class="container">  
-                <div class='main2'>
-                    <ul class='list-inline'>
+    <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+        <!-- Navbar section-->
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header navbar-left">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" id='collapseitems' href="#myPage">Consultorios Villa Martina</a>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <form action="admin.php" method='post'>
-                                <ul class='list-unstyled'>                            
-                                    <li><h3>Crear usuario</h3></li>
-                                    <li><input type="text" name='createname' required placeholder='Nombre'></li>
-                                    <li><input type="text" name='createlastname' required placeholder='Apellido' ></li>
-                                    <li><input type="email" name='createemail' required placeholder='E-mail' ></li>
-                                    <li><input type="text" name='createphone'required placeholder='Telefono' ></li>   
-                                    <li><input type="text" maxlength="9" name='createdni' required placeholder='DNI' ></li>
-                                    <li><input type="text" name='createaddress' required placeholder='Domicilio' ></li>
-                                    <li><input type="submit" class='btn' value="Crear" name='createsubmit'></li>                               
-                                </ul>
-                            </form>
+                            <a href="../index.php" id='collapseitems'>INICIO</a>
                         </li>
                         <li>
-                            <form action="admin.php" method='post'>
-                                <ul class='list-unstyled'>
-                                    <li><h3>Actualizar usuario</h3></li>
-                                    <li><input type="text" maxlength="9" name='actdni' required placeholder='DNI de usuario a actualizar'></li>
-                                    <li><input type="text" name='actphone' placeholder='Telefono'></li>
-                                    <li><input type="email" name='actemail' placeholder='E-mail'></li>
-                                    <li><input type="text" name='actaddress' placeholder='Domicilio' ></li>
-                                    <li><input type="text" name='actname' placeholder='Nombre'></li>
-                                    <li><input type="text" name='actlastname' placeholder='Apellido'></li>
-                                    <li><input type="submit" class='btn' value="Actualizar" name='actsubmit'></li>
-                                </ul>
-                            </form>
+                            <a href="changepass.php" id='collapseitems'>CAMBIAR CONTRASEÑA</a>
                         </li>
                         <li>
-                            <form action="admin.php" method='post'>
-                                <ul class='list-unstyled'>
-                                    <li><h3>Inhabilitar usuario</h3></li>
-                                    <li><input type="text" maxlength="9" name='unauthdni' required placeholder='DNI de usuario a deshabilitar'></li>
-                                    <li><input type="text" disabled></li>
-                                    <li><input type="submit" class='btn' value="Inhabilitar" name='unauthsubmit'></li>
-                                </ul>
-                            </form>
-                                <hr>
-                            <form action="admin.php" method='post'>
-                                <ul class='list-unstyled'>
-                                    <li><h3>Habilitar</h3></li>
-                                    <li><input type="text" maxlength="9" name='authdni' required placeholder='DNI de usuario a habilitar'></li>
-                                    <li><input type="text" disabled></li>
-                                    <li><input type="submit" class='btn' value="Habilitar" name='authsubmit'></li>
-                                </ul>
-                            </form>
+                            <a href="login.php" id="collapseitems" class="alterlogo">
+                                <span class="glyphicon glyphicon-user"></span>
+                                PANEL DE USUARIO
+                            </a>
                         </li>
                         <li>
-                            <form action="admin.php" method='post'>
-                                <ul class='list-unstyled'>             
-                                    <li><h3>Consultar usuario</h3></li>
-                                    <li><input type="text" name='consultname' placeholder='Nombre'></li>
-                                    <li><input type="text" name='consultlastname' placeholder='Apellido'></li>
-                                    <li><input type="text" maxlength="9" name='consultdni' placeholder='DNI'></li>
-                                    <li><input type="text" disabled></li>
-                                    <li><input type="text" disabled></li>
-                                    <li><input type="text" disabled></li>
-                                    <li><input type="submit" class='btn' value="Consultar" name='consultsubmit'></li>
-                                </ul>
-                            </form>
+                            <a class="alterlogo2" href="../scripts/logout.php">
+                                <span class="glyphicon glyphicon-log-out"></span>
+                                CERRAR SESION
+                            </a>
                         </li>
                     </ul>
-                    <P></P>
-                    <div class='horizontalnavbar'>
-                        <ul>
-                            <li><a class='show'>Mostrar: </a></li>
-                            <li><a id='office1' class='reserve'>Consultorio 1</a></li>
-                            <li><a id='office2'>Consultorio 2</a></li>
-                        </ul>
-                    </div> 
-                    <p></p>
-                    <div id='calendar'></div>
                 </div>
-                <div class='aside2'>
-                    <div class='horizontalnavbar'>
-                        <ul>
-                            <li><A class='userpanel' HREF = "login.php">Panel de usuario</A></li>
-                            <li style="float:right"><a class="active" href="../scripts/logout.php">Cerrar sesion</a></li>
-                        </ul>
+            </div>
+        </nav>
+        
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-6">
+                    <!-- Admin panel -->
+                    <div class='row'>
+                        <div class="col-sm-3">
+                            <p>&nbsp;</p>
+                            <h4>Crear usuario</h4>
+                            <form action="admin.php" method='post'>
+                                <div class="form-group">
+                                    <input type="text" name='createname' required placeholder='Nombre' class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name='createlastname' required placeholder='Apellido' class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" name='createemail' required placeholder='E-mail' class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name='createphone'required placeholder='Telefono' class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" maxlength="9" name='createdni' required placeholder='DNI' class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name='createaddress' required placeholder='Domicilio' class="form-control">
+                                </div>
+                                <button type="submit" name='createsubmit' class="btn btn-success">Crear</button>
+                            </form>
+                        </div>
+                        <div class="col-sm-3">
+                        <p>&nbsp;</p>
+                            <h4>Actualizar usuario</h4>
+                            <form action="admin.php" method='post'>
+                                <div class="form-group">
+                                    <input type="text" maxlength="9" name='actdni' required placeholder='DNI de usuario a actualizar' class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name='actphone' placeholder='Telefono' class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" name='actemail' placeholder='E-mail' class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name='actaddress' placeholder='Domicilio' class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name='actname' placeholder='Nombre' class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name='actlastname' placeholder='Apellido' class="form-control">
+                                </div>
+                                <button type="submit" name='createsubmit' name='actsubmit' class="btn btn-success">Actualizar</button>
+                            </form>
+                        </div>
+                        <div class="col-sm-3">                           
+                            <div class='row'>
+                                <p>&nbsp;</p>
+                                <h4>Inhabilitar usuario</h4>
+                                <form action="admin.php" method='post'>
+                                    <div class="form-group">
+                                        <input type="text" maxlength="9" name='unauthdni' required placeholder='DNI de usuario a deshabilitar' class="form-control">
+                                    </div>
+                                    <button type="submit" name='unauthsubmit' class="btn btn-danger">Inhabilitar</button>
+                                </form>
+                            </div>
+                            <div class='row'>
+                                <h4>Habilitar</h4>
+                                <form action="admin.php" method='post'>
+                                    <div class="form-group">
+                                        <input type="text" maxlength="9" name='authdni' required placeholder='DNI de usuario a habilitar' class="form-control">
+                                    </div>
+                                    <button type="submit" name='authsubmit' class="btn btn-success">Habilitar</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                        <p>&nbsp;</p>
+                            <h4>Consultar usuario</h4>
+                            <form action="admin.php" method='post'>
+                                <div class="form-group">
+                                    <input type="text" name='consultname' placeholder='Nombre' class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name='consultlastname' placeholder='Apellido' class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" maxlength="9" name='consultdni' placeholder='DNI' class="form-control">
+                                </div>
+                                <button type="submit" name='consultsubmit' class="btn btn-success">Consultar</button>
+                            </form>
+                        </div>
                     </div>
-                    <hr>
-                    <div>
-                        <ul class='list-unstyled'>
-                            <li><input type="text" maxlength="9" name="monthdni" id="monthdni" placeholder='DNI'></li>
-                            <li><input type="month" name="monthselector" id="monthselector" style='width:25%;'> <a class='btn' id='monthselect'>Consultar reservas del mes</a></li>
-                        </ul>
+                    <p>&nbsp;</p>
+                    <!-- Calendar -->
+                    <div class='row'>
+                        <nav class="fakenavbar navbar-default" >
+                            <div class="container">
+                                <div class="navbar-header">
+                                    <a class="navbar-brand" >Mostrar:</a>
+                                </div>
+                                <ul class="nav navbar-nav">
+                                    <li id='office1' class='active'><a href='#'>CONSULTORIO 1</a></li>
+                                    <li id='office2'><a href='#'>CONSULTORIO 2</a></li>
+                                </ul>
+                            </div>
+                        </nav>
+                        <p>&nbsp;</p>
+                        <div id='calendar'></div>
                     </div>
-                    <hr>
-                    <div id='adminphp' class='autoscroll'>
+                </div>
+                <!-- Response and month resume -->
+                <div class="col-sm-6">
+                    <p>&nbsp;</p>
+                    <h4>Consultar mes</h4>
+                    <div class="form-group">
+                        <input type="text" maxlength="9" name="monthdni" id="monthdni" placeholder='DNI' class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="monthselector">Seleccione un mes:</label>
+                        <input type="month" name="monthselector" id="monthselector" class="form-control">
+                    </div>
+                    <button type="button" id='monthselect' class="btn btn-success">Consultar mes</button>
+                    <h4><div id='adminphp'></div></h4>
                     <?php 
                     //Set variables
                     $createname=$createlastname=$createemail=$createphone=$createdni='';
@@ -1010,25 +1109,27 @@
                             $validation=false;
                         }
                     }
-                    ?>  
-                    </div>
-                    <p></p>
-                    <h3 id='response'></h3>
-                    <h3 id='selection'></h3>
-                    <h3 id='selection2'></h3>
+                    ?>
+                    <p>&nbsp;</p>
+                    <h4 id='selection'></h4>
+                    <h4 id='selection2'></h4>
                     <div id="cancelevent" class="hidden">
-                        <input class="btn2" type="button" value="Borrar eventos" id="deleteevent">
-                        <input class="btn" type="button" value="Cancelar" id="cancelselection">
+                        <button type="button" class="btn btn-success" id="deleteevent">Borrar eventos</button>
+                        <button type="button" class="btn btn-danger" id="cancelselection">Cancelar</button>
                     </div>
                     <div id="reservetext" class="hidden">
                         <h3>Descripcion de la reserva (Si no ingresa nada se usara por defecto su nombre y apellido).</h3>
-                        <input type="text" id="titletext">
-                        <input class="btn3" type="button" value="Reservar" id="reserve">
-                        <input class="btn" type="button" value="Cancelar" id="removeevents">
+                        <div class='form-group' >
+                            <input type="text" id="titletext" class='form-control'>
+                        </div>
+                        <button type="button" class="btn btn-success" id="reserve">Reservar</button>
+                        <button type="button" class="btn btn-danger" id="removeevents">Cancelar</button>
                     </div> 
                 </div>
-			</div>
-		</div>
-        <script src="../templates/footer.js"></script>
+            </div>
+        </div>
+
+        <!-- Footer --> 
+        <script src="../templates/footer2.js"></script>
     </body>
 </html>
