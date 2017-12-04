@@ -12,7 +12,7 @@ session_start();
   <link rel="shortcut icon" href="images/favicon.png" type="image/png">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/index2.css">
+  <link rel="stylesheet" href="css/index2.css" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -59,6 +59,7 @@ session_start();
         $(".collapse").collapse('hide');
       });
 
+      //Recover password 
       $('#recoverbtn').click(function(){
 					$('#recoverbtn').hide();
 					$('#ajaxsuccess').html('');
@@ -490,6 +491,7 @@ session_start();
   </script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB8V7i630Wpsdd2zAi78jB_gjeOKfNsolo&callback=myMap"></script>
 
+  <!-- Footer -->
   <footer class="container-fluid text-center">
     <a href="#myPage" title="To Top">
       <span class="glyphicon glyphicon-chevron-up"></span>

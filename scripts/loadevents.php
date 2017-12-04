@@ -69,7 +69,7 @@
             }
             echo 'Nueva reserva creada<BR>'; 
         }else{
-            echo '<errorspan>Error creando reserva, parece que otro usuario ya ocupo las fechas solicitadas, la descripcion no es valida o solicito fechas anteriores al dia de hoy.</errorspan><BR>';
+            echo '<div class="alert alert-warning"><strong>Atencion!</strong> Error creando reserva, parece que otro usuario ya ocupo las fechas solicitadas, la descripcion no es valida o solicito fechas anteriores al dia de hoy.</div><BR>';
         }
     }
 
@@ -81,7 +81,7 @@
 
     function validateaddress($stringtovalidate){
         if (!preg_match("/^[a-zA-Z0-9 ]*$/",$stringtovalidate)){
-            echo '<errorspan>Ingrese solo letras y numeros, no se permiten caracteres del tipo (.,;/-).</errorspan><br>';
+            echo '<div class="alert alert-warning"><strong>Atencion!</strong> Ingrese solo letras y numeros, no se permiten caracteres del tipo (.,;/-).</div><BR>';
             global $validation;
             $validation=false;
         }
