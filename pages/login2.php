@@ -599,7 +599,7 @@
             </div>
         </nav>
         
-        <div id="about" class="container-fluid">
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-6">
                     <p>&nbsp;</p>
@@ -656,11 +656,5 @@
         </div>
 
         <!-- Footer --> 
-        <footer class="container-fluid text-center">
-            <a href="#myPage" title="To Top">
-                <span class="glyphicon glyphicon-chevron-up"></span>
-            </a>
-            <p>Diseño web: <a href="#">Lautaro Aguirre</a>
-            </p>
-        </footer>
+        <script src="../templates/footer2.js"></script>
     </body>
