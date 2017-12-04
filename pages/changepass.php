@@ -78,7 +78,7 @@
                 </div>
                 <div class="col-sm-3">
                     <p>&nbsp;</p>
-                    <form action="changepass2.php" method="post">
+                    <form action="changepass.php" method="post">
                         <div class="form-group">
                             <label for="changepassdni">DNI :</label>
                             <input type="text" maxlength="9" placeholder="Ingrese su DNI" class="form-control" id='changepassdni' name="changepassdni" required>

@@ -192,14 +192,15 @@ session_start();
       <div class="col-sm-8">
         <h2>Que es Consultorios Villa Martina?</h2>
         <br>
-        <h4>Es un inmueble ubicado en la esquina de Colon y 3 de Febrero en la ciudad de Rosario. Esta destinado a profesionales
-            que buscan desarrollar sus actividades laborales de forma flexible y a pedido, con horarios a eleccion y demanda segun su disponibilidad.
+        <h4>Es un inmueble en planta alta ubicado en la esquina de Colon y 3 de Febrero en la ciudad de Rosario. Esta destinado a profesionales
+            que buscan desarrollar sus actividades laborales de forma flexible y a pedido, con horarios a eleccion y demanda segun su disponibilidad.<br>
+            En la planta baja funciona un local de venta de ropa que se encuentra abierto durante los mismos horarios que los consultorios.
         </h4>
         <br>
-        <h2>Como me pongo en contacto y/o hago una reserva?</h2>
+        <h2>Como hago una reserva?</h2>
         <br>
         <h4>Mediante este sitio web cada usuario puede verificar las oficinas disponibles y los horarios de las mismas como asi tambien realizar la 
-            reserva correspondiente a nombre del interesado. Recordando siempre que se necesita de una cuenta para dichas acciones.
+            reserva correspondiente a nombre del interesado. Para realizar tales tareas es necesario una cuenta que nosotros le proporcionaremos.
         </h4>
       </div>
       <div class="col-sm-4">
@@ -222,7 +223,7 @@ session_start();
         <br>
         <h2>Que tipos de reservas puedo realizar?</h2>
         <br>
-        <h4>Disponemos de 2 oficinas en las cuales se pueden realizar reservas por horas. Tenga en cuenta que nuestros horarios de trabajo son de <strong>Lunes a Viernes
+        <h4>Disponemos de 2 consultorios en los cuales se pueden realizar reservas por horas.<br> Tenga en cuenta que nuestros horarios de trabajo son de <strong>Lunes a Viernes
           (09hs a 13hs y 16hs a 20hs) y los Sabados (09hs a 13hs)</strong>.
         </h4>
       </div>
@@ -236,8 +237,8 @@ session_start();
     <br>
     <div class="row slideanim">
       <div class="col-sm-4">
-        <span class="glyphicon glyphicon-cutlery logo-small"></span>
-        <h4>COCINA/ZONA DE ESPERA</h4>
+        <span class="glyphicon glyphicon-hourglass logo-small"></span>
+        <h4>SALA DE ESPERA</h4>
         <p>Un sector donde los pacientes pueden esperar a ser atendidos.</p>
       </div>
       <div class="col-sm-4">
@@ -246,7 +247,7 @@ session_start();
         <p>Disponibles para los clientes y profesionales.</p>
       </div>
       <div class="col-sm-4">
-        <span class="glyphicon glyphicon-lock logo-small"></span>
+        <span class="glyphicon glyphicon-camera logo-small"></span>
         <h4>SEGURIDAD</h4>
         <p>Camaras de vigilancia y monitoreo para garantizar la seguridad de los clientes.</p>
       </div>
@@ -278,9 +279,9 @@ session_start();
       </div>
       <div class="col-sm-4">
         <div class="thumbnail">
-          <img src="images/interior2.jpeg" class='flatbottomrounded' width="400" height="300">
+          <img src="images/plano-consultorios.jpg" class='flatbottomrounded' width="400" height="300">
           <p>
-            <strong>Consultorio 2</strong>
+            <strong>Plano de los consultorios</strong>
           </p>
         </div>
       </div>
