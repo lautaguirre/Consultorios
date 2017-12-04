@@ -572,23 +572,19 @@
                             <a href="../index.php" id='collapseitems'>INICIO</a>
                         </li>
                         <li>
-                            <a href="../changepass.php" id='collapseitems'>CAMBIAR CONTRASEÑA</a>
-                        </li>
-                        <li>
-                            <a href="login.php" id="collapseitems" class="alterlogo">
-                                <span class="glyphicon glyphicon-user"></span>
-                                PANEL DE USUARIO
-                            </a>
+                            <a href="changepass.php" id='collapseitems'>CAMBIAR CONTRASEÑA</a>
                         </li>
                         <li>
                             <a class="alterlogo2" href="../scripts/logout.php">
                                 <span class="glyphicon glyphicon-log-out"></span>
+                                CERRAR SESION
                             </a>
                         </li>
                         <?php
                             if(isset($_SESSION['admin'])){
                                 echo '<li>
                                     <a href="admin.php" id="collapseitems" class="alterlogo">
+                                        <span class="glyphicon glyphicon-eye-open"></span>
                                         ADMIN
                                     </a>
                                 </li>';

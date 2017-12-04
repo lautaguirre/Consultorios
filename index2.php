@@ -116,7 +116,7 @@ session_start();
           <li>
             <a href="#contact" id="movecontact">CONTACTO</a>
           </li>
-              <?php
+            <?php
               if(!isset($_SESSION['logged'])){
                 echo '<li>
                 <a href="#" id="collapseitems" class="alterlogo" data-toggle="modal" data-target="#loginmodal">
@@ -137,7 +137,7 @@ session_start();
                   </a>
                 </li>';
               }
-              ?>
+            ?>
         </ul>
       </div>
     </div>
