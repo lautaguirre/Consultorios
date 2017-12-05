@@ -61,30 +61,51 @@ session_start();
 
       //Recover password 
       $('#recoverbtn').click(function(){
-					$('#recoverbtn').hide();
-					$('#ajaxsuccess').html('');
-					$('#recovertext').removeClass('hidden');
-				});
+				$('#recoverbtn').hide();
+				$('#ajaxsuccess').html('');
+				$('#recovertext').removeClass('hidden');
+			});
 
-				$('#sendrecbtn').click(function(){
-					dnitorecover=$('#recoverdni').val();
-					emailtorecover=$('#recoveremail').val();
-					$('#recoverbtn').show();
-					$('#recovertext').addClass('hidden');
+			$('#sendrecbtn').click(function(){
+				dnitorecover=$('#recoverdni').val();
+				emailtorecover=$('#recoveremail').val();
+				$('#recoverbtn').show();
+				$('#recovertext').addClass('hidden');
 
-					$.post(
-	          'scripts/recoverpass.php',
-            {
-							dni:dnitorecover,
-							email:emailtorecover
-        	  },
-    	      function(data){
-							$('#ajaxsuccess').html(data);
-							$('#recoverdni').val('');
-							$('#recoveremail').val('');
-            }
-          );
-				});
+				$.post(
+	        'scripts/recoverpass.php',
+          {
+						dni:dnitorecover,
+						email:emailtorecover
+        	},
+    	    function(data){
+						$('#ajaxsuccess').html(data);
+						$('#recoverdni').val('');
+						$('#recoveremail').val('');
+          }
+        );
+			});
+
+      //Carousel modal selection
+      $('#carouselitem1').click(function(){
+        $('#imagecarousel').carousel(0);
+      });
+      $('#carouselitem2').click(function(){
+        $('#imagecarousel').carousel(1);
+      });
+      $('#carouselitem3').click(function(){
+        $('#imagecarousel').carousel(2);
+      });
+      $('#carouselitem4').click(function(){
+        $('#imagecarousel').carousel(3);
+      });
+      $('#carouselitem5').click(function(){
+        $('#imagecarousel').carousel(4);
+      });
+      $('#carouselitem6').click(function(){
+        $('#imagecarousel').carousel(5);
+      });
+
     });
   </script>
 </head>
@@ -271,7 +292,7 @@ session_start();
     <div class="row text-center slideanim">
       <div class="col-sm-4">
         <div class="thumbnail">
-          <img src="images/interior1.jpg" class='flatbottomrounded' width="400" height="300">
+          <a id='carouselitem1' data-toggle="modal" data-target="#imagemodal" href='#' ><img src="images/interior1.jpg" class='flatbottomrounded' width="400" height="300"></a>
           <p>
             <strong>Consultorio 1</strong>
           </p>
@@ -279,7 +300,7 @@ session_start();
       </div>
       <div class="col-sm-4">
         <div class="thumbnail">
-          <img src="images/plano-consultorios.jpg" class='flatbottomrounded' width="400" height="300">
+          <a id='carouselitem2' data-toggle="modal" data-target="#imagemodal" href='#' ><img src="images/plano-consultorios.jpg" class='flatbottomrounded' width="400" height="300"></a>
           <p>
             <strong>Plano de los consultorios</strong>
           </p>
@@ -287,7 +308,7 @@ session_start();
       </div>
       <div class="col-sm-4">
         <div class="thumbnail">
-          <img src="images/interior3.jpg" class='flatbottomrounded' width="400" height="300">
+          <a id='carouselitem3' data-toggle="modal" data-target="#imagemodal" href='#' ><img src="images/interior3.jpg" class='flatbottomrounded' width="400" height="300"></a>
           <p>
             <strong>Consultorio 1</strong>
           </p>
@@ -297,7 +318,7 @@ session_start();
     <div class="row text-center slideanim">
       <div class="col-sm-4">
         <div class="thumbnail">
-          <img src="images/interior4.jpg" class='flatbottomrounded' width="400" height="300">
+          <a id='carouselitem4' data-toggle="modal" data-target="#imagemodal" href='#' ><img src="images/interior4.jpg" class='flatbottomrounded' width="400" height="300"></a>
           <p>
             <strong>Consultorio 1</strong>
           </p>
@@ -305,7 +326,7 @@ session_start();
       </div>
       <div class="col-sm-4">
         <div class="thumbnail">
-          <img src="images/interior5.png" class='flatbottomrounded' width="400" height="300">
+          <a id='carouselitem5' data-toggle="modal" data-target="#imagemodal" href='#' ><img src="images/interior5.png" class='flatbottomrounded' width="400" height="300"></a>
           <p>
             <strong>Consultorio 2</strong>
           </p>
@@ -313,7 +334,7 @@ session_start();
       </div>
       <div class="col-sm-4">
         <div class="thumbnail">
-          <img src="images/interior6.jpg" class='flatbottomrounded' width="400" height="300">
+          <a id='carouselitem6' data-toggle="modal" data-target="#imagemodal" href='#' ><img src="images/interior6.jpg" class='flatbottomrounded' width="400" height="300"></a>
           <p>
             <strong>Consultorio 1</strong>
           </p>
@@ -321,6 +342,69 @@ session_start();
       </div>
     </div>
     <br>
+
+    <!-- Modal -->
+    <div class="modal fade" id="imagemodal" role="dialog">
+      <div class="modal-dialog modal-lg">
+    
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Imagenes</h4>
+          </div>
+          <div class="modal-body">
+            <!-- Quotes section -->
+              <div id="imagecarousel" class="carousel slide text-center" data-ride="carousel">
+              <!-- Indicators -->
+              <ol class="carousel-indicators">
+                <li data-target="#imagecarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#imagecarousel" data-slide-to="1"></li>
+                <li data-target="#imagecarousel" data-slide-to="2"></li>
+                <li data-target="#imagecarousel" data-slide-to="3"></li>
+                <li data-target="#imagecarousel" data-slide-to="4"></li>
+                <li data-target="#imagecarousel" data-slide-to="5"></li>
+              </ol>
+
+              <!-- Slides -->
+              <div class="carousel-inner" role="listbox">
+                <div class="item active">
+                  <img src="images/interior1.jpg" alt="Consultorio 1"> 
+                </div>
+                <div class="item">
+                  <img src="images/plano-consultorios.jpg" alt="Plano de los consultorios"> 
+                </div>
+                <div class="item">
+                  <img src="images/interior3.jpg" alt="Consultorio 1"> 
+                </div>
+                <div class="item">
+                  <img src="images/interior4.jpg" alt="Consultorio 1"> 
+                </div>
+                <div class="item">
+                  <img src="images/interior5.png" alt="Consultorio 2"> 
+                </div>
+                <div class="item">
+                  <img src="images/interior6.jpg" alt="Consultorio 1"> 
+                </div>
+              </div>
+
+              <!-- Left and right controls -->
+              <a class="left carousel-control" href="#imagecarousel" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a class="right carousel-control" href="#imagecarousel" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+              </a>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
     
     <!-- Quotes section -->
     <div id="myCarousel" class="carousel slide text-center" data-ride="carousel">
