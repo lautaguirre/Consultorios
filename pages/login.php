@@ -126,6 +126,7 @@
                         prevYear: 'glyphicon-backward',
                         nextYear: 'glyphicon-forward'
                     },
+                    longPressDelay:500,
                     minTime:"09:00:00",
                     maxTime:"20:00:00",
                     allDaySlot:false,
@@ -608,8 +609,8 @@
                                 <a class="navbar-brand" >Mostrar:</a>
                             </div>
                             <ul class="nav navbar-nav">
-                                <li id='office1' class='active'><a href='#'>CONSULTORIO 1</a></li>
-                                <li id='office2'><a href='#'>CONSULTORIO 2</a></li>
+                                <li id='office1' class='active'><a >CONSULTORIO 1</a></li>
+                                <li id='office2'><a >CONSULTORIO 2</a></li>
                             </ul>
                         </div>
                     </nav>

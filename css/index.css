@@ -247,3 +247,7 @@ footer .glyphicon {
 .navbar-default .navbar-toggle .icon-bar{
     background-color: white;
 }
+
+a:hover {
+    cursor:pointer;
+}

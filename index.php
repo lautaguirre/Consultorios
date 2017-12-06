@@ -140,7 +140,7 @@ session_start();
             <?php
               if(!isset($_SESSION['logged'])){
                 echo '<li>
-                <a href="#" id="collapseitems" class="alterlogo" data-toggle="modal" data-target="#loginmodal">
+                <a  id="collapseitems" class="alterlogo" data-toggle="modal" data-target="#loginmodal">
                   <span class="glyphicon glyphicon-log-in"></span>
                   INGRESAR
                 </a>
@@ -308,7 +308,7 @@ session_start();
     <div class="row text-center slideanim">
       <div class="col-sm-4">
         <div class="thumbnail">
-          <a id='carouselitem1' data-toggle="modal" data-target="#imagemodal" href='#' ><img src="images/interior1.jpg" class='flatbottomrounded' width="400" height="300"></a>
+          <a id='carouselitem1' data-toggle="modal" data-target="#imagemodal" ><img src="images/interior1.jpg" class='flatbottomrounded' width="400" height="300"></a>
           <p>
             <strong>Consultorio 1</strong>
           </p>
@@ -316,7 +316,7 @@ session_start();
       </div>
       <div class="col-sm-4">
         <div class="thumbnail">
-          <a id='carouselitem2' data-toggle="modal" data-target="#imagemodal" href='#' ><img src="images/plano-consultorios.jpg" class='flatbottomrounded' width="400" height="300"></a>
+          <a id='carouselitem2' data-toggle="modal" data-target="#imagemodal"  ><img src="images/plano-consultorios.jpg" class='flatbottomrounded' width="400" height="300"></a>
           <p>
             <strong>Plano de los consultorios</strong>
           </p>
@@ -324,7 +324,7 @@ session_start();
       </div>
       <div class="col-sm-4">
         <div class="thumbnail">
-          <a id='carouselitem3' data-toggle="modal" data-target="#imagemodal" href='#' ><img src="images/interior3.jpg" class='flatbottomrounded' width="400" height="300"></a>
+          <a id='carouselitem3' data-toggle="modal" data-target="#imagemodal"  ><img src="images/interior3.jpg" class='flatbottomrounded' width="400" height="300"></a>
           <p>
             <strong>Consultorio 1</strong>
           </p>
@@ -334,7 +334,7 @@ session_start();
     <div class="row text-center slideanim">
       <div class="col-sm-4">
         <div class="thumbnail">
-          <a id='carouselitem4' data-toggle="modal" data-target="#imagemodal" href='#' ><img src="images/interior4.jpg" class='flatbottomrounded' width="400" height="300"></a>
+          <a id='carouselitem4' data-toggle="modal" data-target="#imagemodal"  ><img src="images/interior4.jpg" class='flatbottomrounded' width="400" height="300"></a>
           <p>
             <strong>Consultorio 1</strong>
           </p>
@@ -342,7 +342,7 @@ session_start();
       </div>
       <div class="col-sm-4">
         <div class="thumbnail">
-          <a id='carouselitem5' data-toggle="modal" data-target="#imagemodal" href='#' ><img src="images/interior5.png" class='flatbottomrounded' width="400" height="300"></a>
+          <a id='carouselitem5' data-toggle="modal" data-target="#imagemodal"  ><img src="images/interior5.png" class='flatbottomrounded' width="400" height="300"></a>
           <p>
             <strong>Consultorio 2</strong>
           </p>
@@ -350,7 +350,7 @@ session_start();
       </div>
       <div class="col-sm-4">
         <div class="thumbnail">
-          <a id='carouselitem6' data-toggle="modal" data-target="#imagemodal" href='#' ><img src="images/interior6.jpg" class='flatbottomrounded' width="400" height="300"></a>
+          <a id='carouselitem6' data-toggle="modal" data-target="#imagemodal"  ><img src="images/interior6.jpg" class='flatbottomrounded' width="400" height="300"></a>
           <p>
             <strong>Consultorio 1</strong>
           </p>
@@ -607,7 +607,7 @@ session_start();
     <a href="#myPage" title="To Top">
       <span class="glyphicon glyphicon-chevron-up"></span>
     </a>
-    <p>Diseño web: <a href="#">Lautaro Aguirre</a>
+    <p>Diseño web: <a >Lautaro Aguirre</a>
     </p>
   </div>
   </footer>
