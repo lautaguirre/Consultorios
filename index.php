@@ -209,6 +209,7 @@ session_start();
 
   <!-- About Section -->
   <div id="about" class="container-fluid">
+  <div class='container'>
     <div class="row">
       <div class="col-sm-8">
         <h2>Que es Consultorios Villa Martina?</h2>
@@ -229,8 +230,10 @@ session_start();
       </div>
     </div>
   </div>
+  </div>
 
   <div class="container-fluid bg-success">
+  <div class='container'>
     <div class="row">
       <div class="col-sm-4">
         <span class="glyphicon glyphicon-time logo slideanim"></span>
@@ -250,9 +253,11 @@ session_start();
       </div>
     </div>
   </div>
+  </div>
 
   <!-- Services Section -->
   <div id="services" class="container-fluid text-center">
+  <div class='container'>
     <h2>SERVICIOS</h2>
     <h4>Que ofrecemos</h4>
     <br>
@@ -292,9 +297,11 @@ session_start();
       </div>
     </div>
   </div>
+  </div>
 
   <!-- Images -->
   <div id="portfolio" class="container-fluid text-center bg-success">
+  <div class='container'>
     <h2>IMAGENES</h2>
     <br>
     <h4>Como son nuestros consultorios</h4>
@@ -414,8 +421,12 @@ session_start();
         </div>
       </div>
     </div>
+  </div>
+  </div>
     
-    <!-- Quotes section -->
+  <!-- Quotes section -->
+  <div class="container-fluid text-center">
+  <div class='container'>
     <div id="myCarousel" class="carousel slide text-center" data-ride="carousel">
       <!-- Indicators -->
       <ol class="carousel-indicators">
@@ -457,9 +468,11 @@ session_start();
       </a>
     </div>
   </div>
+  </div>
 
   <!-- Pricing Section -->
-  <div id="pricing" class="container-fluid">
+  <div id="pricing" class="container-fluid bg-success">
+  <div class='container'>
     <div class="text-center">
       <h2>PRECIOS</h2>
     </div>
@@ -538,9 +551,11 @@ session_start();
       </div>
     </div>
   </div>
+  </div>
 
   <!-- Contact Section -->
-  <div id="contact" class="container-fluid bg-success">
+  <div id="contact" class="container-fluid">
+  <div class='container'>
     <h2 class="text-center">CONTACTO</h2>
     <div class="row">
       <div class="col-sm-5">
@@ -571,6 +586,7 @@ session_start();
       </div>
     </div>
   </div>
+  </div>
 
   <!-- Google Maps -->
   <div id="googleMap" style="height:400px;width:100%;"></div>
@@ -587,11 +603,13 @@ session_start();
 
   <!-- Footer -->
   <footer class="container-fluid text-center">
+  <div class='container'>
     <a href="#myPage" title="To Top">
       <span class="glyphicon glyphicon-chevron-up"></span>
     </a>
     <p>Diseño web: <a href="#">Lautaro Aguirre</a>
     </p>
+  </div>
   </footer>
 
 </body>
