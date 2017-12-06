@@ -161,6 +161,11 @@ footer .glyphicon {
     -webkit-transform: translateY(0%);
   }
 }
+@media screen and (max-width: 1199px) {
+    .vmlogo{
+        display: none;
+    }
+}
 @media screen and (max-width: 768px) {
   .col-sm-4 {
     text-align: center;
@@ -174,9 +179,6 @@ footer .glyphicon {
 @media screen and (max-width: 480px) {
   .logo {
       font-size: 150px;
-  }
-  .vmlogo{
-      display: none;
   }
 }
 @media screen and (max-width: 380px) {

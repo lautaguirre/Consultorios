@@ -550,7 +550,7 @@ session_start();
         <p>
           <span class="glyphicon glyphicon-phone"></span> 341-000-0000 </p>
         <p>
-          <span class="glyphicon glyphicon-envelope"></span> villamartina@villamartinarosario.com </p>
+          <span class="glyphicon glyphicon-envelope"></span> 	villamartinaconsultorios@gmail.com </p>
       </div>
       <div class="col-sm-7 slideanim">
         <div class="row">
