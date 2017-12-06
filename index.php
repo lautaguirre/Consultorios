@@ -275,11 +275,20 @@ session_start();
     </div>
     <br>
     <br>
+    <div class="col-sm-2">
+    </div>
     <div class="row slideanim">
-      <div class="col-sm-12">
+      <div class="col-sm-4">
         <span class="glyphicon glyphicon-thumbs-up logo-small"></span>
         <h4>COMPROMISO</h4>
         <p>Nos comprometemos a brindar la mejor atencion.</p>
+      </div>
+      <div class="col-sm-4">
+        <span class="glyphicon glyphicon-dashboard logo-small"></span>
+        <h4>AIRE ACONDICIONADO Y CALEFACCION</h4>
+        <p>Para un ambiente adecuado.</p>
+      </div>
+      <div class="col-sm-2">
       </div>
     </div>
   </div>
@@ -343,7 +352,7 @@ session_start();
     </div>
     <br>
 
-    <!-- Modal -->
+    <!-- Modal images carousel -->
     <div class="modal fade" id="imagemodal" role="dialog">
       <div class="modal-dialog modal-lg">
     
