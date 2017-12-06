@@ -339,7 +339,7 @@
                                 officenumber:office
                             },
                             function(data){
-                                if(data!='<div class="alert alert-warning"><strong>Atencion!</strong> Error creando reserva, parece que otro usuario ya ocupo las fechas solicitadas, la descripcion no es valida o solicito fechas anteriores al dia de hoy.</div><BR>'){
+                                if(data!='<div class="alert alert-warning"><strong>Atencion!</strong> Error creando reserva, parece que otro usuario ya ocupo las fechas solicitadas, la descripcion no es valida (Ingrese solo letras y numeros, no se permiten caracteres del tipo [.,;/-]) o solicito fechas anteriores al dia de hoy.</div><BR>'){
                                     $.post(
                                         '../scripts/sendemail.php',
                                         {

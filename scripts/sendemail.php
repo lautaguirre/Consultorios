@@ -1,7 +1,7 @@
 <?php
-if($_POST['emailbody']!='<table class="table"><thead><tr><th>#</th><th>Comienzo</th><th>Fin</th></tr></thead>'){
+if($_POST['emailbody']!='<table class="table table-hover"><thead><tr><th>#</th><th>Comienzo</th><th>Fin</th></tr></thead>'){
 
-    $to = 'damelakey@gmail.com';
+    $to = 'villamartinaconsultorios@gmail.com';
     $subject = "Consultorios Villa Martina: Reserva creada";
     $message = "<html>
     <body>
