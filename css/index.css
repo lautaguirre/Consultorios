@@ -184,6 +184,7 @@ footer .glyphicon {
   .tabletadmin{
     margin-top: 80px;
   }
+  .fc-time-grid .fc-slats td{height:2.5em;}
 }
 @media screen and (max-width: 480px) {
   .logo {
@@ -272,3 +273,4 @@ footer .glyphicon {
 a:hover {
     cursor:pointer;
 }
+

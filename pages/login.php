@@ -548,7 +548,7 @@
 
                 //Check if user is on touch device
                 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
-                    $('#mobile').html('<div class="alert alert-danger"><strong>ATENCION!</strong>Si se encuentra en un dispositivo tactil debe mantener apretado el calendario por un breve lapso y luego arrastrar el dedo para seleccionar las horas deseadas.</div>');
+                    $('#mobile').html('<div class="alert alert-danger"><strong>ATENCION!</strong> Si se encuentra en un dispositivo tactil debe mantener apretado el calendario por un breve lapso y luego arrastrar el dedo para seleccionar las horas deseadas.</div>');
                 }
                 
             });
@@ -603,7 +603,7 @@
                     <h3 id='welcome' style='text-transform:capitalize;'>Bienvenido </h3>
                     <div id='mobile'></div>
                     <nav class="fakenavbar navbar-default" >
-                        <div class="container">
+                        <div class="container-fluid" style='padding:0;'>
                             <div class="navbar-header">
                                 <a class="navbar-brand" >Mostrar:</a>
                             </div>
@@ -618,15 +618,12 @@
                 </div>
                 <!-- Aside -->
                 <div class="col-sm-6 tabletlogin">
-                    <h3>En esta seccion usted puede:</h3>
-                    <ul>
-                        <li>Ver todas las reservas y horarios disponibles siguientes al dia de hoy.</li>
-                        <li class='bg-danger'>Recuerde que los horarios de reserva solo pueden ser de Lunes a Viernes (9:00 a 13:00 y 16:00 a 20:00) y Sabados (9:00 a 13:00).</li>
-                        <li>Disponemos de 2 consultorios y cada uno posee su respectivo calendario, puede seleccionar cual mostrar en las opciones arriba del mismo.</li>
-                    </ul>
-                    <button type="button" data-toggle="collapse" data-target="#instructions"class='btn btn-default' style='width:100%;'>Instrucciones</button>
+                    <button type="button" data-toggle="collapse" data-target="#instructions"class='btn btn-success' style='width:100%;margin-top:55px;'>Instrucciones e informacion</button>
                     <div id="instructions" class="collapse">
                         <ul>
+                            <li>En esta seccion puede ver todas las reservas y horarios disponibles siguientes al dia de hoy.</li>
+                            <li class='bg-danger'>Recuerde que los horarios de reserva solo pueden ser de Lunes a Viernes (9:00 a 13:00 y 16:00 a 20:00) y Sabados (9:00 a 13:00).</li>
+                            <li>Disponemos de 2 consultorios y cada uno posee su respectivo calendario, puede seleccionar cual mostrar en las opciones arriba del mismo.</li>
                             <li>Puede cancelar reservas haciendo click en las mismas y seleccionando "Borrar evento" (Siempre que esten dentro del plazo permitido).</li>
                             <li>Puede realizar una nueva reserva <strong>ARRASTRANDO</strong> el raton sobre los dias deseados y seleccionando "Reservar" (Notese que solo puede reservar por horas en la pestaña <strong>"Semana"</strong>).</li>
                             <li>Puede agregar una descripcion a la hora de hacer una reserva, la cual sera mostrada junto con el evento (Si decide no agregar una, se usara su nombre y apellido como descripcion).</li>
@@ -640,7 +637,7 @@
                         <button type="button" class="btn btn-danger" id="cancelselection">Cancelar</button>
                     </div>
                     <div id="reservetext" class="hidden">
-                        <h3>Descripcion de la reserva (Si no ingresa nada se usara por defecto su nombre y apellido).</h3>
+                        <h3>Descripcion de la reserva (Si no ingresa nada se usara por defecto su nombre y apellido [Solo se permiten letras, numeros y espacios]).</h3>
                         <div class='form-group' >
                             <input type="text" id="titletext" class='form-control'>
                         </div>

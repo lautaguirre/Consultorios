@@ -673,7 +673,7 @@
                     <!-- Calendar -->
                     <div class='row'>
                         <nav class="fakenavbar navbar-default" >
-                            <div class="container">
+                            <div class="container-fluid" style='padding:0;'>
                                 <div class="navbar-header">
                                     <a class="navbar-brand" >Mostrar:</a>
                                 </div>
