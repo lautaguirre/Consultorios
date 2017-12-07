@@ -76,7 +76,7 @@
                 <div class="col-sm-3">
                     
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-3 tabletlogin">
                     <p>&nbsp;</p>
                     <form action="changepass.php" method="post">
                         <div class="form-group">
@@ -94,7 +94,7 @@
                         <button type="submit" name='changepasssubmit' class="btn btn-success">Cambiar contraseña</button>
                     </form>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-3 tabletlogin">
                     <p>&nbsp;</p>
                     <?php
                         //Change password

@@ -578,7 +578,7 @@
         
         <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-6">
+                <div class="col-sm-6 tabletadmin">
                     <!-- Admin panel -->
                     <div class='row'>
                         <div class="col-sm-3">
@@ -688,7 +688,7 @@
                     </div>
                 </div>
                 <!-- Response and month resume -->
-                <div class="col-sm-6">
+                <div class="col-sm-6 tabletadmin">
                     <p>&nbsp;</p>
                     <h4>Consultar mes</h4>
                     <div class="form-group">

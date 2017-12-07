@@ -203,7 +203,7 @@ session_start();
     </div>
   </div>
 
-  <div class="jumbotron text-center">
+  <div class="jumbotron text-center jumbovmlogo">
     <img src="images/vmlogo.png" class="vmlogo img-circle" width="25%">
   </div>
 

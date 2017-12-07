@@ -599,8 +599,7 @@
         <div class="container-fluid">
             <div class="row">
                 <!-- Calendar -->
-                <div class="col-sm-6">
-                    <p>&nbsp;</p>
+                <div class="col-sm-6 tabletlogin">
                     <h3 id='welcome' style='text-transform:capitalize;'>Bienvenido </h3>
                     <div id='mobile'></div>
                     <nav class="fakenavbar navbar-default" >
@@ -618,9 +617,7 @@
                     <div id='calendar'></div>
                 </div>
                 <!-- Aside -->
-                <div class="col-sm-6">
-                    <p>&nbsp;</p>
-                    <p>&nbsp;</p>
+                <div class="col-sm-6 tabletlogin">
                     <h3>En esta seccion usted puede:</h3>
                     <ul>
                         <li>Ver todas las reservas y horarios disponibles siguientes al dia de hoy.</li>

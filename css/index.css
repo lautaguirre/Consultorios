@@ -161,9 +161,15 @@ footer .glyphicon {
     -webkit-transform: translateY(0%);
   }
 }
-@media screen and (max-width: 1199px) {
+@media screen and (max-width: 1024px) {
     .vmlogo{
         display: none;
+    }
+    .tabletlogin{
+        margin-top:50px;
+    }
+    .tabletadmin{
+        margin-top: 50px;
     }
 }
 @media screen and (max-width: 768px) {
@@ -175,10 +181,25 @@ footer .glyphicon {
       width: 100%;
       margin-bottom: 35px;
   }
+  .tabletadmin{
+    margin-top: 80px;
+  }
 }
 @media screen and (max-width: 480px) {
   .logo {
       font-size: 150px;
+  }
+  .vmlogo{
+    display: initial;
+  }
+  .jumbovmlogo{
+      margin-bottom: 0;
+  }
+  .tabletadmin{
+    margin-top: initial;
+  }
+  .tabletlogin{
+    margin-top:initial;
   }
 }
 @media screen and (max-width: 380px) {
