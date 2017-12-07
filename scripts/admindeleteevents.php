@@ -31,13 +31,13 @@
             mysqli_query($conn,$sql);  
         }
         $obj=(object)[
-            'msg'=>'Reserva borrada con exito, se le envio un mail al usuario notificandolo.<BR>',
+            'msg'=>'<div class="alert alert-success"><strong>Exito!</strong> Reserva borrada, se le envio un email al usuario notificandolo.</div><BR>',
             'useremail'=>$useremail,
         ]; 
 
         $json=json_encode($obj);
         echo $json;
     }else{
-        echo '<errorspan>Error borrando reserva, puede que haya elegido varios usuarios diferentes<errorspan><BR>';
+        echo '<div class="alert alert-warning"><strong>Atencion!</strong> Error borrando reserva, puede que haya elegido varios usuarios diferentes.</div><BR>';
     }
 ?>

@@ -30,9 +30,9 @@
             $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
             mail($to,$subject,$message,$headers);
 
-            echo '<H3>Solicitud enviada, deberia recibir un E-mail con la nueva contraseña.</H3><BR>';
+            echo '<div class="alert alert-success"><strong>Exito!</strong> Solicitud enviada, deberia recibir un E-mail con la nueva contraseña.</div><BR>';
         }else{
-            echo '<errorspan>Error al recuperar contraseña, E-mail o DNI invalidos.</errorspan>';
+            echo '<div class="alert alert-warning"><strong>Atencion!</strong> Error al recuperar contraseña, E-mail o DNI invalidos.</div><BR>';
         }
 
     }
@@ -61,7 +61,7 @@
     function validateemail($emailtovalidate){
         $emailtovalidate=filter_var($emailtovalidate, FILTER_SANITIZE_EMAIL);
         if (!filter_var($emailtovalidate, FILTER_VALIDATE_EMAIL)){
-            echo '<errorspan>Error al insertar E-mail</errorspan><br>';
+            echo '<div class="alert alert-warning"><strong>Atencion!</strong> Error al insertar E-mail.</div><BR>';
             global $validation;
             $validation=false;
             $emailtovalidate='';
@@ -73,7 +73,7 @@
 
     function validateint($inttovalidate){
         if (!filter_var($inttovalidate, FILTER_VALIDATE_INT)) {
-            echo '<errorspan>Error al insertar DNI o telefono</errorspan><br>';
+            echo '<div class="alert alert-warning"><strong>Atencion!</strong> Error al insertar DNI.</div><BR>';
             global $validation;
             $validation=false;
         }

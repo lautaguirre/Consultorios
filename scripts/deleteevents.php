@@ -7,5 +7,5 @@
         $sql='DELETE FROM reservas WHERE (start="'.$evarray[$arrpos]->evstart.'") AND (end="'.$evarray[$arrpos]->evend.'") AND (officenumber='.$_POST['officenumber'].') AND dni='.$_POST['deletedni'];
         mysqli_query($conn,$sql);
     }
-    echo 'Reserva borrada con exito<BR>';    
+    echo '<div class="alert alert-success"><strong>Exito!</strong> Reserva borrada.</div><BR>';
 ?>

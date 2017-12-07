@@ -240,7 +240,7 @@
                             },
                             function(data){
                                 console.log(data);
-                                if(data=='<errorspan>Error borrando reserva, puede que haya elegido varios usuarios diferentes<errorspan><BR>'){
+                                if(data=='<div class="alert alert-warning"><strong>Atencion!</strong> Error borrando reserva, puede que haya elegido varios usuarios diferentes.</div><BR>'){
                                     $('#selection').html(data);
                                 }else{
                                     admindeletedata=JSON.parse(data);
