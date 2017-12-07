@@ -130,7 +130,7 @@ session_start();
       //Antispam email
       var vmmail='villamartinaconsultorios';
       var vmdomain='gmail.com';
-      $('#webemail').html(vmmail+'@'+vmdomain);
+      $('#webemail').append(' '+vmmail+'@'+vmdomain);
 
     });
   </script>
@@ -590,8 +590,8 @@ session_start();
           <span class="glyphicon glyphicon-map-marker"></span> 3 de Febrero 210, Rosario, Santa fe, Argentina</p>
         <p>
           <span class="glyphicon glyphicon-phone"></span> 341-000-0000 </p>
-        <p>
-          <span class="glyphicon glyphicon-envelope"></span><div id='webemail'></div></p>
+        <p id='webemail'>
+          <span class="glyphicon glyphicon-envelope"></span></p>
       </div>
       <div class="col-sm-7 slideanim">
         <div class="row">
@@ -606,7 +606,7 @@ session_start();
         <br>
         <div class="row">
           <div class="col-sm-12 form-group">
-            <button id='sendcontactbtn' class="btn btn-default pull-right" type="button">Enviar</button>
+            <button id='sendcontactbtn' class="btn btn-success pull-right" type="button">Enviar</button>
           </div>
         </div>
       </div>

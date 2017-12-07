@@ -485,7 +485,7 @@
                         },
                         function(data){
                             monthev=JSON.parse(data);
-                            monthtable=`<table class="table table-hover">
+                            monthtable=`<div class="table-responsive"><table class="table table-hover">
                                 <thead>
                                     <tr>
                                         <th>Titulo</th>
@@ -506,7 +506,7 @@
                                 </tbody>`;
                             }
                             totalhours=Math.abs(totalhours);
-                            monthtable=monthtable+'</table>';
+                            monthtable=monthtable+'</table></div>';
                             $('#adminphp').html('<strong>Horas totales: '+totalhours+'</strong><BR><p>&nbsp;</p>'+monthtable);
                         }
                     );
@@ -765,7 +765,7 @@
 
                                     echo '<h3>Nuevo usuario creado</H3><BR>';
 
-                                    $tabletext=$tabletext.'<table class="table">
+                                    $tabletext=$tabletext.'<table class="table table-hover">
                                     <thead>
                                         <tr>
                                             <th>DNI</th>
@@ -885,7 +885,7 @@
                                     if(mysqli_num_rows($result)==1){
                                         $row=mysqli_fetch_assoc($result);
 
-                                        $tabletext=$tabletext.'<table class="table">
+                                        $tabletext=$tabletext.'<div class="table-responsive"><table class="table table-hover">
                                         <thead>
                                             <tr>
                                                 <th>DNI</th>
@@ -907,7 +907,7 @@
                                         <td>'.$row['address'].'</td>
                                         <td>'.$row['authorization'].'</td>
                                         </tr>';
-                                        $tabletext=$tabletext."</tbody></table>";
+                                        $tabletext=$tabletext."</tbody></table></div>";
                                     
                                         echo $tabletext;
                                     }else{
@@ -928,7 +928,7 @@
                                     $result=mysqli_query($conn,$sql);
                                     if(mysqli_num_rows($result)>0){
                                         $totalresults=0;
-                                        $tabletext=$tabletext.'<table class="table">
+                                        $tabletext=$tabletext.'<div class="table-responsive"><table class="table table-hover">
                                         <thead>
                                             <tr>
                                                 <th>DNI</th>
@@ -953,7 +953,7 @@
                                             <td>'.$row['authorization'].'</td>
                                             </tr>';
                                         }
-                                        $tabletext=$tabletext.'</tbody></table>';
+                                        $tabletext=$tabletext.'</tbody></table></div>';
                                         echo '<h3>Cantidad de resultados: '.$totalresults.'</h3><P>';
                                         echo $tabletext;
                                     }else{
@@ -1013,7 +1013,7 @@
                                 if(mysqli_num_rows($result)>0){
                                     $totalresults=0;
                                     global $tabletext;
-                                    $tabletext=$tabletext.'<table class="table">
+                                    $tabletext=$tabletext.'<div class="table-responsive"><table class="table table-hover">
                                     <thead>
                                         <tr>
                                             <th>DNI</th>
@@ -1038,7 +1038,7 @@
                                         <td>'.$row['authorization'].'</td>
                                         </tr>';
                                     }
-                                    $tabletext=$tabletext.'</tbody></table>';
+                                    $tabletext=$tabletext.'</tbody></table></div>';
                                     echo '<h3>Cantidad de resultados: '.$totalresults.'</h3><P>';
                                     echo $tabletext;
                                 }else{
