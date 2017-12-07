@@ -106,6 +106,32 @@ session_start();
         $('#imagecarousel').carousel(5);
       });
 
+      //Send contact email
+      $('#sendcontactbtn').click(function(){
+				contactname=$('#contactname').val();
+        contactemail=$('#contactemail').val();
+        contactcomment=$('#contactcomment').val();
+        $('#contactname').val('');
+        $('#contactemail').val('');
+
+				$.post(
+	        'scripts/contactemail.php',
+          {
+						cname:contactname,
+            cemail:contactemail,
+            ccomment:contactcomment
+        	},
+    	    function(data){
+						$('#contactcomment').val('Mensaje enviado');
+          }
+        );
+      });
+      
+      //Antispam email
+      var vmmail='villamartinaconsultorios';
+      var vmdomain='gmail.com';
+      $('#webemail').html(vmmail+'@'+vmdomain);
+
     });
   </script>
 </head>
@@ -565,22 +591,22 @@ session_start();
         <p>
           <span class="glyphicon glyphicon-phone"></span> 341-000-0000 </p>
         <p>
-          <span class="glyphicon glyphicon-envelope"></span> 	villamartinaconsultorios@gmail.com </p>
+          <span class="glyphicon glyphicon-envelope"></span><div id='webemail'></div></p>
       </div>
       <div class="col-sm-7 slideanim">
         <div class="row">
           <div class="col-sm-6 form-group">
-            <input class="form-control" id="name" name="name" placeholder="Nombre" type="text" required>
+            <input class="form-control" id="contactname"  placeholder="Nombre" type="text" required>
           </div>
           <div class="col-sm-6 form-group">
-            <input class="form-control" id="email" name="email" placeholder="Email" type="email" required>
+            <input class="form-control" id="contactemail"  placeholder="Email" type="email" required>
           </div>
         </div>
-        <textarea class="form-control" id="comments" name="comments" placeholder="Mensaje" rows="5"></textarea>
+        <textarea class="form-control" id="contactcomment" placeholder="Mensaje" rows="5"></textarea>
         <br>
         <div class="row">
           <div class="col-sm-12 form-group">
-            <button class="btn btn-default pull-right" type="submit">Enviar</button>
+            <button id='sendcontactbtn' class="btn btn-default pull-right" type="button">Enviar</button>
           </div>
         </div>
       </div>

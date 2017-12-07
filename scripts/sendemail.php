@@ -2,7 +2,7 @@
 if($_POST['emailbody']!='<table class="table table-hover"><thead><tr><th>#</th><th>Comienzo</th><th>Fin</th></tr></thead>'){
 
     $to = 'villamartinaconsultorios@gmail.com';
-    $subject = "Consultorios Villa Martina: Reserva creada";
+    $subject = "Reserva creada";
     $message = "<html>
     <body>
         <h3>El usuario ".$_POST['emailuser']." (DNI: ".$_POST['emaildni'].") hizo la siguiente reserva en el consultorio Nro ".$_POST['emailoffice'].":</h3>
