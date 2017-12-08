@@ -53,7 +53,6 @@
     //Validate
     function validateint($inttovalidate){
         if (!filter_var($inttovalidate, FILTER_VALIDATE_INT)) {
-            echo 'Error al insertar DNI o telefono.<br>';
             global $validation;
             $validation=false;
         }
