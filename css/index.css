@@ -190,9 +190,6 @@ footer .glyphicon {
   .logo {
       font-size: 150px;
   }
-  .vmlogo{
-    display: initial;
-  }
   .jumbovmlogo{
       margin-bottom: 0;
   }
@@ -203,11 +200,21 @@ footer .glyphicon {
     margin-top:initial;
   }
 }
-@media screen and (max-width: 380px) {
+@media screen and (max-width: 424px) {
     .navbar-brand{
         position: relative;
         bottom: 10px; 
     }
+    .tabletlogin{
+        margin-top:60px;
+    }
+    .tabletadmin{
+        margin-top: 50px;
+    }
+    .container-fluid {
+        padding: 45px 25px;
+    }
+
 }
 
 .alterlogo span{
