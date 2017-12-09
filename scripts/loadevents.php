@@ -67,9 +67,9 @@
                 $sql='INSERT INTO reservas (title,start,end,dni,officenumber) VALUES ("'.$_POST['titleev'].'","'.$evarray[$arrpos]->evstart.'","'.$evarray[$arrpos]->evend.'",'.$_POST['evdni'].','.$_POST['officenumber'].')';
                 mysqli_query($conn,$sql);
             }
-            echo 'Nueva reserva creada<BR>'; 
+            echo '<div class="alert alert-success"><strong>Exito!</strong> Nueva reserva creada.</div><BR>';
         }else{
-            echo '<errorspan>Error creando reserva, parece que otro usuario ya ocupo las fechas solicitadas, la descripcion no es valida o solicito fechas anteriores al dia de hoy.</errorspan><BR>';
+            echo '<div class="alert alert-warning"><strong>Atencion!</strong> Error creando reserva, parece que otro usuario ya ocupo las fechas solicitadas, la descripcion no es valida (Ingrese solo letras y numeros, no se permiten caracteres del tipo [.,;/-]) o solicito fechas anteriores al dia de hoy.</div><BR>';
         }
     }
 
@@ -81,7 +81,6 @@
 
     function validateaddress($stringtovalidate){
         if (!preg_match("/^[a-zA-Z0-9 ]*$/",$stringtovalidate)){
-            echo '<errorspan>Ingrese solo letras y numeros, no se permiten caracteres del tipo (.,;/-).</errorspan><br>';
             global $validation;
             $validation=false;
         }

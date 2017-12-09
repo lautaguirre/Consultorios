@@ -25,7 +25,7 @@
                         if($row['authorization']=='si'){
                             $_SESSION['logged']=$logindni;
                         }
-                        if($logindni==38333166 or $logindni=22773396){
+                        if($logindni==38333166 || $logindni==22773396){
                             $_SESSION['admin']=true;
                         }
                     }
@@ -53,31 +53,34 @@
     //Validate
     function validateint($inttovalidate){
         if (!filter_var($inttovalidate, FILTER_VALIDATE_INT)) {
-            echo 'Error al insertar DNI o telefono.<br>';
             global $validation;
             $validation=false;
         }
     }
     
 ?>
-
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Panel de usuario</title>
-        <meta charset="UTF-8">
-		<link rel="shortcut icon" href="../images/favicon.png" type="image/png">
-        <link rel="stylesheet" href="../css/index.css" type="text/css">
-        <link rel='stylesheet' type="text/css" href='../calendar/fullcalendar.min.css' />
-        <script src='../calendar/lib/jquery.min.js'></script>
-        <script src='../calendar/lib/moment.min.js'></script>
-        <script src='../calendar/fullcalendar.js'></script>
-        <script src='../calendar/locale/es.js'></script>
-        <script src="../scripts/webemail.js"></script>
-        <script>
+
+<head>
+    <title>Panel de usuario</title>
+    <meta charset="utf-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="../images/favicon.png" type="image/png">
+    <link rel='stylesheet' type="text/css" href='../calendar/fullcalendar.min.css' />
+    <script src='../calendar/lib/moment.min.js'></script>
+    <script src='../calendar/fullcalendar.js'></script>
+    <script src='../calendar/locale/es.js'></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/index.css" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
              $(document).ready(function() {
 
-                var selection=`<table class="table">
+                var selection=`<table class="table table-hover">
                                     <thead>
                                         <tr>
                                             <th>#</th>
@@ -87,7 +90,7 @@
                                     </thead>`;
                 var selectionnumber=0;
                 var selected=false;
-                var selection2=`<table class="table">
+                var selection2=`<table class="table table-hover">
                                     <thead>
                                         <tr>
                                             <th>#</th>
@@ -114,7 +117,15 @@
 				        center: 'prev title next',
 				        right: 'month,agendaWeek listMonth'
                     },
-                    
+                    themeSystem:'bootstrap3',
+                    bootstrapGlyphicons: {
+                        close: 'glyphicon-remove',
+                        prev: 'glyphicon-chevron-left',
+                        next: 'glyphicon-chevron-right',
+                        prevYear: 'glyphicon-backward',
+                        nextYear: 'glyphicon-forward'
+                    },
+                    longPressDelay:500,
                     minTime:"09:00:00",
                     maxTime:"20:00:00",
                     allDaySlot:false,
@@ -273,7 +284,7 @@
                         $('#selection').html('');
                         $('#cancelevent').addClass('hidden');
                         selectionnumber=0;
-                        selection=`<table class="table">
+                        selection=`<table class="table table-hover">
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -328,7 +339,7 @@
                                 officenumber:office
                             },
                             function(data){
-                                if(data!='<errorspan>Error creando reserva, parece que otro usuario ya ocupo las fechas solicitadas, la descripcion no es valida o solicito fechas anteriores al dia de hoy.</errorspan><BR>'){
+                                if(data!='<div class="alert alert-warning"><strong>Atencion!</strong> Error creando reserva, parece que otro usuario ya ocupo las fechas solicitadas, la descripcion no es valida (Ingrese solo letras y numeros, no se permiten caracteres del tipo [.,;/-]) o solicito fechas anteriores al dia de hoy.</div><BR>'){
                                     $.post(
                                         '../scripts/sendemail.php',
                                         {
@@ -342,7 +353,7 @@
                                 }
                                         
                                 selection2number=0;
-                                selection2=`<table class="table">
+                                selection2=`<table class="table table-hover">
                                     <thead>
                                         <tr>
                                             <th>#</th>
@@ -370,7 +381,7 @@
                     clickevarr=[];
                     selected=false;
                     selectionnumber=0;
-                    selection=`<table class="table">
+                    selection=`<table class="table table-hover">
                                     <thead>
                                         <tr>
                                             <th>#</th>
@@ -394,7 +405,7 @@
                     selectobj={};
                     selectarr=[];
                     selection2number=0;
-                    selection2=`<table class="table">
+                    selection2=`<table class="table table-hover">
                                     <thead>
                                         <tr>
                                             <th>#</th>
@@ -403,6 +414,96 @@
                                         </tr>
                                     </thead>`;
                     $('#reserve').click(); //dump click handlers
+                });
+
+                //Select office
+                $('#office1').click(function(){
+                    office=1;
+                    $("#office1").addClass('active');
+                    $("#office2").removeClass('active');
+
+                    //Reset
+                    $('#calendar').fullCalendar( 'removeEvents',1 );
+                    $('#calendar').fullCalendar( 'removeEvents',2 );
+                    $('#selection').html('');
+                    $('#selection2').html('');
+                    $('#cancelevent').addClass('hidden');
+                    $('#reservetext').addClass('hidden');
+                    $('#titletext').val('');
+                    clickevobj={};
+                    clickevarr=[];
+                    selectobj={};
+                    selectarr=[];
+                    selected=false;
+                    selected2=false;
+                    selectionnumber=0;
+                    selection=`<table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Comienzo</th>
+                                            <th>Fin</th>
+                                        </tr>
+                                    </thead>`;
+                    selection2number=0;
+                    selection2=`<table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Comienzo</th>
+                                            <th>Fin</th>
+                                        </tr>
+                                    </thead>`;
+                    alreadyselected=false;
+                    selectedevents=[];
+                    $('#deleteevent').click(); //dump click handlers
+                    $('#reserve').click(); //dump click handlers
+
+                    $('#calendar').fullCalendar( 'refetchEvents' );
+                });
+                $('#office2').click(function(){
+                    office=2;
+                    $("#office2").addClass('active');
+                    $("#office1").removeClass('active');
+
+                    //Reset
+                    $('#calendar').fullCalendar( 'removeEvents',1 );
+                    $('#calendar').fullCalendar( 'removeEvents',2 );
+                    $('#selection').html('');
+                    $('#selection2').html('');
+                    $('#cancelevent').addClass('hidden');
+                    $('#reservetext').addClass('hidden');
+                    $('#titletext').val('');
+                    clickevobj={};
+                    clickevarr=[];
+                    selectobj={};
+                    selectarr=[];
+                    selected=false;
+                    selected2=false;
+                    selectionnumber=0;
+                    selection=`<table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Comienzo</th>
+                                            <th>Fin</th>
+                                        </tr>
+                                    </thead>`;
+                    selection2number=0;
+                    selection2=`<table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Comienzo</th>
+                                            <th>Fin</th>
+                                        </tr>
+                                    </thead>`;
+                    alreadyselected=false;
+                    selectedevents=[];
+                    $('#deleteevent').click(); //dump click handlers
+                    $('#reserve').click(); //dump click handlers
+
+                    $('#calendar').fullCalendar( 'refetchEvents' );
                 });
 
                 //Get user name by id
@@ -421,181 +522,132 @@
                     }
                 );
 
+                // Add smooth scrolling
+                $(".navbar a, footer a[href='#myPage']").on('click', function (event) {
+                    if (this.hash !== "") {
+                        // Prevent default anchor click behavior
+                        event.preventDefault();
+
+                        // Store hash
+                        var hash = this.hash;
+
+                        $('html, body').animate({
+                            scrollTop: $(hash).offset().top
+                        }, 900, function () { //900 miliseconds to scroll to te desired area
+
+                        window.location.hash = hash;
+                        });
+                    }
+                });
+
+                //Hide collapse after click
+                $('#collapseitems, #movecontact').click(function(){
+                    $(".collapse").collapse('hide');
+                });
+
+                //Check if user is on touch device
                 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
-                    $('#mobile').html('<errorspan>SI SE ENCUENTRA EN UN DISPOSITIVO TACTIL DEBE MANTENER APRETADO SOBRE EL CALENDARIO POR UN BREVE LAPSO Y LUEGO ARRASTRAR EL DEDO PARA SELECCIONAR LOS DIAS/HORAS DESEADOS.</errorspan>');
-                    $('#maindiv').removeClass('main2');
-                    $('#asidediv').removeClass('aside2');
-                    $('#maindiv').addClass('main');
-                    $('#asidediv').addClass('aside');
+                    $('#mobile').html('<div class="alert alert-danger"><strong>ATENCION!</strong> Si se encuentra en un dispositivo tactil debe mantener apretado el calendario por un breve lapso y luego arrastrar el dedo para seleccionar las horas deseadas.</div>');
                 }
-
-                //Select office
-                $('#office1').click(function(){
-                    office=1;
-                    $("#office1").addClass('reserve');
-                    $("#office2").removeClass('reserve');
-
-                    //Reset
-                    $('#calendar').fullCalendar( 'removeEvents',1 );
-                    $('#calendar').fullCalendar( 'removeEvents',2 );
-                    $('#selection').html('');
-                    $('#selection2').html('');
-                    $('#cancelevent').addClass('hidden');
-                    $('#reservetext').addClass('hidden');
-                    $('#titletext').val('');
-                    clickevobj={};
-                    clickevarr=[];
-                    selectobj={};
-                    selectarr=[];
-                    selected=false;
-                    selected2=false;
-                    selectionnumber=0;
-                    selection=`<table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Comienzo</th>
-                                            <th>Fin</th>
-                                        </tr>
-                                    </thead>`;
-                    selection2number=0;
-                    selection2=`<table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Comienzo</th>
-                                            <th>Fin</th>
-                                        </tr>
-                                    </thead>`;
-                    alreadyselected=false;
-                    selectedevents=[];
-                    $('#deleteevent').click(); //dump click handlers
-                    $('#reserve').click(); //dump click handlers
-
-                    $('#calendar').fullCalendar( 'refetchEvents' );
-                });
-                $('#office2').click(function(){
-                    office=2;
-                    $("#office2").addClass('reserve');
-                    $("#office1").removeClass('reserve');
-
-                    //Reset
-                    $('#calendar').fullCalendar( 'removeEvents',1 );
-                    $('#calendar').fullCalendar( 'removeEvents',2 );
-                    $('#selection').html('');
-                    $('#selection2').html('');
-                    $('#cancelevent').addClass('hidden');
-                    $('#reservetext').addClass('hidden');
-                    $('#titletext').val('');
-                    clickevobj={};
-                    clickevarr=[];
-                    selectobj={};
-                    selectarr=[];
-                    selected=false;
-                    selected2=false;
-                    selectionnumber=0;
-                    selection=`<table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Comienzo</th>
-                                            <th>Fin</th>
-                                        </tr>
-                                    </thead>`;
-                    selection2number=0;
-                    selection2=`<table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Comienzo</th>
-                                            <th>Fin</th>
-                                        </tr>
-                                    </thead>`;
-                    alreadyselected=false;
-                    selectedevents=[];
-                    $('#deleteevent').click(); //dump click handlers
-                    $('#reserve').click(); //dump click handlers
-
-                    $('#calendar').fullCalendar( 'refetchEvents' );
-                });
-                
-                //Instructions slider
-                $("#instructionsslide").click(function(){
-                    $("#instructions").slideToggle("slow");
-                });
                 
             });
         </script>
     </head>
 
-    <body>
-        <script src="../templates/header.js"></script>
-        <div class="content">
-			<div class="container">  
-                <div class='main2' id='maindiv'>
-                    <h1 id='welcome' style='text-transform:capitalize;'>Bienvenido </h1>
-                    <p></p>
-                    <div class='horizontalnavbar'>
-                        <ul>
-                            <li><a class='show'>Mostrar: </a></li>
-                            <li><a id='office1' class='reserve'>Consultorio 1</a></li>
-                            <li><a id='office2'>Consultorio 2</a></li>
-                        </ul>
-                    </div> 
-                    <p></p>
+    <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+        <!-- Navbar section-->
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header navbar-left">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" id='collapseitems' href="#myPage">Consultorios Villa Martina</a>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="../index.php" id='collapseitems'>INICIO</a>
+                        </li>
+                        <li>
+                            <a href="changepass.php" id='collapseitems'>CAMBIAR CONTRASEÑA</a>
+                        </li>
+                        <li>
+                            <a class="alterlogo2" href="../scripts/logout.php">
+                                <span class="glyphicon glyphicon-log-out"></span>
+                                CERRAR SESION
+                            </a>
+                        </li>
+                        <?php
+                            if(isset($_SESSION['admin'])){
+                                echo '<li>
+                                    <a href="admin.php" id="collapseitems" class="alterlogo">
+                                        <span class="glyphicon glyphicon-eye-open"></span>
+                                        ADMIN
+                                    </a>
+                                </li>';
+                            }
+                        ?>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Calendar -->
+                <div class="col-sm-6 tabletlogin">
+                    <h3 id='welcome' style='text-transform:capitalize;'>Bienvenido </h3>
+                    <div id='mobile'></div>
+                    <nav class="fakenavbar navbar-default" >
+                        <div class="container-fluid" style='padding:0;'>
+                            <div class="navbar-header">
+                                <a class="navbar-brand" >Mostrar:</a>
+                            </div>
+                            <ul class="nav navbar-nav">
+                                <li id='office1' class='active'><a >CONSULTORIO 1</a></li>
+                                <li id='office2'><a >CONSULTORIO 2</a></li>
+                            </ul>
+                        </div>
+                    </nav>
+                    <p>&nbsp;</p>
                     <div id='calendar'></div>
                 </div>
-                <div class='aside2' id='asidediv'>
-                    <div class='horizontalnavbar'>
+                <!-- Aside -->
+                <div class="col-sm-6 tabletlogin">
+                    <button type="button" data-toggle="collapse" data-target="#instructions"class='btn btn-success' style='width:100%;margin-top:55px;'>Instrucciones e informacion</button>
+                    <div id="instructions" class="collapse">
                         <ul>
-                            <li>
-                                <?php
-                                    if(isset($_SESSION['admin'])){
-                                        echo '<a class="userpanel" HREF = "admin.php">Panel de administrador</a>';
-                                    }
-                                ?>
-                            </li>
-                            <li><a href="changepass.php">Modificar contraseña</a></li>
-                            <li style="float:right"><A class="active" HREF = "../scripts/logout.php">Cerrar sesion</A></li>
-                        </ul>
-                    </div> 
-                    <p></p>
-                    <h3>En esta seccion usted puede:</h3>
-                    <ul>
-                        <li>Ver todas las reservas y horarios disponibles.</li>
-                        <li><errorspan>Recuerde que los horarios de reserva solo pueden ser de Lunes a Viernes (9:00 a 13:00 y 16:00 a 20:00) y Sabados (9:00 a 13:00). </errorspan></li>
-                        <li>Disponemos de 2 consultorios y cada uno posee su respectivo calendario, puede seleccionar cual mostrar en las opciones arriba del mismo.</li>
-                    </ul>
-                    <p></p>
-                    <div id='mobile'></div>
-                    <p></p>
-                    <div id='instructionsslide'><a class='btn'>Instrucciones de uso</a></div>
-                    <div style='display:none;' id='instructions'>
-                        <ul>
+                            <li>En esta seccion puede ver todas las reservas y horarios disponibles siguientes al dia de hoy.</li>
+                            <li class='bg-danger'>Recuerde que los horarios de reserva solo pueden ser de Lunes a Viernes (9:00 a 13:00 y 16:00 a 20:00) y Sabados (9:00 a 13:00).</li>
+                            <li>Disponemos de 2 consultorios y cada uno posee su respectivo calendario, puede seleccionar cual mostrar en las opciones arriba del mismo.</li>
                             <li>Puede cancelar reservas haciendo click en las mismas y seleccionando "Borrar evento" (Siempre que esten dentro del plazo permitido).</li>
-                            <li>Puede realizar una nueva reserva <b>ARRASTRANDO</b> el raton sobre los dias deseados y seleccionando "Reservar" (Notese que solo puede reservar por horas en la pestaña <b>"Semana"</b>).</li>
+                            <li>Puede realizar una nueva reserva <strong>ARRASTRANDO</strong> el raton sobre los dias deseados y seleccionando "Reservar" (Notese que solo puede reservar por horas en la pestaña <strong>"Semana"</strong>).</li>
                             <li>Puede agregar una descripcion a la hora de hacer una reserva, la cual sera mostrada junto con el evento (Si decide no agregar una, se usara su nombre y apellido como descripcion).</li>
                             <li>Para un uso eficiente del calendario seleccione todas las fechas q desea y luego haga click en "Reservar", en vez de hacerlo uno por uno.</li>
                         </ul>
                     </div>
-                    <p></p>
-                    <hr>
-                    <h3 id='response'></h3>
-                    <h3 id='selection'></h3>
-                    <h3 id='selection2'></h3>
+                    <h4 id='selection'></h4>
+                    <h4 id='selection2'></h4>
                     <div id="cancelevent" class="hidden">
-                        <input class="btn2" type="button" value="Borrar eventos" id="deleteevent">
-                        <input class="btn" type="button" value="Cancelar" id="cancelselection">
+                        <button type="button" class="btn btn-success" id="deleteevent">Borrar eventos</button>
+                        <button type="button" class="btn btn-danger" id="cancelselection">Cancelar</button>
                     </div>
                     <div id="reservetext" class="hidden">
-                        <h3>Descripcion de la reserva (Si no ingresa nada se usara por defecto su nombre y apellido).</h3>
-                        <input type="text" id="titletext">
-                        <input class="btn3" type="button" value="Reservar" id="reserve">
-                        <input class="btn" type="button" value="Cancelar" id="removeevents">
-                    </div>      
+                        <h3>Descripcion de la reserva (Si no ingresa nada se usara por defecto su nombre y apellido [Solo se permiten letras, numeros y espacios]).</h3>
+                        <div class='form-group' >
+                            <input type="text" id="titletext" class='form-control'>
+                        </div>
+                        <button type="button" class="btn btn-success" id="reserve">Reservar</button>
+                        <button type="button" class="btn btn-danger" id="removeevents">Cancelar</button>
+                    </div>  
                 </div>
-			</div>
-		</div>
+            </div>
+        </div>
+
+        <!-- Footer --> 
         <script src="../templates/footer.js"></script>
     </body>
 </html>

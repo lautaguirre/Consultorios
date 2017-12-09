@@ -1,8 +1,7 @@
-document.write(`<div class="footer">
-<div class="container">
-    <ul class='list-inline'>
-        <li><img height="60px" width="125px" src="../images/vmlogo.png"></li>
-        <li style='position:relative;bottom:23px;'><H5 id='webemail'></H5></li>
-    </ul>
-</div>
-</div>`);
+document.write(`<footer class="container-fluid text-center">
+<a href="#myPage" title="To Top">
+    <span class="glyphicon glyphicon-chevron-up"></span>
+</a>
+<p>Diseño web: <a >Lautaro Aguirre</a>
+</p>
+</footer>`);
