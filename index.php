@@ -306,8 +306,6 @@ session_start();
     </div>
     <br>
     <br>
-    <div class="col-sm-2">
-    </div>
     <div class="row slideanim">
       <div class="col-sm-4">
         <span class="glyphicon glyphicon-thumbs-up logo-small"></span>
@@ -319,7 +317,10 @@ session_start();
         <h4>AIRE ACONDICIONADO Y CALEFACCION</h4>
         <p>Para un ambiente adecuado.</p>
       </div>
-      <div class="col-sm-2">
+      <div class="col-sm-4">
+        <span class="glyphicon glyphicon-signal logo-small"></span>
+        <h4>WIFI</h4>
+        <p>Servicio de internet wifi.</p>
       </div>
     </div>
   </div>
@@ -506,72 +507,39 @@ session_start();
       <div class="col-sm-4 col-xs-12">
         <div class="panel panel-default text-center">
           <div class="panel-heading">
-            <h1>Basic</h1>
+            <h1>Por hora</h1>
           </div>
           <div class="panel-body">
-            <p>
-              <strong>20</strong> Lorem</p>
-            <p>
-              <strong>15</strong> Ipsum</p>
-            <p>
-              <strong>5</strong> Dolor</p>
-            <p>
-              <strong>2</strong> Sit</p>
-            <p>
-              <strong>Endless</strong> Amet</p>
+            <p>Consultorio 1 o 2.</p>
           </div>
           <div class="panel-footer">
-            <h3>$19</h3>
-            <h4>per month</h4>
-            <button type="button" class="btn btn-lg">Sign Up</button>
+            <h3>$200</h3>
           </div>
         </div>
       </div>
       <div class="col-sm-4 col-xs-12">
         <div class="panel panel-default text-center">
           <div class="panel-heading">
-            <h1>Pro</h1>
+            <h1>Por semana</h1>
           </div>
           <div class="panel-body">
-            <p>
-              <strong>50</strong> Lorem</p>
-            <p>
-              <strong>25</strong> Ipsum</p>
-            <p>
-              <strong>10</strong> Dolor</p>
-            <p>
-              <strong>5</strong> Sit</p>
-            <p>
-              <strong>Endless</strong> Amet</p>
+            <p>4 horas por dia, todos los dias (Incluyendo sabado).</p>
           </div>
           <div class="panel-footer">
-            <h3>$29</h3>
-            <h4>per month</h4>
-            <button type="button" class="btn btn-lg">Sign Up</button>
+            <h3>$3800</h3>
           </div>
         </div>
       </div>
       <div class="col-sm-4 col-xs-12">
         <div class="panel panel-default text-center">
           <div class="panel-heading">
-            <h1>Premium</h1>
+            <h1>Por mes</h1>
           </div>
           <div class="panel-body">
-            <p>
-              <strong>100</strong> Lorem</p>
-            <p>
-              <strong>50</strong> Ipsum</p>
-            <p>
-              <strong>25</strong> Dolor</p>
-            <p>
-              <strong>10</strong> Sit</p>
-            <p>
-              <strong>Endless</strong> Amet</p>
+            <p>1 hora por dia, todos los dias (Incluyendo sabado).</p>              
           </div>
           <div class="panel-footer">
-            <h3>$49</h3>
-            <h4>per month</h4>
-            <button type="button" class="btn btn-lg">Sign Up</button>
+            <h3>$4000</h3>        
           </div>
         </div>
       </div>
@@ -589,7 +557,7 @@ session_start();
         <p>
           <span class="glyphicon glyphicon-map-marker"></span> 3 de Febrero 210, Rosario, Santa fe, Argentina</p>
         <p>
-          <span class="glyphicon glyphicon-phone"></span> 341-000-0000 </p>
+          <span class="glyphicon glyphicon-phone"></span> 341-548-8035 </p>
         <p id='webemail'>
           <span class="glyphicon glyphicon-envelope"></span></p>
       </div>
