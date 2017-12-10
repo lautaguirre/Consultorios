@@ -616,8 +616,8 @@
                     <div id='calendar'></div>
                 </div>
                 <!-- Aside -->
-                <div class="col-sm-6 tabletlogin">
-                    <button type="button" data-toggle="collapse" data-target="#instructions"class='btn btn-success' style='width:100%;margin-top:55px;'>Instrucciones e informacion</button>
+                <div class="col-sm-6 tabletlogin tabletaside">
+                    <button type="button" data-toggle="collapse" data-target="#instructions"class='btn btn-success asidebtn' style='width:100%;'>Instrucciones e informacion</button>
                     <div id="instructions" class="collapse">
                         <ul>
                             <li>En esta seccion puede ver todas las reservas y horarios disponibles siguientes al dia de hoy.</li>

@@ -688,7 +688,7 @@
                     </div>
                 </div>
                 <!-- Response and month resume -->
-                <div class="col-sm-6 tabletadmin">
+                <div class="col-sm-6 tabletadmin tabletaside">
                     <p>&nbsp;</p>
                     <h4>Consultar mes</h4>
                     <div class="form-group">

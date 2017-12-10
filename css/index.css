@@ -141,82 +141,10 @@ footer .glyphicon {
     -webkit-animation-duration: 1s;
     visibility: visible;
 }
-@keyframes slide {
-  0% {
-    opacity: 0;
-    transform: translateY(70%);
-  } 
-  100% {
-    opacity: 1;
-    transform: translateY(0%);
-  }
-}
-@-webkit-keyframes slide {
-  0% {
-    opacity: 0;
-    -webkit-transform: translateY(70%);
-  } 
-  100% {
-    opacity: 1;
-    -webkit-transform: translateY(0%);
-  }
-}
-@media screen and (max-width: 1024px) {
-    .vmlogo{
-        display: none;
-    }
-    .tabletlogin{
-        margin-top:50px;
-    }
-    .tabletadmin{
-        margin-top: 50px;
-    }
-}
-@media screen and (max-width: 768px) {
-  .col-sm-4 {
-    text-align: center;
-    margin: 25px 0;
-  }
-  .btn-lg {
-      width: 100%;
-      margin-bottom: 35px;
-  }
-  .tabletadmin{
-    margin-top: 80px;
-  }
-  .fc-time-grid .fc-slats td{height:2.5em;}
-}
-@media screen and (max-width: 480px) {
-  .logo {
-      font-size: 150px;
-  }
-  .jumbovmlogo{
-      margin-bottom: 0;
-  }
-  .tabletadmin{
-    margin-top: initial;
-  }
-  .tabletlogin{
-    margin-top:initial;
-  }
-}
-@media screen and (max-width: 424px) {
-    .navbar-brand{
-        position: relative;
-        bottom: 10px; 
-    }
-    .tabletlogin{
-        margin-top:60px;
-    }
-    .tabletadmin{
-        margin-top: 50px;
-    }
-    .container-fluid {
-        padding: 45px 25px;
-    }
 
+.asidebtn{
+    margin-top: 55px;
 }
-
 .alterlogo span{
     color: white;
 }
@@ -280,4 +208,86 @@ footer .glyphicon {
 a:hover {
     cursor:pointer;
 }
+
+@keyframes slide {
+  0% {
+    opacity: 0;
+    transform: translateY(70%);
+  } 
+  100% {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+}
+@-webkit-keyframes slide {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(70%);
+  } 
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0%);
+  }
+}
+@media screen and (max-width: 1024px) {
+    .vmlogo{
+        display: none;
+    }
+    .tabletlogin{
+        margin-top:50px;
+    }
+    .tabletadmin{
+        margin-top: 50px;
+    }
+}
+@media screen and (max-width: 768px) {
+  .col-sm-4 {
+    text-align: center;
+    margin: 25px 0;
+  }
+  .btn-lg {
+      width: 100%;
+      margin-bottom: 35px;
+  }
+  .tabletadmin{
+    margin-top: 80px;
+  }
+  .fc-time-grid .fc-slats td{height:2.5em;}
+}
+@media screen and (max-width: 480px) {
+  .logo {
+      font-size: 150px;
+  }
+  .jumbovmlogo{
+      margin-bottom: 0;
+  }
+  .tabletadmin{
+    margin-top: initial;
+  }
+  .tabletlogin{
+    margin-top:initial;
+  }
+  .asidebtn{
+    margin-top: 10px;
+  }
+}
+@media screen and (max-width: 424px) {
+    .navbar-brand{
+        position: relative;
+        bottom: 10px; 
+    }
+    .tabletlogin{
+        margin-top:60px;
+    }
+    .tabletadmin{
+        margin-top: 50px;
+    }
+    .container-fluid {
+        padding: 45px 25px;
+    }
+    .tabletaside{
+        margin-top: 0px;
+    }
+}
+
 
