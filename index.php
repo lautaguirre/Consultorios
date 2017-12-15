@@ -463,7 +463,7 @@ session_start();
       </ol>
 
       <!-- Slides -->
-      <div class="carousel-inner" role="listbox">
+      <div class="carousel-inner" role="listbox" style='margin:auto;width:75%;'>
         <div class="item active">
           <h4>"Siempre que te pregunten si puedes hacer un trabajo, contesta que sí y ponte enseguida a aprender como se hace."
             <br>
