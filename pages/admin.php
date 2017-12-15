@@ -15,7 +15,7 @@
         <link rel="shortcut icon" href="../images/favicon.png" type="image/png">
         <link rel='stylesheet' type="text/css" href='../calendar/fullcalendar.min.css' />
         <script src='../calendar/lib/moment.min.js'></script>
-        <script src='../calendar/fullcalendar.js'></script>
+        <script src='../calendar/fullcalendar.min.js'></script>
         <script src='../calendar/locale/es.js'></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="../css/index.css" type="text/css">

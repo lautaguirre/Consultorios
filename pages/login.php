@@ -70,7 +70,7 @@
     <link rel="shortcut icon" href="../images/favicon.png" type="image/png">
     <link rel='stylesheet' type="text/css" href='../calendar/fullcalendar.min.css' />
     <script src='../calendar/lib/moment.min.js'></script>
-    <script src='../calendar/fullcalendar.js'></script>
+    <script src='../calendar/fullcalendar.min.js'></script>
     <script src='../calendar/locale/es.js'></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/index.css" type="text/css">
@@ -619,6 +619,7 @@
                 <div class="col-sm-6 tabletlogin tabletaside">
                     <button type="button" data-toggle="collapse" data-target="#instructions"class='btn btn-success asidebtn' style='width:100%;'>Instrucciones e informacion</button>
                     <div id="instructions" class="collapse">
+                        <p>
                         <ul>
                             <li>En esta seccion puede ver todas las reservas y horarios disponibles siguientes al dia de hoy.</li>
                             <li class='bg-danger'>Recuerde que los horarios de reserva solo pueden ser de Lunes a Viernes (9:00 a 13:00 y 16:00 a 20:00) y Sabados (9:00 a 13:00).</li>
@@ -628,6 +629,7 @@
                             <li>Puede agregar una descripcion a la hora de hacer una reserva, la cual sera mostrada junto con el evento (Si decide no agregar una, se usara su nombre y apellido como descripcion).</li>
                             <li>Para un uso eficiente del calendario seleccione todas las fechas q desea y luego haga click en "Reservar", en vez de hacerlo uno por uno.</li>
                         </ul>
+                        </p>
                     </div>
                     <h4 id='selection'></h4>
                     <h4 id='selection2'></h4>
