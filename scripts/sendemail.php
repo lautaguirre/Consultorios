@@ -14,6 +14,7 @@ if($_POST['emailbody']!='<table class="table table-hover"><thead><tr><th>#</th><
     </html>";
     $headers = "MIME-Version: 1.0" . "\r\n";
     $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+    $headers .= 'From: VMC <villamartinaconsultorios@gmail.com>' . "\r\n";
     mail($to,$subject,$message,$headers);
 
     
@@ -30,6 +31,7 @@ if($_POST['emailbody']!='<table class="table table-hover"><thead><tr><th>#</th><
     </html>";
     $headers = "MIME-Version: 1.0" . "\r\n";
     $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+    $headers .= 'From: VMC <villamartinaconsultorios@gmail.com>' . "\r\n";
     mail($to,$subject,$message,$headers);
 
 }

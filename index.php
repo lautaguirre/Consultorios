@@ -602,6 +602,8 @@ session_start();
       <span class="glyphicon glyphicon-chevron-up"></span>
     </a>
     <p>Diseño web: <a >Lautaro Aguirre</a>
+    <br>
+    © Consultorios Villa Martina: Todos los derechos reservados.
     </p>
   </div>
   </footer>

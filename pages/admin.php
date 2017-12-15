@@ -761,6 +761,7 @@
                                     </html>";
                                     $headers = "MIME-Version: 1.0" . "\r\n";
                                     $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+                                    $headers .= 'From: VMC <villamartinaconsultorios@gmail.com>' . "\r\n";
                                     mail($to,$subject,$message,$headers);
 
                                     echo '<div class="alert alert-success"><strong>Exito!</strong> Nuevo usuario creado.</div><BR>';
