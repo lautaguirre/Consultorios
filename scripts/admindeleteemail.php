@@ -4,7 +4,7 @@
     $subject = "Consultorios Villa Martina: Evento eliminado";
     $message = "<html>
     <body>
-    <h3La siguiente reserva/s en Consultorios Villa Martina fue cancelada:</h3>
+    <h3>La siguiente reserva/s en Consultorios Villa Martina fue cancelada:</h3>
     <p></p>
     ".$_POST['deleteemailbody']."
     <p></p>
