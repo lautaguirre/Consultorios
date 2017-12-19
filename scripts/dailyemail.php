@@ -39,20 +39,21 @@
 
     $tabletext=$tabletext."</table>";
 
-    $to = 'villamartinaconsultorios@gmail.com';
-    $subject = "CVM: Informe diario";
-    $message = "<html>
-    <body>
-    <h3>Estas son las reservas para el dia de hoy:</h3>
-    <p>
-    ".$tabletext."
-    </p>
-    <a>https://www.villamartinarosario.com</a>
-    </body>
-    </html>";
-    $headers = "MIME-Version: 1.0" . "\r\n";
-    $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-    $headers .= 'From: VMC <villamartinaconsultorios@gmail.com>' . "\r\n";
-    mail($to,$subject,$message,$headers);
-
+    if($tabletext!='<table><thead><tr><th>DNI</th><th>Nombre</th><th>Apellido</th><th>Comienzo</th><th>Fin</th></tr></thead></table>'){
+        $to = 'villamartinaconsultorios@gmail.com';
+        $subject = "CVM: Informe diario";
+        $message = "<html>
+        <body>
+        <h3>Estas son las reservas para el dia de hoy:</h3>
+        <p>
+        ".$tabletext."
+        </p>
+        <a>https://www.villamartinarosario.com</a>
+        </body>
+        </html>";
+        $headers = "MIME-Version: 1.0" . "\r\n";
+        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+        $headers .= 'From: VMC <villamartinaconsultorios@gmail.com>' . "\r\n";
+        mail($to,$subject,$message,$headers);
+    }
 ?>

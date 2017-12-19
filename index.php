@@ -66,25 +66,20 @@ session_start();
 				$('#recovertext').removeClass('hidden');
 			});
 
-			$('#sendrecbtn').click(function(){
-				dnitorecover=$('#recoverdni').val();
-				emailtorecover=$('#recoveremail').val();
-				$('#recoverbtn').show();
-				$('#recovertext').addClass('hidden');
+      $('#recoverform').submit(function(e){
+        $('#recoverbtn').show();
+        $('#recovertext').addClass('hidden');
 
-				$.post(
-	        'scripts/recoverpass.php',
-          {
-						dni:dnitorecover,
-						email:emailtorecover
-        	},
-    	    function(data){
-						$('#ajaxsuccess').html(data);
-						$('#recoverdni').val('');
-						$('#recoveremail').val('');
+        $.post(
+          'scripts/recoverpass.php',
+          $('#recoverform').serialize(),
+          function(data){
+            $('#ajaxsuccess').html(data);
           }
         );
-			});
+
+        e.preventDefault(); //Avoid default submit
+      });
 
       //Carousel modal selection
       $('#carouselitem1').click(function(){
@@ -107,24 +102,20 @@ session_start();
       });
 
       //Send contact email
-      $('#sendcontactbtn').click(function(){
-				contactname=$('#contactname').val();
-        contactemail=$('#contactemail').val();
-        contactcomment=$('#contactcomment').val();
-        $('#contactname').val('');
-        $('#contactemail').val('');
+      $('#contactform').submit(function(e){
 
-				$.post(
-	        'scripts/contactemail.php',
-          {
-						cname:contactname,
-            cemail:contactemail,
-            ccomment:contactcomment
-        	},
-    	    function(data){
-						$('#contactcomment').val('Mensaje enviado');
+        $.post(
+          'scripts/contactemail.php',
+          $('#contactform').serialize(),
+          function(data){
+            $('#contactsuccess').html('<div class="alert alert-success"><strong>Exito!</strong> Mensaje enviado.</div>');
+            $('#contactname').val('');
+            $('#contactemail').val('');
+            $('#contactcomment').val('');
           }
         );
+
+        e.preventDefault(); //Avoid default submit
       });
       
       //Antispam email
@@ -214,15 +205,17 @@ session_start();
         <div class='modal-footer'>
           <button type="button" class="btn btn-danger"  id="recoverbtn" >Olvido su contraseña?</button>
           <p><div id="ajaxsuccess"></div></p>
-            <div class="hidden" id="recovertext">
+          <div class="hidden" id="recovertext">
+            <form id='recoverform'>
               <div class="form-group">
-                <input type="text" class="form-control" maxlength="9" id="recoverdni" placeholder="DNI">
+                <input type="text" class="form-control" maxlength="9" name="dni" placeholder="DNI" required>
               </div>
               <div class="form-group">
-                <input type="email" class="form-control" id="recoveremail" placeholder="E-mail">
+                <input type="email" class="form-control" name="email" placeholder="E-mail" required>
               </div>
-              <button class="btn btn-danger" id="sendrecbtn" type="button" >Recuperar</button>
-            </div>                                 
+              <button class="btn btn-danger" id="sendrecbtn" type="submit" >Recuperar</button>
+            </form>
+          </div>                                 
         </div>
       </div>
   
@@ -551,6 +544,7 @@ session_start();
   <div id="contact" class="container-fluid">
   <div class='container'>
     <h2 class="text-center">CONTACTO</h2>
+    
     <div class="row">
       <div class="col-sm-5">
         <p>Contactenos para solicitar una cuenta o cualquier otra consulta.</p>
@@ -562,21 +556,24 @@ session_start();
           <span class="glyphicon glyphicon-envelope"></span></p>
       </div>
       <div class="col-sm-7 slideanim">
-        <div class="row">
-          <div class="col-sm-6 form-group">
-            <input class="form-control" id="contactname"  placeholder="Nombre" type="text" required>
+        <form id='contactform'>
+          <div class="row">
+            <div class="col-sm-6 form-group">
+              <input class="form-control" id="contactname" name='cname' placeholder="Nombre" type="text" required>
+            </div>
+            <div class="col-sm-6 form-group">
+              <input class="form-control" id="contactemail" name='cemail' placeholder="Email" type="email" required>
+            </div>
           </div>
-          <div class="col-sm-6 form-group">
-            <input class="form-control" id="contactemail"  placeholder="Email" type="email" required>
+          <textarea class="form-control" id="contactcomment" name='ccomment' placeholder="Mensaje" rows="5" required></textarea>
+          <br>
+          <div class="row">
+            <div class="col-sm-12 form-group">
+              <button id='sendcontactbtn' class="btn btn-success pull-right" type="submit">Enviar</button>
+            </div>
           </div>
-        </div>
-        <textarea class="form-control" id="contactcomment" placeholder="Mensaje" rows="5"></textarea>
-        <br>
-        <div class="row">
-          <div class="col-sm-12 form-group">
-            <button id='sendcontactbtn' class="btn btn-success pull-right" type="button">Enviar</button>
-          </div>
-        </div>
+          <div id='contactsuccess'></div>
+        </form>
       </div>
     </div>
   </div>
