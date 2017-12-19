@@ -1,4 +1,5 @@
 <?php
+if(isset($_POST['clickevjson'])){
     require 'connection.php';
 
     $evarray=json_decode($_POST['clickevjson']);
@@ -40,4 +41,5 @@
     }else{
         echo '<div class="alert alert-warning"><strong>Atencion!</strong> Error borrando reserva, puede que haya elegido varios usuarios diferentes.</div><BR>';
     }
+}
 ?>

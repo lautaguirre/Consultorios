@@ -1,4 +1,5 @@
 <?php
+if(isset($_POST['ccomment']) and isset($_POST['cemail']) and isset($_POST['cname'])){
     $scomment=strip_tags($_POST['ccomment']);
     $semail=strip_tags($_POST['cemail']);
     $sname=strip_tags($_POST['cname']);
@@ -17,5 +18,5 @@
     $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
     $headers .= 'From: VMC <villamartinaconsultorios@gmail.com>' . "\r\n";
     mail($to,$subject,$message,$headers);
-
+}
 ?>

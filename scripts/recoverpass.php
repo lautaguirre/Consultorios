@@ -9,7 +9,7 @@
     $recoveremail=sanitizestring('email');
     $recoveremail=validateemail($recoveremail);
 
-    if($validation){
+    if($validation and isset($_POST['email']) and isset($_POST['dni'])){
         $newpass=randompass();
         $hashednewpass=password_hash($newpass, PASSWORD_DEFAULT);
         $sql='UPDATE clientes SET password="'.$hashednewpass.'" WHERE dni='.$recoverdni.' AND email="'.$recoveremail.'"';

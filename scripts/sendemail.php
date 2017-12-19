@@ -1,6 +1,8 @@
 <?php
 if($_POST['emailbody']!='<table class="table table-hover"><thead><tr><th>#</th><th>Comienzo</th><th>Fin</th></tr></thead>'){
 
+    if(isset($_POST['emailbody']) and isset($_POST['emailuser']) and isset($_POST['emaildni']) and isset($_POST['emailoffice']) and isset($_POST['emailemail'])){
+
     $to = 'villamartinaconsultorios@gmail.com';
     $subject = "Reserva creada";
     $message = "<html>
@@ -34,5 +36,6 @@ if($_POST['emailbody']!='<table class="table table-hover"><thead><tr><th>#</th><
     $headers .= 'From: VMC <villamartinaconsultorios@gmail.com>' . "\r\n";
     mail($to,$subject,$message,$headers);
 
+    }
 }
 ?>

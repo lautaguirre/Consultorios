@@ -1,6 +1,7 @@
 <?php
-    require 'connection.php';
+require 'connection.php';
 
+if(isset($_POST['getmonthstart']) and isset($_POST['getmonthend'])){
     $validation=true;
     $arr=array(); //Set up events array
     $getmonthdni=sanitizeint('getmonthdni');
@@ -41,7 +42,7 @@
 
     echo $json;
 
-
+}
     function validateint($inttovalidate){
         if (!filter_var($inttovalidate, FILTER_VALIDATE_INT)) {
             global $validation;

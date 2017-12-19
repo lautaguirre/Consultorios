@@ -9,7 +9,7 @@
     $validation=true; //Check overlap
 
     //Load the events on calendar startup
-    if($_POST['moment']=='onload'){
+    if($_POST['moment']=='onload' and isset($_POST['officenumber']) and isset($_POST['evdni'])){
 
         $arr=array(); //Set up events array
 
@@ -43,7 +43,7 @@
         echo $json;
 
     //Insert reservation
-    }else if($_POST['moment']=='reserve'){
+    }else if($_POST['moment']=='reserve' and isset($_POST['officenumber']) and isset($_POST['evjson']) and isset($_POST['titleev']) and isset($_POST['evdni'])){
         $evarray=json_decode($_POST['evjson']);
         $lenght=count($evarray);
         for($arrpos=0;$arrpos<$lenght;$arrpos++){

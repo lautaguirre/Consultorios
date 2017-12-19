@@ -1,6 +1,7 @@
 <?php
-    require 'connection.php';
+require 'connection.php';
 
+if(isset($_POST['userdni'])){
     $sql='SELECT name,lastname,email FROM clientes WHERE dni='.$_POST['userdni'];
     $result=mysqli_query($conn,$sql);
     if(mysqli_num_rows($result)==1){
@@ -16,4 +17,5 @@
         echo $json;
 
     }
+}
 ?>

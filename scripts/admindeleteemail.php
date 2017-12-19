@@ -1,5 +1,6 @@
 <?php
-        
+if(isset($_POST['deleteemail']) and isset($_POST['deleteemailbody'])){
+
     $to = $_POST['deleteemail'];
     $subject = "Consultorios Villa Martina: Evento eliminado";
     $message = "<html>
@@ -16,4 +17,5 @@
     $headers .= 'From: VMC <villamartinaconsultorios@gmail.com>' . "\r\n";
     mail($to,$subject,$message,$headers);
     
+}
 ?>
