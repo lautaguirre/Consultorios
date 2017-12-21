@@ -54,8 +54,8 @@
                 var clickevobj={};
                 var clickevarr=[];
 
-                //Calendar config
                 $('#calendar').fullCalendar({
+                    //Calendar config
                     //Header buttons
                     header: {
 				        left: 'today',
@@ -487,18 +487,24 @@
                             monthev=JSON.parse(data);
                             monthtable=`<div class="table-responsive"><table class="table table-hover">
                                 <thead>
-                                    <tr>
-                                        <th>Titulo</th>
+                                    <tr>`;
+                            if(typeof monthev[0].monthdni!=='undefined'){
+                                monthtable=monthtable+`<th>DNI</th>`;
+                            }
+                            monthtable=monthtable+`<th>Nombre</th>
                                         <th>Comienzo</th>
                                         <th>Fin</th>
-                                        <th>Oficina</th>
+                                        <th>Consultorio</th>
                                     </tr>
                                 </thead>`;
                             for(monthpos=0;monthpos<monthev.length;monthpos++){
                                 totalhours=totalhours+moment(monthev[monthpos].start).diff(moment(monthev[monthpos].end),'hours');
                                 monthtable=monthtable+`<tbody>
-                                <tr>
-                                    <td>`+monthev[monthpos].title+`</td>                    
+                                <tr>`;
+                                if(typeof monthev[monthpos].monthdni!=='undefined'){
+                                    monthtable=monthtable+`<td>`+monthev[monthpos].monthdni+`</td>`;
+                                }
+                                monthtable=monthtable+`<td>`+monthev[monthpos].title+`</td>                    
                                     <td >`+moment(monthev[monthpos].start).format('DD/MM/YYYY HH:mm')+`</td>
                                     <td>`+moment(monthev[monthpos].end).format('DD/MM/YYYY HH:mm')+`</td>
                                     <td>`+monthev[monthpos].monthofficenumber+`</td>
