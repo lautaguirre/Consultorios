@@ -485,35 +485,60 @@
                         },
                         function(data){
                             monthev=JSON.parse(data);
-                            monthtable=`<div class="table-responsive"><table class="table table-hover">
-                                <thead>
-                                    <tr>`;
-                            if(typeof monthev[0].monthdni!=='undefined'){
-                                monthtable=monthtable+`<th>DNI</th>`;
-                            }
-                            monthtable=monthtable+`<th>Nombre</th>
-                                        <th>Comienzo</th>
-                                        <th>Fin</th>
-                                        <th>Consultorio</th>
-                                    </tr>
-                                </thead>`;
-                            for(monthpos=0;monthpos<monthev.length;monthpos++){
-                                totalhours=totalhours+moment(monthev[monthpos].start).diff(moment(monthev[monthpos].end),'hours');
-                                monthtable=monthtable+`<tbody>
-                                <tr>`;
-                                if(typeof monthev[monthpos].monthdni!=='undefined'){
-                                    monthtable=monthtable+`<td>`+monthev[monthpos].monthdni+`</td>`;
+                            totaltable='';
+                            thishours=0;
+                            panelcount=1;
+                            namecount=0;
+                            while(namecount<monthev.length){
+                                if(typeof monthev[namecount].monthdni!=='undefined'){
+                                    dnicategory='  DNI: <b>'+monthev[namecount].monthdni+'</b>';
+                                    openedpanel='';
+                                }else{
+                                    dnicategory='';
+                                    openedpanel=' in';
                                 }
-                                monthtable=monthtable+`<td>`+monthev[monthpos].title+`</td>                    
-                                    <td >`+moment(monthev[monthpos].start).format('DD/MM/YYYY HH:mm')+`</td>
-                                    <td>`+moment(monthev[monthpos].end).format('DD/MM/YYYY HH:mm')+`</td>
-                                    <td>`+monthev[monthpos].monthofficenumber+`</td>
-                                </tr>
-                                </tbody>`;
+                                monthtable=`<div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse`+panelcount+`">
+                                                <div style="text-transform:capitalize;">`
+                                                    +monthev[namecount].title+
+                                                `</div>`
+                                                +dnicategory+`
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse`+panelcount+`" class="panel-collapse collapse`+openedpanel+`">
+                                        <div class="panel-body">`;
+                                monthtable=monthtable+`<div class="table-responsive"><table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Comienzo</th>
+                                            <th>Fin</th>
+                                            <th>Consultorio</th>
+                                        </tr>
+                                    </thead>`;
+                                monthpos=namecount;
+                                while(monthpos<monthev.length && monthev[namecount].title==monthev[monthpos].title){
+                                    totalhours=totalhours+moment(monthev[monthpos].start).diff(moment(monthev[monthpos].end),'hours');
+                                    thishours=thishours+moment(monthev[monthpos].start).diff(moment(monthev[monthpos].end),'hours');
+                                    monthtable=monthtable+`<tbody>
+                                    <tr>           
+                                        <td >`+moment(monthev[monthpos].start).format('DD/MM/YYYY HH:mm')+`</td>
+                                        <td>`+moment(monthev[monthpos].end).format('DD/MM/YYYY HH:mm')+`</td>
+                                        <td>`+monthev[monthpos].monthofficenumber+`</td>
+                                    </tr>
+                                    </tbody>`;
+                                    monthpos=monthpos+1;
+                                }
+                                monthtable=monthtable+'</table></div><strong>Horas: '+Math.abs(thishours)+'</strong></div></div></div>';
+                                thishours=0;
+                                totaltable=totaltable+monthtable;
+                                namecount=monthpos;
+                                panelcount=panelcount+1;
                             }
                             totalhours=Math.abs(totalhours);
-                            monthtable=monthtable+'</table></div>';
-                            $('#adminphp').html('<strong>Horas totales: '+totalhours+'</strong><BR><p>&nbsp;</p>'+monthtable);
+                            $('#adminphp').html('<strong>Horas totales: '+totalhours+'</strong><BR><p>&nbsp;</p>'+'<div class="panel-group" id="accordion">'+totaltable+'</div>');
                         }
                     );
                 });

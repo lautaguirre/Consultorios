@@ -12,12 +12,12 @@ if(isset($_POST['getmonthstart']) and isset($_POST['getmonthend'])){
         FROM clientes
         INNER JOIN reservas 
         ON clientes.dni = reservas.dni 
-        WHERE (CAST(start AS DATETIME) > CAST("'.$_POST['getmonthstart'].'" AS DATETIME)) AND (CAST(end AS DATETIME) < CAST("'.$_POST['getmonthend'].'" AS DATETIME)) ORDER BY start ASC';
+        WHERE (CAST(start AS DATETIME) > CAST("'.$_POST['getmonthstart'].'" AS DATETIME)) AND (CAST(end AS DATETIME) < CAST("'.$_POST['getmonthend'].'" AS DATETIME)) ORDER BY lastname,start ASC';
         $result=mysqli_query($conn,$sql);
         if(mysqli_num_rows($result)>0){
             while($row=mysqli_fetch_assoc($result)){
                 $obj=(object)[
-                    'title'=>$row['name'].' '.$row['lastname'],
+                    'title'=>$row['lastname'].' '.$row['name'],
                     'monthdni'=>$row['dni'],
                     'start'=>$row['start'],
                     'end'=>$row['end'],
@@ -32,12 +32,12 @@ if(isset($_POST['getmonthstart']) and isset($_POST['getmonthend'])){
             FROM clientes
             INNER JOIN reservas 
             ON clientes.dni = reservas.dni 
-            WHERE (CAST(start AS DATETIME) > CAST("'.$_POST['getmonthstart'].'" AS DATETIME)) AND (CAST(end AS DATETIME) < CAST("'.$_POST['getmonthend'].'" AS DATETIME)) AND reservas.dni='.$getmonthdni.' ORDER BY start ASC';
+            WHERE (CAST(start AS DATETIME) > CAST("'.$_POST['getmonthstart'].'" AS DATETIME)) AND (CAST(end AS DATETIME) < CAST("'.$_POST['getmonthend'].'" AS DATETIME)) AND reservas.dni='.$getmonthdni.' ORDER BY lastname,start ASC';
             $result=mysqli_query($conn,$sql);
             if(mysqli_num_rows($result)>0){
                 while($row=mysqli_fetch_assoc($result)){
                     $obj=(object)[
-                        'title'=>$row['name'].' '.$row['lastname'],
+                        'title'=>$row['lastname'].' '.$row['name'],
                         'start'=>$row['start'],
                         'end'=>$row['end'],
                         'monthofficenumber'=>$row['officenumber'],
