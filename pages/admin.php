@@ -465,7 +465,8 @@
                 });
 
                 //Get month resume
-                $('#monthselect').click(function(){
+                $('#getmonthform').submit(function(e){
+                    e.preventDefault();
                     month=$('#monthselector').val();
                     monthdni='';
                     monthdni=$('#monthdni').val();
@@ -721,16 +722,18 @@
                 <!-- Response and month resume -->
                 <div class="col-sm-6 tabletadmin tabletaside">
                     <p>&nbsp;</p>
-                    <h4>Consultar mes</h4>
-                    <div class="form-group">
-                        <input type="text" maxlength="9" name="monthdni" id="monthdni" placeholder='DNI' class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label for="monthselector">Seleccione un mes:</label>
-                        <input type="month" name="monthselector" id="monthselector" class="form-control">
-                    </div>
-                    <button type="button" id='monthselect' class="btn btn-success">Consultar mes</button>
-                    <h4><div id='adminphp'></div></h4>
+                    <form id="getmonthform">
+                        <h4>Consultar mes</h4>
+                        <div class="form-group">
+                            <input type="text" maxlength="9" name="monthdni" id="monthdni" placeholder='DNI' class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="monthselector">Seleccione un mes:</label>
+                            <input type="month" name="monthselector" id="monthselector" class="form-control">
+                        </div>
+                        <button type="submit" id='monthselect' class="btn btn-success">Consultar mes</button>
+                        <h4><div id='adminphp'></div></h4>
+                    </form>
                     <?php 
                     //Set variables
                     $createname=$createlastname=$createemail=$createphone=$createdni='';
