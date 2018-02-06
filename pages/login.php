@@ -230,6 +230,13 @@
                             selectarr.push(selectobj);
 
                             selectobj={};
+                        }else{
+                            $("#beforetodayclick").html(`<div class="alert alert-danger">
+                                <strong>
+                                    Atencion!
+                                </strong>
+                                Debe seleccionar una fecha posterior al dia de hoy.
+                            </div>`);
                         }
 
                         //Unselect method
@@ -375,6 +382,7 @@
                 $('#cancelselection').click(function(){
                     $('#calendar').fullCalendar( 'removeEvents',1 );
                     $('#selection').html('');
+                    $('#beforetodayclick').html('');
                     $('#cancelevent').addClass('hidden');
                     $('#response').html('');
                     clickevobj={};
@@ -398,6 +406,7 @@
                 $('#removeevents').click(function(){
                     $('#calendar').fullCalendar( 'removeEvents',2 );
                     $('#selection2').html('');
+                    $('#beforetodayclick').html('');
                     $('#titletext').val('');
                     $('#reservetext').addClass('hidden');
                     $('#response').html('');
@@ -427,6 +436,7 @@
                     $('#calendar').fullCalendar( 'removeEvents',2 );
                     $('#selection').html('');
                     $('#selection2').html('');
+                    $('#beforetodayclick').html('');
                     $('#cancelevent').addClass('hidden');
                     $('#reservetext').addClass('hidden');
                     $('#titletext').val('');
@@ -471,6 +481,7 @@
                     $('#calendar').fullCalendar( 'removeEvents',2 );
                     $('#selection').html('');
                     $('#selection2').html('');
+                    $('#beforetodayclick').html('');
                     $('#cancelevent').addClass('hidden');
                     $('#reservetext').addClass('hidden');
                     $('#titletext').val('');
@@ -633,6 +644,7 @@
                     </div>
                     <h4 id='selection'></h4>
                     <h4 id='selection2'></h4>
+                    <h4 id='beforetodayclick'></h4>
                     <div id="cancelevent" class="hidden">
                         <button type="button" class="btn btn-success" id="deleteevent">Borrar eventos</button>
                         <button type="button" class="btn btn-danger" id="cancelselection">Cancelar</button>
