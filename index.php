@@ -1,5 +1,5 @@
 <?php
-session_start();
+  session_start();
 ?>
 <!DOCTYPE html>
 <html>
@@ -157,10 +157,10 @@ session_start();
             <?php
               if(!isset($_SESSION['logged'])){
                 echo '<li>
-                <a  id="collapseitems" class="alterlogo" data-toggle="modal" data-target="#loginmodal">
-                  <span class="glyphicon glyphicon-log-in"></span>
-                  INGRESAR
-                </a>
+                  <a  id="collapseitems" class="alterlogo" data-toggle="modal" data-target="#loginmodal">
+                    <span class="glyphicon glyphicon-log-in"></span>
+                    INGRESAR
+                  </a>
                 </li>';
               }else{
                 echo '<li>
@@ -231,6 +231,12 @@ session_start();
   <div class='container'>
     <div class="row">
       <div class="col-sm-8">
+        <?php
+          if($_SESSION['loginfailed']){
+            echo '<div class="alert alert-danger"><strong>Error!</strong> Contraseña o DNI invalido.</div>';
+            $_SESSION['loginfailed']=false;
+          }
+        ?>
         <h2>Que es Consultorios Villa Martina?</h2>
         <br>
         <h4>Es un inmueble en planta alta ubicado en la esquina de Colon y 3 de Febrero en la ciudad de Rosario. Esta destinado a profesionales
