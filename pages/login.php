@@ -612,8 +612,8 @@
                                 <a class="navbar-brand" >Mostrar:</a>
                             </div>
                             <ul class="nav navbar-nav">
-                                <li id='office1' class='active'><a >CONSULTORIO 1</a></li>
-                                <li id='office2'><a >CONSULTORIO 2</a></li>
+                                <li id='office1' class='active'><a ><strong>CONSULTORIO 1</strong></a></li>
+                                <li id='office2'><a ><strong>CONSULTORIO 2</strong></a></li>
                             </ul>
                         </div>
                     </nav>

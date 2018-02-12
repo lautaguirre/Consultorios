@@ -284,6 +284,41 @@
                 consultnameorlastname($consultname,'consultname','name');
                 consultnameorlastname($consultlastname,'consultlastname','lastname');
             }
+
+            //Empty consult
+            if(empty($_POST['consultname']) and empty($_POST['consultlastname']) and empty($_POST['consultdni'])){
+                $sql='SELECT name,lastname,dni,email,phone,authorization,address FROM clientes';
+                $result=mysqli_query($conn,$sql);
+                $totalresults=0;
+                $tabletext='<div class="table-responsive"><table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>DNI</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>E-mail</th>
+                            <th>Telefono</th>
+                            <th>Domicilio</th>
+                            <th>Habilitado</th>
+                        </tr>
+                    </thead>
+                <tbody>';
+                while($row=mysqli_fetch_assoc($result)){
+                    $totalresults++;
+                    $tabletext=$tabletext.'<tr>                    
+                        <th scope=row>'.$row['dni'].'</th>
+                        <td>'.$row['name'].'</td>
+                        <td>'.$row['lastname'].'</td>
+                        <td>'.$row['email'].'</td>
+                        <td>'.$row['phone'].'</td>
+                        <td>'.$row['address'].'</td>
+                        <td>'.$row['authorization'].'</td>
+                    </tr>';
+                }
+                $tabletext=$tabletext.'</tbody></table></div>';
+                echo '<h3>Cantidad de resultados: '.$totalresults.'</h3><P>';
+                echo $tabletext;
+            }
         }
 
         //Unathorize user
