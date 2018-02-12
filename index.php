@@ -118,6 +118,23 @@
         e.preventDefault(); //Avoid default submit
       });
       
+      //Get pricing data
+      $.post(
+        'scripts/getpricingdata.php',
+        function(data){
+          pdata=JSON.parse(data);
+          $('#price1').html(pdata[0].price);
+          $('#price2').html(pdata[1].price);
+          $('#price3').html(pdata[2].price);
+          $('#pricedesc1').html(pdata[0].desc);
+          $('#pricedesc2').html(pdata[1].desc);
+          $('#pricedesc3').html(pdata[2].desc);
+          $('#pricetitle1').html(pdata[0].title);
+          $('#pricetitle2').html(pdata[1].title);
+          $('#pricetitle3').html(pdata[2].title);
+        }
+      );
+      
       //Antispam email
       var vmmail='villamartinaconsultorios';
       var vmdomain='gmail.com';
@@ -506,39 +523,39 @@
       <div class="col-sm-4 col-xs-12">
         <div class="panel panel-default text-center">
           <div class="panel-heading">
-            <h1>Por hora</h1>
+            <h1 id='pricetitle1' ></h1>
           </div>
           <div class="panel-body">
-            <p>Consultorio 1 o 2.</p>
+            <p id='pricedesc1' ></p>
           </div>
           <div class="panel-footer">
-            <h3>$200</h3>
+            <h3 id='price1' ></h3>
           </div>
         </div>
       </div>
       <div class="col-sm-4 col-xs-12">
         <div class="panel panel-default text-center">
           <div class="panel-heading">
-            <h1>Por semana</h1>
+            <h1 id='pricetitle2' ></h1>
           </div>
           <div class="panel-body">
-            <p>4 horas por dia, todos los dias (Incluyendo sabado).</p>
+            <p id='pricedesc2' ></p>
           </div>
           <div class="panel-footer">
-            <h3>$3800</h3>
+            <h3 id='price2' ></h3>
           </div>
         </div>
       </div>
       <div class="col-sm-4 col-xs-12">
         <div class="panel panel-default text-center">
           <div class="panel-heading">
-            <h1>Por mes</h1>
+            <h1 id='pricetitle3' ></h1>
           </div>
           <div class="panel-body">
-            <p>1 hora por dia, todos los dias (Incluyendo sabado).</p>              
+            <p id='pricedesc3' ></p>              
           </div>
           <div class="panel-footer">
-            <h3>$4000</h3>        
+            <h3 id='price3' ></h3>        
           </div>
         </div>
       </div>
