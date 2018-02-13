@@ -123,15 +123,11 @@
         'scripts/getpricingdata.php',
         function(data){
           pdata=JSON.parse(data);
-          $('#price1').html(pdata[0].price);
-          $('#price2').html(pdata[1].price);
-          $('#price3').html(pdata[2].price);
-          $('#pricedesc1').html(pdata[0].desc);
-          $('#pricedesc2').html(pdata[1].desc);
-          $('#pricedesc3').html(pdata[2].desc);
-          $('#pricetitle1').html(pdata[0].title);
-          $('#pricetitle2').html(pdata[1].title);
-          $('#pricetitle3').html(pdata[2].title);
+          for(pdatai=0 ; pdatai < pdata.length ; pdatai++){
+            $('#price'+(pdatai+1)).html(pdata[pdatai].price);
+            $('#pricedesc'+(pdatai+1)).html(pdata[pdatai].desc);
+            $('#pricetitle'+(pdatai+1)).html(pdata[pdatai].title);
+          }
         }
       );
       
@@ -249,9 +245,11 @@
     <div class="row">
       <div class="col-sm-8">
         <?php
-          if($_SESSION['loginfailed']){
-            echo '<div class="alert alert-danger"><strong>Error!</strong> Contraseña o DNI invalido.</div>';
-            $_SESSION['loginfailed']=false;
+          if(isset($_SESSION['loginfailed'])){
+            if($_SESSION['loginfailed']){
+              echo '<div class="alert alert-danger"><strong>Error!</strong> Contraseña o DNI invalido.</div>';
+              $_SESSION['loginfailed']=false;
+            }
           }
         ?>
         <h2>Que es Consultorios Villa Martina?</h2>

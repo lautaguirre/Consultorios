@@ -683,7 +683,7 @@
                             </div>
                         </div>
                         <div class="col-sm-3">
-                        <p>&nbsp;</p>
+                            <p>&nbsp;</p>
                             <h4>Consultar usuario</h4>
                             <form action="admin.php" method='post'>
                                 <div class="form-group">
@@ -697,6 +697,8 @@
                                 </div>
                                 <button type="submit" name='consultsubmit' class="btn btn-success">Consultar</button>
                             </form>
+
+                            <a class='btn btn-success form-control' href='modifydata.php' style='margin-top:17px;' >Administracion de contenido</a>
                         </div>
                     </div>
                     <p>&nbsp;</p>
