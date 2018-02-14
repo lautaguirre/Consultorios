@@ -357,7 +357,7 @@
       </div>
       <div class="col-sm-4">
         <div class="thumbnail">
-          <a id='carouselitem2' data-toggle="modal" data-target="#imagemodal"  ><img src="images/plano-consultorios.jpg" class='flatbottomrounded' width="400" height="300"></a>
+          <a id='carouselitem2' data-toggle="modal" data-target="#imagemodal"  ><img src="images/interior2.jpg" class='flatbottomrounded' width="400" height="300"></a>
           <p>
             <strong>Plano de los consultorios</strong>
           </p>
@@ -619,7 +619,7 @@
     <a href="#myPage" title="To Top">
       <span class="glyphicon glyphicon-chevron-up"></span>
     </a>
-    <p>Desarrollo web: <a >Lautaro Aguirre</a>
+    <p>Desarrollo web: <a href="http://lautaguirre.xyz" >Lautaro Aguirre</a>
     <br>
     © Consultorios Villa Martina: Todos los derechos reservados.
     </p>

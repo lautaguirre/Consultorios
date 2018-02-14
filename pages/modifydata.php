@@ -27,10 +27,10 @@
                 '../scripts/getpricingdata.php',
                 function(data){
                     pdata=JSON.parse(data);
-                    for(pdatai=0 ; pdatai < pdata.length ; pdatai++){
-                        $('#price'+(pdatai+1)).html(pdata[pdatai].price);
-                        $('#pricedesc'+(pdatai+1)).html(pdata[pdatai].desc);
-                        $('#pricetitle'+(pdatai+1)).html(pdata[pdatai].title);
+                    for(imgdatai=0 ; imgdatai < pdata.length ; imgdatai++){
+                        $('#price'+(imgdatai+1)).html(pdata[imgdatai].price);
+                        $('#pricedesc'+(imgdatai+1)).html(pdata[imgdatai].desc);
+                        $('#pricetitle'+(imgdatai+1)).html(pdata[imgdatai].title);
                     }
                 }
             );
@@ -38,6 +38,9 @@
             //Show new values in DOM
             $(".datastate").keyup(function(e){
                 $("#"+e.target.id).html($(this).val());
+            });
+            $('.imagestate').keyup(function(e){
+                $('#'+e.target.id).html($(this).val());
             });
 
             //Send new values to db
@@ -52,7 +55,40 @@
                         $(thisform).each(function() {this.reset();} );
                     }       
                 );
-            });         
+            });
+
+            //Get images data
+            $.post(
+                '../scripts/getimagesdata.php',
+                function(data){
+                    imgdata=JSON.parse(data);
+                    for(imgdatai=0 ; imgdatai < imgdata.length ; imgdatai++){
+                        $('#imagedesc'+(imgdatai+1)).html(imgdata[imgdatai].imgdesc);
+                        if(imgdata[imgdatai].hide == 'on'){
+                            $('[name=check'+(imgdatai+1)+']').prop('checked', true);
+                        }else{
+                            $('[name=check'+(imgdatai+1)+']').prop('checked', false);
+                        }
+                    }
+                }
+            );
+
+            //New image submit
+            $('.imageform').submit(function(e){
+                thisform=this;
+                e.preventDefault();
+                $.post(
+                    '../scripts/updateimagedata.php',
+                    $(this).serialize(),
+                    function(){
+                        $('#imgupdated').html('<div class="alert alert-success"><strong>Exito!</strong> Informacion actualizada.</div>');
+                        checkvalue=$(thisform).find('.form-check-input').is(":checked");
+                        $(thisform).each(function() {this.reset();} );
+                        $(thisform).find('.form-check-input').prop('checked', checkvalue);
+                    }
+                );
+            });
+
         });
     </script>
 </head>
@@ -94,6 +130,7 @@
             </div>
         </nav>
         
+        <!-- Price modification -->
         <div class="container-fluid">
             <div class='container'>
                 <div class="text-center">
@@ -192,6 +229,163 @@
                 </div>
             </div>
         </div>
+        
+        <!-- Image modification -->
+        <div class="container-fluid text-center bg-success">
+            <div class='container'>
+                <h2>IMAGENES</h2>
+                <div class="row text-center">
+                    <div class="col-sm-4">
+                        <div class="thumbnail">
+                            <img src="../images/interior1.jpg" class='flatbottomrounded' width="400" height="300">
+                            <p>
+                                <strong id='imagedesc1' ></strong>
+                            </p>
+                            <form  class='imageform'>
+                                <div class='form-group'>
+                                    <div class='form-check'>
+                                        <label class="form-check-label">
+                                            <input  name='check1' class="form-check-input" type="checkbox"> Esconder panel
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input name='imgdesc1' type="text" placeholder='Descripcion' id='imagedesc1' class='form-control imagestate'>
+                                </div>
+                                <div class='form-group'>
+                                    <input name='imgfile1' type="file" class="form-control-file btn" >
+                                </div>
+                                <button type='submit' class='btn btn-success'>Actualizar primer panel</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="thumbnail">
+                            <img src="../images/interior2.jpg" class='flatbottomrounded' width="400" height="300">
+                            <p>
+                                <strong id='imagedesc2'></strong>
+                            </p>
+                            <form class='imageform'>
+                                <div class='form-group'>
+                                    <div class='form-check'>
+                                        <label class="form-check-label">
+                                            <input  name='check2' class="form-check-input" type="checkbox"> Esconder panel
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input name='imgdesc2' type="text" placeholder='Descripcion' id='imagedesc2' class='form-control imagestate'>
+                                </div>
+                                <div class='form-group'>
+                                    <input name='imgfile2' type="file" class="form-control-file btn" >
+                                </div>
+                                <button type='submit' class='btn btn-success'>Actualizar segundo panel</button>
+                            </form>
+                        </div>
+                        <div id='imgupdated'></div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="thumbnail">
+                            <img src="../images/interior3.jpg" class='flatbottomrounded' width="400" height="300">
+                            <p>
+                                <strong id='imagedesc3'></strong>
+                            </p>
+                            <form class='imageform'>
+                                <div class='form-group'>
+                                    <div class='form-check'>
+                                        <label class="form-check-label">
+                                            <input  name='check3' class="form-check-input" type="checkbox"> Esconder panel
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input name='imgdesc3' type="text" placeholder='Descripcion' id='imagedesc3' class='form-control imagestate'>
+                                </div>
+                                <div class='form-group'>
+                                    <input name='imgfile3' type="file" class="form-control-file btn" >
+                                </div>
+                                <button type='submit' class='btn btn-success'>Actualizar tercer panel</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="row text-center">
+                    <div class="col-sm-4">
+                        <div class="thumbnail">
+                            <img src="../images/interior4.jpg" class='flatbottomrounded' width="400" height="300">
+                            <p>
+                                <strong id='imagedesc4'></strong>
+                            </p>
+                            <form class='imageform'>
+                                <div class='form-group'>
+                                    <div class='form-check'>
+                                        <label class="form-check-label">
+                                            <input  name='check4' class="form-check-input" type="checkbox"> Esconder panel
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input name='imgdesc4' type="text" placeholder='Descripcion' id='imagedesc4' class='form-control imagestate'>
+                                </div>
+                                <div class='form-group'>
+                                    <input name='imgfile4' type="file" class="form-control-file btn" >
+                                </div>
+                                <button type='submit' class='btn btn-success'>Actualizar cuarto panel</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="thumbnail">
+                            <img src="../images/interior5.png" class='flatbottomrounded' width="400" height="300">
+                            <p>
+                                <strong id='imagedesc5'></strong>
+                            </p>
+                            <form class='imageform' >
+                                <div class='form-group'>
+                                    <div class='form-check'>
+                                        <label class="form-check-label">
+                                            <input name='check5' class="form-check-input" type="checkbox"> Esconder panel
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input name='imgdesc5' type="text" placeholder='Descripcion' id='imagedesc5' class='form-control imagestate'>
+                                </div>
+                                <div class='form-group'>
+                                    <input name='imgfile5' type="file" class="form-control-file btn" >
+                                </div>
+                                <button  type='submit' class='btn btn-success'>Actualizar quinto panel</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="thumbnail">
+                            <img src="../images/interior6.jpg" class='flatbottomrounded' width="400" height="300">
+                            <p>
+                                <strong id='imagedesc6'></strong>
+                            </p>
+                            <form class='imageform'>
+                                <div class='form-group'>
+                                    <div class='form-check'>
+                                        <label class="form-check-label">
+                                            <input name='check6' class="form-check-input" type="checkbox"> Esconder panel
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input name='imgdesc6' type="text" placeholder='Descripcion' id='imagedesc6' class='form-control imagestate'>
+                                </div>
+                                <div class='form-group'>
+                                    <input name='imgfile6' type="file" class="form-control-file btn" >
+                                </div>
+                                <button type='submit' class='btn btn-success'>Actualizar sexto panel</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
 
         <!-- Footer --> 
         <script src="../templates/footer.js"></script>
