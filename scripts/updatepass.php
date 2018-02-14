@@ -41,7 +41,6 @@
     }       
             
     //Validate
-    
     function validateint($inttovalidate){
         if (!filter_var($inttovalidate, FILTER_VALIDATE_INT)) {
             echo '<div class="alert alert-danger">
