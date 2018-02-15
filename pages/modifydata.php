@@ -77,6 +77,22 @@
             $('.imageform').submit(function(e){
                 thisform=this;
                 e.preventDefault();
+                var filedata = new FormData();
+                $.each($('[name=imgfile1]')[0].files, function(i, file) {
+                    filedata.append('file-'+i, file);
+                });
+                $.ajax({
+                    url: '../scripts/updateimagedata.php',
+                    data: filedata,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    method: 'POST',
+                    type: 'POST',
+                    success: function(data){
+                        alert(data);
+                    }
+                });
                 $.post(
                     '../scripts/updateimagedata.php',
                     $(this).serialize(),
