@@ -37,21 +37,25 @@
 
             //Show new values in DOM
             $(".datastate").keyup(function(e){
-                $("#"+e.target.id).html($(this).val());
+                if(e.keyCode != 13){
+                    $("#"+e.target.id).html($(this).val());
+                }
             });
             $('.imagestate').keyup(function(e){
-                $('#'+e.target.id).html($(this).val());
+                if(e.keyCode != 13){
+                    $('#'+e.target.id).html($(this).val());
+                }
             });
 
-            //Send new values to db
+            //Send new data values to db
             $('.dataform').submit(function(e){
                 thisform=this;
                 e.preventDefault();
                 $.post(
                     '../scripts/updatepricingdata.php',
                     $(this).serialize(),
-                    function(){
-                        $('#dataupdated').html('<div class="alert alert-success"><strong>Exito!</strong> Informacion actualizada.</div>');
+                    function(data){
+                        $('#dataupdated').html('<div class="alert alert-success"> '+data+'</div>');
                         $(thisform).each(function() {this.reset();} );
                     }       
                 );
@@ -64,11 +68,6 @@
                     imgdata=JSON.parse(data);
                     for(imgdatai=0 ; imgdatai < imgdata.length ; imgdatai++){
                         $('#imagedesc'+(imgdatai+1)).html(imgdata[imgdatai].imgdesc);
-                        if(imgdata[imgdatai].hide == 'on'){
-                            $('[name=check'+(imgdatai+1)+']').prop('checked', true);
-                        }else{
-                            $('[name=check'+(imgdatai+1)+']').prop('checked', false);
-                        }
                     }
                 }
             );
@@ -78,10 +77,10 @@
                 thisform=this;
                 e.preventDefault();
                 var filedata = new FormData();
-                checknumber=$(this).find('.form-check-input').attr('name');
+                checknumber=$(this).find('input[type=text]').attr('name');
                 $.each($(this).find('[name=imgfile]')[0].files, function(i, file) {
                     filedata.append('file-'+i, file);
-                    filedata.append('filepos', checknumber); //Use checkbox number to set file number
+                    filedata.append('filepos', checknumber); //Use textfield name number to set file number
                 });
                 $.ajax({
                     url: '../scripts/uploadimagetoserver.php',
@@ -92,20 +91,18 @@
                     method: 'POST',
                     type: 'POST',
                     success: function(data){
-                        $(thisform).parent().find('img').attr('src', $(thisform).parent().find('img').attr('src') + '?' + new Date().getTime())
-                        $('#imgupdated').html('<div class="alert alert-success"><strong>Exito!</strong>'+data);
+                        $(thisform).parent().find('img').attr('src', $(thisform).parent().find('img').attr('src') + '?' + new Date().getTime());
+                        uploaddata=data;
+                        $.post(
+                            '../scripts/updateimagedata.php',
+                            $(thisform).serialize(),
+                            function(data){
+                                $('#imgupdated').html('<div class="alert alert-success"> '+data+' '+uploaddata+'</div>');
+                                $(thisform).each(function() {this.reset();} );
+                            }
+                        );
                     }
                 });
-                $.post(
-                    '../scripts/updateimagedata.php',
-                    $(this).serialize(),
-                    function(){
-                        $('#imgupdated').append('<div class="alert alert-success"><strong>Exito!</strong> Informacion actualizada.</div>');
-                        checkvalue=$(thisform).find('.form-check-input').is(":checked");
-                        $(thisform).each(function() {this.reset();} );
-                        $(thisform).find('.form-check-input').prop('checked', checkvalue);
-                    }
-                );
             });
 
         });
@@ -261,13 +258,6 @@
                                 <strong id='imagedesc1' ></strong>
                             </p>
                             <form  class='imageform'>
-                                <div class='form-group'>
-                                    <div class='form-check'>
-                                        <label class="form-check-label">
-                                            <input  name='check1' class="form-check-input" type="checkbox"> Esconder panel
-                                        </label>
-                                    </div>
-                                </div>
                                 <div class="form-group">
                                     <input name='imgdesc1' type="text" placeholder='Descripcion' id='imagedesc1' class='form-control imagestate'>
                                 </div>
@@ -285,13 +275,6 @@
                                 <strong id='imagedesc2'></strong>
                             </p>
                             <form class='imageform'>
-                                <div class='form-group'>
-                                    <div class='form-check'>
-                                        <label class="form-check-label">
-                                            <input  name='check2' class="form-check-input" type="checkbox"> Esconder panel
-                                        </label>
-                                    </div>
-                                </div>
                                 <div class="form-group">
                                     <input name='imgdesc2' type="text" placeholder='Descripcion' id='imagedesc2' class='form-control imagestate'>
                                 </div>
@@ -310,13 +293,6 @@
                                 <strong id='imagedesc3'></strong>
                             </p>
                             <form class='imageform'>
-                                <div class='form-group'>
-                                    <div class='form-check'>
-                                        <label class="form-check-label">
-                                            <input  name='check3' class="form-check-input" type="checkbox"> Esconder panel
-                                        </label>
-                                    </div>
-                                </div>
                                 <div class="form-group">
                                     <input name='imgdesc3' type="text" placeholder='Descripcion' id='imagedesc3' class='form-control imagestate'>
                                 </div>
@@ -336,13 +312,6 @@
                                 <strong id='imagedesc4'></strong>
                             </p>
                             <form class='imageform'>
-                                <div class='form-group'>
-                                    <div class='form-check'>
-                                        <label class="form-check-label">
-                                            <input  name='check4' class="form-check-input" type="checkbox"> Esconder panel
-                                        </label>
-                                    </div>
-                                </div>
                                 <div class="form-group">
                                     <input name='imgdesc4' type="text" placeholder='Descripcion' id='imagedesc4' class='form-control imagestate'>
                                 </div>
@@ -355,18 +324,11 @@
                     </div>
                     <div class="col-sm-4">
                         <div class="thumbnail">
-                            <img src="../images/interior5.png" class='flatbottomrounded' width="400" height="300">
+                            <img src="../images/interior5.jpg" class='flatbottomrounded' width="400" height="300">
                             <p>
                                 <strong id='imagedesc5'></strong>
                             </p>
                             <form class='imageform' >
-                                <div class='form-group'>
-                                    <div class='form-check'>
-                                        <label class="form-check-label">
-                                            <input name='check5' class="form-check-input" type="checkbox"> Esconder panel
-                                        </label>
-                                    </div>
-                                </div>
                                 <div class="form-group">
                                     <input name='imgdesc5' type="text" placeholder='Descripcion' id='imagedesc5' class='form-control imagestate'>
                                 </div>
@@ -384,13 +346,6 @@
                                 <strong id='imagedesc6'></strong>
                             </p>
                             <form class='imageform'>
-                                <div class='form-group'>
-                                    <div class='form-check'>
-                                        <label class="form-check-label">
-                                            <input name='check6' class="form-check-input" type="checkbox"> Esconder panel
-                                        </label>
-                                    </div>
-                                </div>
                                 <div class="form-group">
                                     <input name='imgdesc6' type="text" placeholder='Descripcion' id='imagedesc6' class='form-control imagestate'>
                                 </div>

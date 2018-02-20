@@ -130,6 +130,17 @@
           }
         }
       );
+
+      //Get image desc
+      $.post(
+        'scripts/getimagesdata.php',
+        function(data){
+          imgdata=JSON.parse(data);
+          for(imgdatai=0 ; imgdatai < imgdata.length ; imgdatai++){
+            $('#imagedesc'+(imgdatai+1)).html(imgdata[imgdatai].imgdesc);
+          }
+        }
+      );
       
       //Antispam email
       var vmmail='villamartinaconsultorios';
@@ -351,7 +362,7 @@
         <div class="thumbnail">
           <a id='carouselitem1' data-toggle="modal" data-target="#imagemodal" ><img src="images/interior1.jpg" class='flatbottomrounded' width="400" height="300"></a>
           <p>
-            <strong>Consultorio 1</strong>
+            <strong id='imagedesc1' ></strong>
           </p>
         </div>
       </div>
@@ -359,7 +370,7 @@
         <div class="thumbnail">
           <a id='carouselitem2' data-toggle="modal" data-target="#imagemodal"  ><img src="images/interior2.jpg" class='flatbottomrounded' width="400" height="300"></a>
           <p>
-            <strong>Plano de los consultorios</strong>
+            <strong id='imagedesc2' ></strong>
           </p>
         </div>
       </div>
@@ -367,7 +378,7 @@
         <div class="thumbnail">
           <a id='carouselitem3' data-toggle="modal" data-target="#imagemodal"  ><img src="images/interior3.jpg" class='flatbottomrounded' width="400" height="300"></a>
           <p>
-            <strong>Consultorio 1</strong>
+            <strong id='imagedesc3'></strong>
           </p>
         </div>
       </div>
@@ -377,15 +388,15 @@
         <div class="thumbnail">
           <a id='carouselitem4' data-toggle="modal" data-target="#imagemodal"  ><img src="images/interior4.jpg" class='flatbottomrounded' width="400" height="300"></a>
           <p>
-            <strong>Consultorio 1</strong>
+            <strong id='imagedesc4' ></strong>
           </p>
         </div>
       </div>
       <div class="col-sm-4">
         <div class="thumbnail">
-          <a id='carouselitem5' data-toggle="modal" data-target="#imagemodal"  ><img src="images/interior5.png" class='flatbottomrounded' width="400" height="300"></a>
+          <a id='carouselitem5' data-toggle="modal" data-target="#imagemodal"  ><img src="images/interior5.jpg" class='flatbottomrounded' width="400" height="300"></a>
           <p>
-            <strong>Consultorio 2</strong>
+            <strong id='imagedesc5' ></strong>
           </p>
         </div>
       </div>
@@ -393,7 +404,7 @@
         <div class="thumbnail">
           <a id='carouselitem6' data-toggle="modal" data-target="#imagemodal"  ><img src="images/interior6.jpg" class='flatbottomrounded' width="400" height="300"></a>
           <p>
-            <strong>Consultorio 1</strong>
+            <strong id='imagedesc6' ></strong>
           </p>
         </div>
       </div>
@@ -426,22 +437,22 @@
               <!-- Slides -->
               <div class="carousel-inner" role="listbox">
                 <div class="item active">
-                  <img src="images/interior1.jpg" alt="Consultorio 1"> 
+                  <img src="images/interior1.jpg" > 
                 </div>
                 <div class="item">
-                  <img src="images/plano-consultorios.jpg" alt="Plano de los consultorios"> 
+                  <img src="images/interior2.jpg" > 
                 </div>
                 <div class="item">
-                  <img src="images/interior3.jpg" alt="Consultorio 1"> 
+                  <img src="images/interior3.jpg" > 
                 </div>
                 <div class="item">
-                  <img src="images/interior4.jpg" alt="Consultorio 1"> 
+                  <img src="images/interior4.jpg" > 
                 </div>
                 <div class="item">
-                  <img src="images/interior5.png" alt="Consultorio 2"> 
+                  <img src="images/interior5.jpg" > 
                 </div>
                 <div class="item">
-                  <img src="images/interior6.jpg" alt="Consultorio 1"> 
+                  <img src="images/interior6.jpg" > 
                 </div>
               </div>
 

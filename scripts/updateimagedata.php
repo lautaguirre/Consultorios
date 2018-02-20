@@ -13,26 +13,12 @@
             $imgdesc=sanitizeitem('imgdesc'.$idtochange);
             $sql='UPDATE images SET imgdesc="'.$imgdesc.'" WHERE id='.$idtochange;
             if(mysqli_query($conn,$sql)){
-                echo 'Desc success<br>';                                                         
+                echo 'Descripcion actualizada. ';                                                         
             }else{
-                echo 'Desc Fail<br>';
-            }
-        }
-        if(isset($_POST['check'.$idtochange])){
-            $imgcheck=sanitizeitem('check'.$idtochange);
-            $sql='UPDATE images SET hide="'.$imgcheck.'" WHERE id='.$idtochange;
-            if(mysqli_query($conn,$sql)){
-                echo 'Check success<br>';                                                         
-            }else{
-                echo 'Check Fail<br>';
+                echo 'ERROR AL ACTUALIZAR DESCRIPCION. ';
             }
         }else{
-            $sql='UPDATE images SET hide="off" WHERE id='.$idtochange;
-            if(mysqli_query($conn,$sql)){
-                echo 'Check 2 success<br>';                                                         
-            }else{
-                echo 'Check 2 Fail<br>';
-            }
+            echo 'No hay informacion para actualizar. ';
         }
     }
 

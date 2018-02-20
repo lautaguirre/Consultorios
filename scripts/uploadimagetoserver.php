@@ -4,7 +4,7 @@
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
         if(isset($_POST['filepos'])){
             for($i=1 ; $i<=6 ; $i++){
-                if($_POST['filepos'] == 'check'.$i){
+                if($_POST['filepos'] == 'imgdesc'.$i){
                     $idtochange=$i;
                     break;
                 }
@@ -48,11 +48,10 @@
             $finfo->file($_FILES['file-0']['tmp_name']),
             array(
                 'jpg' => 'image/jpeg',
-                'png' => 'image/png',
             ),
             true
         )) {
-            throw new RuntimeException('Formato de imagen invalido.');
+            throw new RuntimeException('Formato de imagen invalido (SOLO JPG).');
         }
     
         // You should name it uniquely.

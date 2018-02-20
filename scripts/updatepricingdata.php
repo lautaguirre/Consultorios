@@ -13,28 +13,31 @@
             $datatitle=sanitizeitem('datatitle'.$idtochange);
             $sql='UPDATE general SET title="'.$datatitle.'" WHERE id='.$idtochange;
             if(mysqli_query($conn,$sql)){
-                echo 'Title success<br>';                                                         
+                echo 'Titulo actualizado. ';                                                         
             }else{
-                echo 'Title Fail<br>';
+                echo 'ERROR AL ACTUALIZAR EL TITULO. ';
             }
         }
         if(!empty($_POST['datadesc'.$idtochange])){
             $datadesc=sanitizeitem('datadesc'.$idtochange);
             $sql='UPDATE general SET description="'.$datadesc.'" WHERE id='.$idtochange;
             if(mysqli_query($conn,$sql)){
-                echo 'Desc success<br>';                                                         
+                echo 'Descripcion actualizada. ';                                                         
             }else{
-                echo 'Desc Fail<br>';
+                echo 'ERROR AL ACTUALIZAR LA DESCRIPCION. ';
             }
         }
         if(!empty($_POST['dataprice'.$idtochange])){
             $dataprice=sanitizeitem('dataprice'.$idtochange);
             $sql='UPDATE general SET price='.$dataprice.' WHERE id='.$idtochange;
             if(mysqli_query($conn,$sql)){
-                echo 'Price success<br>';                                                         
+                echo 'Precio actualizado. ';                                                         
             }else{
-                echo 'Price Fail<br>';
+                echo 'ERROR AL ACTUALIZAR EL PRECIO. ';
             }
+        }
+        if(empty($_POST['datatitle'.$idtochange]) && empty($_POST['datadesc'.$idtochange]) && empty($_POST['dataprice'.$idtochange]) ){
+            echo 'No hay informacion para actualizar.';
         }
     }
 
