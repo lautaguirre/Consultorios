@@ -82,6 +82,12 @@
                     filedata.append('file-'+i, file);
                     filedata.append('filepos', checknumber); //Use textfield name number to set file number
                 });
+                $('#progress').html(`<div class="progress">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="25"
+                        aria-valuemin="0" aria-valuemax="100" style="width:25%">
+                        <span>25% Completado</span>
+                    </div>
+                </div>`);
                 $.ajax({
                     url: '../scripts/uploadimagetoserver.php',
                     data: filedata,
@@ -93,16 +99,29 @@
                     success: function(data){
                         $(thisform).parent().find('img').attr('src', $(thisform).parent().find('img').attr('src') + '?' + new Date().getTime());
                         uploaddata=data;
+                        $('#progress').html(`<div class="progress">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="75"
+                                aria-valuemin="0" aria-valuemax="100" style="width:75%">
+                                <span>75% Completado</span>
+                            </div>
+                        </div>`);
                         $.post(
                             '../scripts/updateimagedata.php',
                             $(thisform).serialize(),
                             function(data){
                                 $('#imgupdated').html('<div class="alert alert-success"> '+data+' '+uploaddata+'</div>');
                                 $(thisform).each(function() {this.reset();} );
+                                $('#progress').html(`<div class="progress">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="100"
+                                        aria-valuemin="0" aria-valuemax="100" style="width:100%">
+                                        <span>100% Completado</span>
+                                    </div>
+                                </div>`);
                             }
                         );
                     }
                 });
+                $('#progress').html(``);
             });
 
         });
@@ -285,6 +304,7 @@
                             </form>
                         </div>
                         <div id='imgupdated'></div>
+                        <div id='progress'></div>
                     </div>
                     <div class="col-sm-4">
                         <div class="thumbnail">
