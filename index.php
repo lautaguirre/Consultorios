@@ -115,7 +115,7 @@
           }
         );
 
-        e.preventDefault(); //Avoid default submit
+        e.preventDefault(); 
       });
       
       //Get pricing data

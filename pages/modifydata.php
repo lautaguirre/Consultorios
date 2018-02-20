@@ -78,11 +78,13 @@
                 thisform=this;
                 e.preventDefault();
                 var filedata = new FormData();
-                $.each($('[name=imgfile1]')[0].files, function(i, file) {
+                checknumber=$(this).find('.form-check-input').attr('name');
+                $.each($(this).find('[name=imgfile]')[0].files, function(i, file) {
                     filedata.append('file-'+i, file);
+                    filedata.append('filepos', checknumber); //Use checkbox number to set file number
                 });
                 $.ajax({
-                    url: '../scripts/updateimagedata.php',
+                    url: '../scripts/uploadimagetoserver.php',
                     data: filedata,
                     cache: false,
                     contentType: false,
@@ -90,14 +92,15 @@
                     method: 'POST',
                     type: 'POST',
                     success: function(data){
-                        alert(data);
+                        $(thisform).parent().find('img').attr('src', $(thisform).parent().find('img').attr('src') + '?' + new Date().getTime())
+                        $('#imgupdated').html('<div class="alert alert-success"><strong>Exito!</strong>'+data);
                     }
                 });
                 $.post(
                     '../scripts/updateimagedata.php',
                     $(this).serialize(),
                     function(){
-                        $('#imgupdated').html('<div class="alert alert-success"><strong>Exito!</strong> Informacion actualizada.</div>');
+                        $('#imgupdated').append('<div class="alert alert-success"><strong>Exito!</strong> Informacion actualizada.</div>');
                         checkvalue=$(thisform).find('.form-check-input').is(":checked");
                         $(thisform).each(function() {this.reset();} );
                         $(thisform).find('.form-check-input').prop('checked', checkvalue);
@@ -269,7 +272,7 @@
                                     <input name='imgdesc1' type="text" placeholder='Descripcion' id='imagedesc1' class='form-control imagestate'>
                                 </div>
                                 <div class='form-group'>
-                                    <input name='imgfile1' type="file" class="form-control-file btn" >
+                                    <input name='imgfile' type="file" class="form-control-file btn" >
                                 </div>
                                 <button type='submit' class='btn btn-success'>Actualizar primer panel</button>
                             </form>
@@ -293,7 +296,7 @@
                                     <input name='imgdesc2' type="text" placeholder='Descripcion' id='imagedesc2' class='form-control imagestate'>
                                 </div>
                                 <div class='form-group'>
-                                    <input name='imgfile2' type="file" class="form-control-file btn" >
+                                    <input name='imgfile' type="file" class="form-control-file btn" >
                                 </div>
                                 <button type='submit' class='btn btn-success'>Actualizar segundo panel</button>
                             </form>
@@ -318,7 +321,7 @@
                                     <input name='imgdesc3' type="text" placeholder='Descripcion' id='imagedesc3' class='form-control imagestate'>
                                 </div>
                                 <div class='form-group'>
-                                    <input name='imgfile3' type="file" class="form-control-file btn" >
+                                    <input name='imgfile' type="file" class="form-control-file btn" >
                                 </div>
                                 <button type='submit' class='btn btn-success'>Actualizar tercer panel</button>
                             </form>
@@ -344,7 +347,7 @@
                                     <input name='imgdesc4' type="text" placeholder='Descripcion' id='imagedesc4' class='form-control imagestate'>
                                 </div>
                                 <div class='form-group'>
-                                    <input name='imgfile4' type="file" class="form-control-file btn" >
+                                    <input name='imgfile' type="file" class="form-control-file btn" >
                                 </div>
                                 <button type='submit' class='btn btn-success'>Actualizar cuarto panel</button>
                             </form>
@@ -368,7 +371,7 @@
                                     <input name='imgdesc5' type="text" placeholder='Descripcion' id='imagedesc5' class='form-control imagestate'>
                                 </div>
                                 <div class='form-group'>
-                                    <input name='imgfile5' type="file" class="form-control-file btn" >
+                                    <input name='imgfile' type="file" class="form-control-file btn" >
                                 </div>
                                 <button  type='submit' class='btn btn-success'>Actualizar quinto panel</button>
                             </form>
@@ -392,7 +395,7 @@
                                     <input name='imgdesc6' type="text" placeholder='Descripcion' id='imagedesc6' class='form-control imagestate'>
                                 </div>
                                 <div class='form-group'>
-                                    <input name='imgfile6' type="file" class="form-control-file btn" >
+                                    <input name='imgfile' type="file" class="form-control-file btn" >
                                 </div>
                                 <button type='submit' class='btn btn-success'>Actualizar sexto panel</button>
                             </form>
