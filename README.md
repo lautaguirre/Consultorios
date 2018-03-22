@@ -3,7 +3,11 @@ This is a freelance project, it is about a website with a responsive design that
 To develope this web I used the following tools:
 
 Front-end: HTML5 and CSS3 with Bootstrap 3 and Javascript with jQuery
+
 Data exchange: Ajax with JSON
+
 Back-end: PHP
+
 Database: MySQL
+
 Libraries: Fullcalendar for calendar UI and Moment.js for dates management.
